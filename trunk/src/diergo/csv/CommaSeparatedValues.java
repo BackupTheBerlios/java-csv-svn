@@ -17,6 +17,8 @@ import java.util.Iterator;
  */
 public class CommaSeparatedValues
 {
+	public static char QUOTE = '"';
+
 	public static Iterable<String[]> parse(final Reader csvData, final boolean excelMode)
 	{
 		return new Iterable<String[]>()
@@ -29,30 +31,24 @@ public class CommaSeparatedValues
 
 	public static Iterable<String[]> parse(final String csvData, final boolean excelMode)
 	{
-		return new Iterable<String[]>()
-		{
-			public Iterator<String[]> iterator() {
-				return new CommaSeparatedValuesParser(excelMode ? ';' : ',', excelMode).parse(new StringReader(csvData));
-			}
-		};
+		return parse(new StringReader(csvData), excelMode);
 	}
 	
-	public static String generate(Iterable<String[]> data, final boolean excelMode)
+	public static String generate(Iterable<String[]> data, boolean excelMode)
 	{
 		StringWriter out = new StringWriter();
 		try {
-			new CommaSeparatedValuesGenerator(excelMode ? ';' : ',').generate(data, out);
+			generate(data, excelMode, out);
 		} catch (IOException e) {
 			
 		}
 		return out.toString();
 	}
 
-	public static void generate(final Iterable<String[]> data, final boolean excelMode, final Writer out)
+	public static void generate(Iterable<String[]> data, boolean excelMode, Writer out)
 		throws IOException
 	{
 		new CommaSeparatedValuesGenerator(excelMode ? ';' : ',').generate(data, out);
 	}
-
-	public static char QUOTE = '"';
+	
 }
