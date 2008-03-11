@@ -1,0 +1,26 @@
+body {
+	background: #f0f0f0;
+	color: #666666;
+	font: 0.78em Verdana, Arial, Helvetica, sans-serif;
+}
+
+code, pre {
+	font: 1em Courier, "Courier New", Monaco, serif;
+}
+
+a:link {
+	color: #67ce3d;
+}
+
+a:visited {
+	color: #67ce3d;
+}
+
+.TableRowColor {
+	border: 1px solid #aeaeae;
+}
+
+.TableHeadingColor {
+	background: #67ce3d;
+	border: 1px solid #aeaeae;
+}
