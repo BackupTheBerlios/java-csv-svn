@@ -1,4 +1,4 @@
-<project name="library" default="all" basedir=".">
+<project name="Comma Separated Values" default="all" basedir=".">
 
     <property name="sourcesDir" location="${basedir}/src"/>
     <!--property name="libDir" location="${basedir}/lib"/-->
@@ -69,6 +69,11 @@
         <mkdir dir="${buildDir}/doc"/>
 		<copy todir="${buildDir}/doc">
 			<fileset dir="${basedir}/doc"/>
+			<compositemapper>
+				<mapper type="glob" from="README.txt" to="README-${companyId}-${projectId}.txt"/>
+				<mapper type="glob" from="*.html" to="*.html"/>
+				<mapper type="glob" from="*.css" to="*.css"/>
+			</compositemapper>
 		</copy>
         <mkdir dir="${buildDir}/doc/api"/>
 		<javadoc destdir="${buildDir}/doc/api" classpathref="classpath" source="1.5" access="protected" breakiterator="yes"
