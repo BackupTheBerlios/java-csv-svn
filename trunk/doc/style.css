@@ -1,5 +1,5 @@
 body {
-	background: #f0f0f0;
+	background: #fff;
 	color: #666666;
 	font: 0.78em Verdana, Arial, Helvetica, sans-serif;
 }
@@ -14,6 +14,10 @@ a:link {
 
 a:visited {
 	color: #67ce3d;
+}
+
+td {
+	background: #fff;
 }
 
 .TableRowColor {
