@@ -5,35 +5,36 @@ import java.io.Writer;
 import java.util.regex.Pattern;
 
 /**
- * Generates CSV data. The separator used is configured on construction.
+ * Writes CSV data from String arrays to an underlying writer. The separator used is configured on construction.
  */
-public class CommaSeparatedValuesGenerator
+public class CommaSeparatedValuesWriter
 {
 	private static final String QUOTE_REPLACEMENT =
 		new String(new char[] { CommaSeparatedValues.QUOTE, CommaSeparatedValues.QUOTE });
-	private static Pattern QUOTE_PATTERN =
+	private static final Pattern QUOTE_PATTERN =
 		Pattern.compile(String.valueOf(CommaSeparatedValues.QUOTE));
 
+	private final Writer _out;
 	private final char _separator;
-
-	public CommaSeparatedValuesGenerator(final char separator)
+	
+	public CommaSeparatedValuesWriter(Writer out, char separator)
 	{
+		_out = out;
 		_separator = separator;
 	}
 	
-	public void generate(Iterable<String[]> data, Writer out) throws IOException
+	public void write(String[] line)
+		throws IOException
 	{
-		for (String[] line : data) {
-			boolean first = true;
-			for (String elem : line) {
-				if (!first) {
-					out.append(_separator);
-				}
-				out.append(quote(elem));
-				first = false;
+		boolean first = true;
+		for (String elem : line) {
+			if (!first) {
+				_out.append(_separator);
 			}
-			out.append('\n');
+			_out.append(quote(elem));
+			first = false;
 		}
+		_out.append('\n');
 	}
 
 	private String quote(String elem)
