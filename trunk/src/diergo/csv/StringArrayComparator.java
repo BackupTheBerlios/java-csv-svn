@@ -4,20 +4,30 @@ import java.util.Comparator;
 
 
 /**
- * Compares CSV lines by a defined order of fields.
+ * Compares String arrays by a defined order of array indicees.
  */
-public class CammaSeparatedValuesComparator
+public class StringArrayComparator
 	implements Comparator<String[]>
 {
 	private final int[] _fieldOrder;
 	private final int[] _numericFields;
 
-	public CammaSeparatedValuesComparator(int[] fieldOrder)
+	/**
+	 * Create a comparator comparing by the specified indicees.
+	 * All fields are treated as strings.
+	 * @param fieldOrder the indicees of the fields to be used for comparing
+	 */
+	public StringArrayComparator(int[] fieldOrder)
 	{
 		this(fieldOrder, new int[0]);
 	}
 
-	public CammaSeparatedValuesComparator(int[] fieldOrder, int[] numericFields)
+	/**
+	 * Create a comparator comparing by the specified indicees.
+	 * @param fieldOrder the indicees of the fields to be used for comparing
+	 * @param numericFields the indicees of the fields to be compared numeric
+	 */
+	public StringArrayComparator(int[] fieldOrder, int[] numericFields)
 	{
 		_fieldOrder = fieldOrder;
 		_numericFields = numericFields;

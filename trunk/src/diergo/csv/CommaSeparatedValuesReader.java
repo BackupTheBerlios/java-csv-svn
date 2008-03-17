@@ -12,6 +12,7 @@ import java.util.List;
  * for fields are configured on construction.
  */
 public class CommaSeparatedValuesReader
+	implements StringArrayReader
 {
 	private final BufferedReader _in;
 	private final char _separator;
@@ -30,6 +31,12 @@ public class CommaSeparatedValuesReader
 		String line = _in.readLine();
 		return line == null ? null : parseLine(line);
 	}
+
+	public void close() throws IOException
+	{
+		_in.close();
+	}
+
 
 	private String[] parseLine(String line) throws IOException
 	{
