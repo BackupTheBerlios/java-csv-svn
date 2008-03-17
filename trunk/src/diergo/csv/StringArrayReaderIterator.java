@@ -18,6 +18,11 @@ public class StringArrayReaderIterator
 		_reader = reader;
 	}
 
+	/**
+	 * Tries to read one more line if not read yet.
+	 * @return whether a line has been read now or before
+	 * @see StringArrayReader#read()
+	 */
 	public boolean hasNext()
 	{
 		if (_nextLine == null) {
@@ -30,6 +35,10 @@ public class StringArrayReaderIterator
 		return _nextLine != null;
 	}
 
+	/**
+	 * Returns the next line parsed.
+	 * @see {@link #hasNext()}
+	 */
 	public String[] next()
 	{
 		if (!hasNext()) {
@@ -42,6 +51,10 @@ public class StringArrayReaderIterator
 		}
 	}
 
+	/**
+	 * Removal is not supported.
+	 * @throws UnsupportedOperationException
+	 */
 	public void remove()
 	{
 		throw new UnsupportedOperationException("Comma separated value source cannot be modified");

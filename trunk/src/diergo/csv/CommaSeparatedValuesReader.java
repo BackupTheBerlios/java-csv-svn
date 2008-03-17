@@ -18,6 +18,12 @@ public class CommaSeparatedValuesReader
 	private final char _separator;
 	private final boolean _trimFields;
 
+	/**
+	 * Creates a reader for CSV data using the underlaying reader.
+	 * @param in the underlaying reader
+	 * @param separator the separator of the fields in a line
+	 * @param trimFields whether the field values will be trimmed
+	 */
 	public CommaSeparatedValuesReader(Reader in, char separator, boolean trimFields)
 	{
 		_in = in instanceof BufferedReader ? (BufferedReader)in : new BufferedReader(in);
@@ -26,12 +32,19 @@ public class CommaSeparatedValuesReader
 	}
 	
 	
+	/**
+	 * Reads the next line and parse it as CSV data.
+	 * @see BufferedReader#readLine()
+	 */
 	public String[] read() throws IOException
 	{
 		String line = _in.readLine();
 		return line == null ? null : parseLine(line);
 	}
 
+	/**
+	 * Closes the underlaying reader.
+	 */
 	public void close() throws IOException
 	{
 		_in.close();

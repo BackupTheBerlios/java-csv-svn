@@ -2,6 +2,10 @@ package diergo.csv;
 
 import java.util.Map;
 
+/**
+ * A value transformer creates an object of type T from a value map
+ * and vice versa.
+ */
 public interface ValueTransformer<T>
 {
 	public T transform(Map<String,String> data);

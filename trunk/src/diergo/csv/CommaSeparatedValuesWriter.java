@@ -17,12 +17,20 @@ public class CommaSeparatedValuesWriter
 	private final Writer _out;
 	private final char _separator;
 	
+	/**
+	 * Creates a writer for CSV data using the underlaying writer.
+	 * @param out the underlaying writer
+	 * @param separator the separator of the fields in a line
+	 */
 	public CommaSeparatedValuesWriter(Writer out, char separator)
 	{
 		_out = out;
 		_separator = separator;
 	}
 	
+	/**
+	 * Writes a line of CSV data.
+	 */
 	public void write(String[] line)
 		throws IOException
 	{
