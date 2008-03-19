@@ -10,6 +10,11 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * This value transformer uses reflection to get and set values.
+ * Public members, getters and setters are supported for primitive types,
+ * strings and other objects.
+ */
 public class ReflectionValueTransformer<T> implements ValueTransformer<T>
 {
 	private static final Collection<String> FORBIDDEN_METHODS =
@@ -23,6 +28,12 @@ public class ReflectionValueTransformer<T> implements ValueTransformer<T>
 		_clazz = clazz;
 	}
 
+	/**
+	 * A new data object is created, members are set ignoring leading underscores,
+	 * setters are invoked if found. Values without matching member or setter are ignored.
+	 * Values mapped to other than primitives or strings are set ot an object when a
+     * constructor with a single string argument is found.
+	 */
 	public T transform(Map<String,String> data)
 	{
 		try {
@@ -89,6 +100,11 @@ public class ReflectionValueTransformer<T> implements ValueTransformer<T>
 		} 
 	}
 
+	/**
+	 * The data object is inspected and values of public members and getters are
+	 * added to the result. Boolean getters starting is or has will be used, value types
+	 * of unknown object types will result in a {@link Object#toString()} value.
+	 */
 	public Map<String,String> transform(T value)
 	{
 		Map<String,String> result = new LinkedHashMap<String, String>();

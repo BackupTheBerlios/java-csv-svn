@@ -9,7 +9,7 @@ import diergo.csv.CommaSeparatedValuesWriter;
  * This iterator converts maps to string arrays containing a set of
  * specified fields.
  * 
- * This class is usefull to pass output from a {@link ValueTransformer}
+ * This class is useful to pass output from a {@link ValueTransformer}
  * to a {@link CommaSeparatedValuesWriter}.
  */
 public class UnmappingIterator implements Iterator<String[]>

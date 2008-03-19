@@ -10,7 +10,7 @@ import diergo.csv.StringArrayReaderIterator;
  * This iterator converts string arrays to maps using the first string
  * array as an header with field names.
  * 
- * This class is usefull to create input for a {@link ValueTransformer}
+ * This class is useful to create input for a {@link ValueTransformer}
  * from a {@link StringArrayReaderIterator}.
  */
 public class MappedStringArrayIterator
