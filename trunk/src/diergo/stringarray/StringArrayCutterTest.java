@@ -33,7 +33,7 @@ public class StringArrayCutterTest
 		assertArrayEquals(new String[] {"2", "1", "0"}, out.getResult().get(0));
 	}
 	
-	private class TestWriter implements StringArrayWriter
+	private class TestWriter implements ArrayWriter<String>
 	{
 		private final List<String[]> _out = new ArrayList<String[]>();
 

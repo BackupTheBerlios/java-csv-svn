@@ -5,17 +5,17 @@ import java.io.IOException;
 /**
  * A writer to write string arrays to.
  */
-public interface StringArrayWriter
+public interface ArrayWriter<E>
 {
 	/**
-	 * Writes the next string array.
+	 * Writes the next array.
 	 */
-	public void write(String[] values)
+	public void write(E[] values)
 		throws IOException;
 
 	/**
 	 * Closes the writer.
-	 * Subsequent calls to {@link #write(String[])} will result in an exception.
+	 * Subsequent calls to {@link #write(Object[])} will result in an exception.
 	 */
 	public void close() throws IOException;
 }

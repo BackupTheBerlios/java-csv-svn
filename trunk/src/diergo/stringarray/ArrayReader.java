@@ -5,13 +5,13 @@ import java.io.IOException;
 /**
  * A reader to read parsed string arrays.
  */
-public interface StringArrayReader
+public interface ArrayReader<E>
 {
 	/**
-	 * Read the next string array.
+	 * Read the next array.
 	 * @return the arrays read or {@code null} if end on input reached.
 	 */
-	public String[] read() throws IOException;
+	public E[] read() throws IOException;
 
 	/**
 	 * Closes the reader.

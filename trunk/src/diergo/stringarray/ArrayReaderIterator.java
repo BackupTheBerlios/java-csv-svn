@@ -5,15 +5,15 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * An iterator operating on a reader returning string arrays.
+ * An iterator operating on a reader returning arrays.
  */
-public class StringArrayReaderIterator
-	implements Iterator<String[]>
+public class ArrayReaderIterator<E>
+	implements Iterator<E[]>
 {
-	private final StringArrayReader _reader;
-	private String[] _nextLine;
+	private final ArrayReader<E> _reader;
+	private E[] _nextLine;
 
-	public StringArrayReaderIterator(StringArrayReader reader)
+	public ArrayReaderIterator(ArrayReader<E> reader)
 	{
 		_reader = reader;
 	}
@@ -21,7 +21,7 @@ public class StringArrayReaderIterator
 	/**
 	 * Tries to read one more line if not read yet.
 	 * @return whether a line has been read now or before
-	 * @see StringArrayReader#read()
+	 * @see ArrayReader#read()
 	 */
 	public boolean hasNext()
 	{
@@ -36,10 +36,10 @@ public class StringArrayReaderIterator
 	}
 
 	/**
-	 * Returns the next line parsed.
+	 * Returns the next line.
 	 * @see #hasNext()
 	 */
-	public String[] next()
+	public E[] next()
 	{
 		if (!hasNext()) {
 			throw new NoSuchElementException();

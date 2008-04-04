@@ -7,12 +7,12 @@ import java.util.List;
 /**
  * A writer to write selected fields of a string arrays.
  */
-public class StringArrayCutter implements StringArrayWriter
+public class StringArrayCutter implements ArrayWriter<String>
 {
-	private final StringArrayWriter _out;
+	private final ArrayWriter<String> _out;
 	private final int[] _fields;
 	
-	public StringArrayCutter(StringArrayWriter out, int[] fields)
+	public StringArrayCutter(ArrayWriter<String> out, int[] fields)
 	{
 		_out = out;
 		_fields = fields;

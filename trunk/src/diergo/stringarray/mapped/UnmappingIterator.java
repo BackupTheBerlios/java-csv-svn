@@ -3,14 +3,14 @@ package diergo.stringarray.mapped;
 import java.util.Iterator;
 import java.util.Map;
 
-import diergo.stringarray.StringArrayWriter;
+import diergo.stringarray.ArrayWriter;
 
 /**
  * This iterator converts maps to string arrays containing a set of
  * specified fields.
  * 
  * This class is useful to pass output from a {@link ValueTransformer}
- * to a {@link StringArrayWriter}.
+ * to a {@link ArrayWriter}.
  */
 public class UnmappingIterator implements Iterator<String[]>
 {

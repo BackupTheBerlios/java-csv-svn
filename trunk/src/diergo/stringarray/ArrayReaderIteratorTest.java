@@ -8,27 +8,27 @@ import java.util.NoSuchElementException;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class StringArrayReaderIteratorTest
+public class ArrayReaderIteratorTest
 {
 	@Test
 	public void emptyReaderResultsInEmptyIterator()
 	{
-		StringArrayReader in = new TestReader(new String[0][]);
-		assertFalse(new StringArrayReaderIterator(in).hasNext());
+		ArrayReader<String> in = new TestReader(new String[0][]);
+		assertFalse(new ArrayReaderIterator<String>(in).hasNext());
 	}
 
 	@Test(expected=NoSuchElementException.class)
 	public void emptyReaderThrowsExceptionOnNext()
 	{
-		StringArrayReader in = new TestReader(new String[0][]);
-		new StringArrayReaderIterator(in).next();
+		ArrayReader<String> in = new TestReader(new String[0][]);
+		new ArrayReaderIterator<String>(in).next();
 	}
 	
 	@Test
 	public void linesFromReaderAreReturned()
 	{
-		StringArrayReader in = new TestReader(new String[][] {{"1a", "1b"}, {"2a", "2b"}});
-		Iterator<String[]> i = new StringArrayReaderIterator(in);
+		ArrayReader<String> in = new TestReader(new String[][] {{"1a", "1b"}, {"2a", "2b"}});
+		Iterator<String[]> i = new ArrayReaderIterator<String>(in);
 		assertTrue(i.hasNext());
 		assertArrayEquals(new String[] {"1a", "1b"}, i.next());
 		assertTrue(i.hasNext());
@@ -36,7 +36,7 @@ public class StringArrayReaderIteratorTest
 		assertFalse(i.hasNext());
 	}
 
-	private static class TestReader implements StringArrayReader
+	private static class TestReader implements ArrayReader<String>
 	{
 		private final String[][] _lines;
 		private int _index;

@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.regex.Pattern;
 
-import diergo.stringarray.StringArrayWriter;
+import diergo.stringarray.ArrayWriter;
 
 /**
  * Writes CSV data from String arrays to an underlying writer. The separator used is configured on construction.
  */
-public class CommaSeparatedValuesWriter implements StringArrayWriter
+public class CommaSeparatedValuesWriter implements ArrayWriter<String>
 {
 	private static final String QUOTE_REPLACEMENT =
 		new String(new char[] { CommaSeparatedValues.QUOTE, CommaSeparatedValues.QUOTE });

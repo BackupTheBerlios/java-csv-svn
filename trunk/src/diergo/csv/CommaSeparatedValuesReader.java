@@ -8,15 +8,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import diergo.stringarray.StringArrayReader;
-import diergo.stringarray.StringArrayReaderIterator;
+import diergo.stringarray.ArrayReader;
+import diergo.stringarray.ArrayReaderIterator;
 
 /**
  * Reads CSV data line based. The separator used and trimming of whitespace
  * for fields are configured on construction.
  */
 public class CommaSeparatedValuesReader
-	implements StringArrayReader, Iterable<String[]>
+	implements ArrayReader<String>, Iterable<String[]>
 {
 	private final BufferedReader _in;
 	private final char _separator;
@@ -56,7 +56,7 @@ public class CommaSeparatedValuesReader
 
 
 	public Iterator<String[]> iterator() {
-		return new StringArrayReaderIterator(this);
+		return new ArrayReaderIterator<String>(this);
 	}
 
 
