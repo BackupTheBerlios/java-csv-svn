@@ -1,4 +1,4 @@
-package diergo.csv.mapped;
+package diergo.stringarray.mapped;
 
 import java.util.Collections;
 import java.util.HashMap;

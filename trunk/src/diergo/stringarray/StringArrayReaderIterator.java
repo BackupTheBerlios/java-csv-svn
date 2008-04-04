@@ -1,4 +1,4 @@
-package diergo.csv;
+package diergo.stringarray;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -37,7 +37,7 @@ public class StringArrayReaderIterator
 
 	/**
 	 * Returns the next line parsed.
-	 * @see {@link #hasNext()}
+	 * @see #hasNext()
 	 */
 	public String[] next()
 	{

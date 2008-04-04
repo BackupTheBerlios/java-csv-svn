@@ -1,17 +1,16 @@
-package diergo.csv.mapped;
+package diergo.stringarray.mapped;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import diergo.csv.StringArrayReaderIterator;
 
 /**
  * This iterator converts string arrays to maps using the first string
  * array as an header with field names.
  * 
  * This class is useful to create input for a {@link ValueTransformer}
- * from a {@link StringArrayReaderIterator}.
+ * from a {@link Iterator}.
  */
 public class MappedStringArrayIterator
 	implements Iterator<Map<String, String>>

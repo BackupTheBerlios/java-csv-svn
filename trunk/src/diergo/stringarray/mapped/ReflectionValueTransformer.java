@@ -1,4 +1,4 @@
-package diergo.csv.mapped;
+package diergo.stringarray.mapped;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;

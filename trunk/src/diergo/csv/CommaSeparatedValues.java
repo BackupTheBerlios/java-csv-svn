@@ -5,7 +5,6 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.util.Iterator;
 
 /**
  * Convenience access to {@link CommaSeparatedValuesReader} and
@@ -19,14 +18,9 @@ public class CommaSeparatedValues
 {
 	public static char QUOTE = '"';
 
-	public static Iterable<String[]> parse(final Reader csvData, final boolean excelMode)
+	public static Iterable<String[]> parse(Reader csvData, boolean excelMode)
 	{
-		return new Iterable<String[]>()
-		{
-			public Iterator<String[]> iterator() {
-				return new StringArrayReaderIterator(new CommaSeparatedValuesReader(csvData, excelMode ? ';' : ',', excelMode));
-			}
-		};
+		return new CommaSeparatedValuesReader(csvData, excelMode ? ';' : ',', excelMode);
 	}
 
 	public static Iterable<String[]> parse(String csvData, boolean excelMode)

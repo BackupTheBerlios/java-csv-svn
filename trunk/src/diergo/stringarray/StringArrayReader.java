@@ -1,4 +1,4 @@
-package diergo.csv;
+package diergo.stringarray;
 
 import java.io.IOException;
 
@@ -9,7 +9,7 @@ public interface StringArrayReader
 {
 	/**
 	 * Read the next string array.
-	 * @return the arrays read or {@code null} if eand on input reached.
+	 * @return the arrays read or {@code null} if end on input reached.
 	 */
 	public String[] read() throws IOException;
 

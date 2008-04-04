@@ -1,4 +1,4 @@
-package diergo.csv;
+package diergo.stringarray;
 
 import java.io.EOFException;
 import java.io.IOException;

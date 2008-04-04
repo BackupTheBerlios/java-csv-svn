@@ -56,7 +56,7 @@
             <attribute name="Implementation-Vendor" value="digital ergonomics"/>
 	        <attribute name="Implementation-Vendor-Id" value="diergo"/>
 	        <attribute name="Implementation-URL" value="${downloadUrl}"/>
-	        <!--attribute name="Main-Class" value="diergo.csv.Main"/-->
+	        <attribute name="Main-Class" value="diergo.csv.Main"/>
     	</manifest>
         <jar destfile="${buildDir}/lib/${archive}" manifest="${buildDir}/manifest.mf" index="true">
             <fileset dir="${classesDir}">
@@ -87,8 +87,9 @@
 			<group title="${ant.project.name}">
 				<package name="diergo.csv"/>
 			</group>
-			<group title="String Array Data Mapping">
-				<package name="diergo.csv.mapped"/>
+			<group title="String Array Handling">
+				<package name="diergo.stringarray"/>
+				<package name="diergo.stringarray.mapped"/>
 			</group>
 		</javadoc>
 	</target>

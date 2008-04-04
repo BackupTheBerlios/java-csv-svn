@@ -1,4 +1,4 @@
-package diergo.csv;
+package diergo.stringarray;
 
 import static org.junit.Assert.assertEquals;
 

@@ -5,14 +5,18 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.CharBuffer;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+
+import diergo.stringarray.StringArrayReader;
+import diergo.stringarray.StringArrayReaderIterator;
 
 /**
  * Reads CSV data line based. The separator used and trimming of whitespace
  * for fields are configured on construction.
  */
 public class CommaSeparatedValuesReader
-	implements StringArrayReader
+	implements StringArrayReader, Iterable<String[]>
 {
 	private final BufferedReader _in;
 	private final char _separator;
@@ -48,6 +52,11 @@ public class CommaSeparatedValuesReader
 	public void close() throws IOException
 	{
 		_in.close();
+	}
+
+
+	public Iterator<String[]> iterator() {
+		return new StringArrayReaderIterator(this);
 	}
 
 

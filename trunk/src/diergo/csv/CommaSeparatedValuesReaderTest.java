@@ -3,6 +3,7 @@ package diergo.csv;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 
@@ -55,5 +56,16 @@ public class CommaSeparatedValuesReaderTest
 	public void quotedFieldWithMissingEndQuoteIsIllegal() throws IOException
 	{
 		new CommaSeparatedValuesReader(new StringReader("\"hi;ho"), ';', true).read();
+	}
+	
+	@Test
+	public void iteratorReturnsSameAsRead() throws IOException
+	{
+		BufferedReader in = new BufferedReader(new StringReader("a;b;c"), 6);
+		CommaSeparatedValuesReader reader = new CommaSeparatedValuesReader(in, ';', true);
+		in.mark(6);
+		String[] dataRead = reader.read();
+		in.reset();
+		assertThat(reader.iterator().next(), equalTo(dataRead));
 	}
 }

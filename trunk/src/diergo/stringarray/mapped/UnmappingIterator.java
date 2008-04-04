@@ -1,16 +1,16 @@
-package diergo.csv.mapped;
+package diergo.stringarray.mapped;
 
 import java.util.Iterator;
 import java.util.Map;
 
-import diergo.csv.CommaSeparatedValuesWriter;
+import diergo.stringarray.StringArrayWriter;
 
 /**
  * This iterator converts maps to string arrays containing a set of
  * specified fields.
  * 
  * This class is useful to pass output from a {@link ValueTransformer}
- * to a {@link CommaSeparatedValuesWriter}.
+ * to a {@link StringArrayWriter}.
  */
 public class UnmappingIterator implements Iterator<String[]>
 {
