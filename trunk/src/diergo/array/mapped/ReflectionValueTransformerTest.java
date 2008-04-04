@@ -1,10 +1,10 @@
 package diergo.array.mapped;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
 
@@ -14,10 +14,10 @@ public class ReflectionValueTransformerTest
 	public void propertiesAreRead()
 	{
 		Map<String,String> data = new ReflectionValueTransformer<PropertyObject>(PropertyObject.class).transform(new PropertyObject("Hallo", 5, true, new Long(7L)));
-		assertThat(data.get("string"), is("Hallo"));
-		assertThat(data.get("int"), is("5"));
-		assertThat(data.get("boolean"), is("true"));
-		assertThat(data.get("long"), is("7"));
+		assertEquals("Hallo", data.get("string"));
+		assertEquals("5", data.get("int"));
+		assertEquals("true", data.get("boolean"));
+		assertEquals("7", data.get("long"));
 	}
 
 	@Test
@@ -29,20 +29,20 @@ public class ReflectionValueTransformerTest
 		data.put("boolean", "true");
 		data.put("long", "7");
 		PropertyObject object = new ReflectionValueTransformer<PropertyObject>(PropertyObject.class).transform(data);
-		assertThat(object._string, is("Hallo"));
-		assertThat(object._int, is(5));
-		assertThat(object._boolean, is(true));
-		assertThat(object._long, is(new Long(7)));
+		assertEquals("Hallo", object._string);
+		assertEquals(5, object._int);
+		assertEquals(true, object._boolean);
+		assertEquals(new Long(7), object._long);
 	}
 
 	@Test
 	public void methodsAreRead()
 	{
 		Map<String,String> data = new ReflectionValueTransformer<MethodObject>(MethodObject.class).transform(new MethodObject("Hallo", 5, true, new Long(7L)));
-		assertThat(data.get("string"), is("Hallo"));
-		assertThat(data.get("int"), is("5"));
-		assertThat(data.get("boolean"), is("true"));
-		assertThat(data.get("long"), is("7"));
+		assertEquals("Hallo", data.get("string"));
+		assertEquals("5", data.get("int"));
+		assertEquals("true", data.get("boolean"));
+		assertEquals("7", data.get("long"));
 	}
 
 	@Test
@@ -54,10 +54,10 @@ public class ReflectionValueTransformerTest
 		data.put("boolean", "true");
 		data.put("long", "7");
 		MethodObject object = new ReflectionValueTransformer<MethodObject>(MethodObject.class).transform(data);
-		assertThat(object._string, is("Hallo"));
-		assertThat(object._int, is(5));
-		assertThat(object._boolean, is(true));
-		assertThat(object._long, is(new Long(7)));
+		assertEquals("Hallo", object._string);
+		assertEquals(5, object._int);
+		assertEquals(true, object._boolean);
+		assertEquals(new Long(7), object._long);
 	}
 	
 	

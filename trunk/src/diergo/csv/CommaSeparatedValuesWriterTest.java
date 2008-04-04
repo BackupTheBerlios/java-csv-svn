@@ -1,7 +1,6 @@
 package diergo.csv;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -15,7 +14,7 @@ public class CommaSeparatedValuesWriterTest
 	{
 		StringWriter out = new StringWriter();
 		new CommaSeparatedValuesWriter(out, ';').write(new String[] {"a", "b", "c"});
-		assertThat(out.toString().split("\n")[0], is("a;b;c"));
+		assertEquals("a;b;c", out.toString().split("\n")[0]);
 	}
 
 	@Test
@@ -23,7 +22,7 @@ public class CommaSeparatedValuesWriterTest
 	{
 		StringWriter out = new StringWriter();
 		new CommaSeparatedValuesWriter(out, ';').write(new String[] {"a", "b;b", "c"});
-		assertThat(out.toString().split("\n")[0].split("\n")[0], is("a;\"b;b\";c"));
+		assertEquals("a;\"b;b\";c", out.toString().split("\n")[0].split("\n")[0]);
 	}
 
 	@Test
@@ -31,6 +30,6 @@ public class CommaSeparatedValuesWriterTest
 	{
 		StringWriter out = new StringWriter();
 		new CommaSeparatedValuesWriter(out, ';').write(new String[] {"a", "b\"b", "c"});
-		assertThat(out.toString().split("\n")[0].split("\n")[0], is("a;\"b\"\"b\";c"));
+		assertEquals("a;\"b\"\"b\";c", out.toString().split("\n")[0].split("\n")[0]);
 	}
 }

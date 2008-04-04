@@ -1,11 +1,12 @@
 package diergo.array;
 
+import static org.junit.Assert.assertArrayEquals;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class StringArrayCutterTest
 {

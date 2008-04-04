@@ -1,7 +1,6 @@
 package diergo.csv;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertArrayEquals;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,33 +14,28 @@ public class CommaSeparatedValuesReaderTest
 	public void lineWithoutSeparatorResultsInSingleString() throws IOException
 	{
 		String[] data = new CommaSeparatedValuesReader(new StringReader("\n"), ';', true).read();
-		assertThat(data.length, equalTo(1));
-		assertThat(data[0], equalTo(""));
+		assertArrayEquals(new String[] {""}, data);
 	}
 	
 	@Test
 	public void separatedLineIsSplitted() throws IOException
 	{
 		String[] data = new CommaSeparatedValuesReader(new StringReader("a;b;c"), ';', true).read();
-		assertThat(data.length, equalTo(3));
-		assertThat(data[0], equalTo("a"));
-		assertThat(data[1], equalTo("b"));
-		assertThat(data[2], equalTo("c"));
+		assertArrayEquals(new String[] {"a", "b", "c"}, data);
 	}
 	
 	@Test
 	public void quotedFieldWithSeparatorIsNotSplitted() throws IOException
 	{
 		String[] data = new CommaSeparatedValuesReader(new StringReader("\"hi;ho\""), ';', true).read();
-		assertThat(data.length, equalTo(1));
-		assertThat(data[0], equalTo("hi;ho"));
+		assertArrayEquals(new String[] {"hi;ho"}, data);
 	}
 	
 	@Test
 	public void quotedFieldWithQuotesIsUnquoted() throws IOException
 	{
 		String[] data = new CommaSeparatedValuesReader(new StringReader("\"\"\"hi\"\"ho\"\"\""), ';', true).read();
-		assertThat(data[0], equalTo("\"hi\"ho\""));
+		assertArrayEquals(new String[] {"\"hi\"ho\""}, data);
 	}
 
 	
@@ -66,6 +60,6 @@ public class CommaSeparatedValuesReaderTest
 		in.mark(6);
 		String[] dataRead = reader.read();
 		in.reset();
-		assertThat(reader.iterator().next(), equalTo(dataRead));
+		assertArrayEquals(dataRead, reader.iterator().next());
 	}
 }
