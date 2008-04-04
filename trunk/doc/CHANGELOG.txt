@@ -1,0 +1,9 @@
+0.4
+
+  * new package structure
+  * array writer and cutter added
+  * csv reader implements iterable
+
+0.3 (2008-03-19)
+
+  * inital release

@@ -1,4 +1,4 @@
-package diergo.stringarray.mapped;
+package diergo.array.mapped;
 
 import java.util.HashMap;
 import java.util.Map;

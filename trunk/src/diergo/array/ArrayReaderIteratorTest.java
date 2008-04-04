@@ -1,4 +1,4 @@
-package diergo.stringarray;
+package diergo.array;
 
 import java.io.EOFException;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package diergo.stringarray;
+package diergo.array;
 
 import java.util.Comparator;
 

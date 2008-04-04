@@ -7,6 +7,7 @@ RFC 4180 (http://tools.ietf.org/html/rfc4180).
 
 For further information:
 
+  * Changelog (CHANGELOG.txt)
   * API Documentation (doc/api/index.html)
   * Project Home Page (http://diergo.burmeister-teltow.de/csv/)
   * BerliOS Project Page (http://developer.berlios.de/projects/java-csv/)

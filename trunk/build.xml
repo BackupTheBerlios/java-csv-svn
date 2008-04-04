@@ -88,8 +88,8 @@
 				<package name="diergo.csv"/>
 			</group>
 			<group title="String Array Handling">
-				<package name="diergo.stringarray"/>
-				<package name="diergo.stringarray.mapped"/>
+				<package name="diergo.array"/>
+				<package name="diergo.array.mapped"/>
 			</group>
 		</javadoc>
 	</target>

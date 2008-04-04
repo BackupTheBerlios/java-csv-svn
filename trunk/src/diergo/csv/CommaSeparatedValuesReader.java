@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import diergo.stringarray.ArrayReader;
-import diergo.stringarray.ArrayReaderIterator;
+import diergo.array.ArrayReader;
+import diergo.array.ArrayReaderIterator;
 
 /**
  * Reads CSV data line based. The separator used and trimming of whitespace

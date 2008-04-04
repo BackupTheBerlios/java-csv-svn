@@ -1,9 +1,9 @@
-package diergo.stringarray.mapped;
+package diergo.array.mapped;
 
 import java.util.Iterator;
 import java.util.Map;
 
-import diergo.stringarray.ArrayWriter;
+import diergo.array.ArrayWriter;
 
 /**
  * This iterator converts maps to string arrays containing a set of

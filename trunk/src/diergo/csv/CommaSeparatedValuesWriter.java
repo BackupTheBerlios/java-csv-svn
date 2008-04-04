@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.regex.Pattern;
 
-import diergo.stringarray.ArrayWriter;
+import diergo.array.ArrayWriter;
 
 /**
  * Writes CSV data from String arrays to an underlying writer. The separator used is configured on construction.
