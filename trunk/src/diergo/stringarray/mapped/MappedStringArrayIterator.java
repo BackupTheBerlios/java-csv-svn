@@ -15,13 +15,18 @@ import java.util.Map;
 public class MappedStringArrayIterator
 	implements Iterator<Map<String, String>>
 {
-	private final Iterator<String[]> _iterator;
 	private final String[] _header;
+	private final Iterator<String[]> _iterator;
+
+	public MappedStringArrayIterator(String[] header, Iterator<String[]> iterator)
+	{
+		_header = header;
+		_iterator = iterator;
+	}
 
 	public MappedStringArrayIterator(Iterator<String[]> iterator)
 	{
-		_iterator = iterator;
-		_header = iterator.hasNext() ? iterator.next() : null;
+		this(iterator.next(), iterator);
 	}
 
 	public boolean hasNext()

@@ -14,18 +14,24 @@ import org.junit.Test;
 
 public class MappedStringArrayIteratorTest
 {
+	@Test(expected=NoSuchElementException.class)
+	public void emptyIteratorWithoutHeaderDoesNotWotk()
+	{
+		new MappedStringArrayIterator(Arrays.asList(new String[0][]).iterator());
+	}
+
 	@Test
 	public void emptyIteratorIsStillEmpty()
 	{
 		Iterator<Map<String,String>> iterator =
-			new MappedStringArrayIterator(Arrays.asList(new String[0][]).iterator());
+			new MappedStringArrayIterator(new String[0], Arrays.asList(new String[0][]).iterator());
 		assertFalse(iterator.hasNext());
 	}
 
 	@Test(expected=NoSuchElementException.class)
-	public void emptyIteratorHandlesNext()
+	public void emptyIteratorNextRaisesError()
 	{
-		new MappedStringArrayIterator(Arrays.asList(new String[0][]).iterator()).next();
+		new MappedStringArrayIterator(new String[0], Arrays.asList(new String[0][]).iterator()).next();
 	}
 
 	@Test

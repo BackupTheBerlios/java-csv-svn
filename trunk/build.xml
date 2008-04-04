@@ -106,7 +106,7 @@
 	<target name="all" depends="clean, source, dist"/>
 
     <target name="test" depends="compile" description="Run all unit tests">
-        <junit printsummary="true" fork="true" showoutput="false"
+        <junit printsummary="false" fork="true" showoutput="false"
             haltonfailure="false" failureproperty="errors">
             <sysproperty key="projectDir" value="${projectDir}"/>
             <jvmarg value="-ea"/>
@@ -114,6 +114,7 @@
                 <pathelement location="${classesDir}"/>
                 <path refid="classpath"/>
             </classpath>
+            <formatter type="brief" usefile="false"/>
             <batchtest>
                 <fileset dir="${classesDir}">
                     <include name="**/*Test.class"/>
