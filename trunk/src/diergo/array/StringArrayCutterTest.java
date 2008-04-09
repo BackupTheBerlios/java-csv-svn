@@ -3,8 +3,6 @@ package diergo.array;
 import static org.junit.Assert.assertArrayEquals;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.Test;
 
@@ -13,43 +11,22 @@ public class StringArrayCutterTest
 	@Test
 	public void onlySelectedValuesAreReturned() throws IOException
 	{
-		TestWriter out = new TestWriter();
-		new StringArrayCutter(out, new int[] {1,3}).write(new String[] {"0", "1", "2", "3"});
-		assertArrayEquals(new String[] {"1", "3"}, out.getResult().get(0));
+		assertArrayEquals(new String[] {"1", "3"},
+				new StringArrayCutter(new int[] {1,3}).cut(new String[] {"0", "1", "2", "3"}));
 	}
 	
 	@Test
 	public void fieldsTooLargeAreIgnored() throws IOException
 	{
-		TestWriter out = new TestWriter();
-		new StringArrayCutter(out, new int[] {1,3}).write(new String[] {"0", "1"});
-		assertArrayEquals(new String[] {"1"}, out.getResult().get(0));
+		assertArrayEquals(new String[] {"1"},
+				new StringArrayCutter(new int[] {1,3}).cut(new String[] {"0", "1"}));
 	}
 	
 	@Test
 	public void fieldsAreRearranged() throws IOException
 	{
-		TestWriter out = new TestWriter();
-		new StringArrayCutter(out, new int[] {2,1,0}).write(new String[] {"0", "1", "2"});
-		assertArrayEquals(new String[] {"2", "1", "0"}, out.getResult().get(0));
+		assertArrayEquals(new String[] {"2", "1", "0"},
+				new StringArrayCutter(new int[] {2,1,0}).cut(new String[] {"0", "1", "2"}));
 	}
 	
-	private class TestWriter implements ArrayWriter<String>
-	{
-		private final List<String[]> _out = new ArrayList<String[]>();
-
-		public void write(String[] values) throws IOException {
-			_out.add(values);
-		}
-
-		public void close()
-		{
-		}
-		
-		public List<String[]> getResult()
-		{
-			return _out;
-		}
-		
-	}
 }
