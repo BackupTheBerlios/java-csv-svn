@@ -60,7 +60,6 @@
         <jar destfile="${buildDir}/lib/${archive}" manifest="${buildDir}/manifest.mf" index="true">
             <fileset dir="${classesDir}">
                 <exclude name="**/*Test*.class"/>
-                <exclude name="**/test/*.class"/>
             </fileset>
         </jar>
     </target>
@@ -86,7 +85,7 @@
 			<group title="${ant.project.name}">
 				<package name="diergo.csv"/>
 			</group>
-			<group title="String Array Handling">
+			<group title="Array Handling">
 				<package name="diergo.array"/>
 				<package name="diergo.array.mapped"/>
 			</group>
