@@ -1,0 +1,12 @@
+0.4 (2008-04-09)
+
+  * new package structure
+  * more generic interfaces
+  * interface array writer
+  * cutting reader and writer
+  * csv reader implements iterable
+  * mock implementations for testing
+
+0.3 (2008-03-19)
+
+  * inital release
