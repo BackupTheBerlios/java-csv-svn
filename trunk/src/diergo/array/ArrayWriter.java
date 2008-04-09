@@ -3,7 +3,7 @@ package diergo.array;
 import java.io.IOException;
 
 /**
- * A writer to write string arrays to.
+ * A writer to write arrays to.
  */
 public interface ArrayWriter<E>
 {

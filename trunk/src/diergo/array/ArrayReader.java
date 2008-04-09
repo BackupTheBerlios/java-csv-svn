@@ -3,7 +3,7 @@ package diergo.array;
 import java.io.IOException;
 
 /**
- * A reader to read parsed string arrays.
+ * A reader to read parsed arrays.
  */
 public interface ArrayReader<E>
 {
