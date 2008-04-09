@@ -24,7 +24,7 @@ td {
 	border: 1px solid #aeaeae;
 }
 
-.TableHeadingColor {
+.TableHeadingColor, .TableSubHeadingColor {
 	background: #67ce3d;
 	border: 1px solid #aeaeae;
 }
