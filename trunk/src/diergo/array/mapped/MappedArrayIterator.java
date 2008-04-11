@@ -6,27 +6,27 @@ import java.util.Map;
 
 
 /**
- * This iterator converts string arrays to maps using the first string
+ * This iterator converts arrays to maps using the first string
  * array as an header with field names.
  * 
  * This class is useful to create input for a {@link ValueTransformer}
  * from a {@link Iterator}.
  */
-public class MappedStringArrayIterator
-	implements Iterator<Map<String, String>>
+public class MappedArrayIterator<E>
+	implements Iterator<Map<String, E>>
 {
+	public static MappedArrayIterator<String> createWithHeaders(Iterator<String[]> iterator)
+	{
+		return new MappedArrayIterator<String>(iterator.next(), iterator);
+	}
+	
 	private final String[] _header;
-	private final Iterator<String[]> _iterator;
+	private final Iterator<E[]> _iterator;
 
-	public MappedStringArrayIterator(String[] header, Iterator<String[]> iterator)
+	public MappedArrayIterator(String[] header, Iterator<E[]> iterator)
 	{
 		_header = header;
 		_iterator = iterator;
-	}
-
-	public MappedStringArrayIterator(Iterator<String[]> iterator)
-	{
-		this(iterator.next(), iterator);
 	}
 
 	public boolean hasNext()
@@ -34,10 +34,10 @@ public class MappedStringArrayIterator
 		return _iterator.hasNext();
 	}
 
-	public Map<String, String> next()
+	public Map<String, E> next()
 	{
-		String[] next = _iterator.next();
-		Map<String,String> result = new LinkedHashMap<String, String>();
+		E[] next = _iterator.next();
+		Map<String,E> result = new LinkedHashMap<String, E>();
 		for (int i = 0; i < _header.length; ++i) {
 			result.put(_header[i], i < next.length ? next[i] : null);
 		}
