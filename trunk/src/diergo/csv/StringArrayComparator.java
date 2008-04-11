@@ -27,6 +27,13 @@ public class StringArrayComparator extends ArrayComparator<String>
 		_numericFields = numericFields;
 	}
 
+	/**
+	 * Compares the two corresponding values at an index.
+	 * The values are compared by alpha or numeric as defined by
+	 * the numeric fields passed on construction.
+	 * @see #compareAlpha(String, String)
+	 * @see #compareNumeric(String, String)
+	 */
 	protected int compare(String value1, String value2, int i)
 	{
 		int c;
@@ -45,6 +52,10 @@ public class StringArrayComparator extends ArrayComparator<String>
 		return c;
 	}
 	
+	
+	/**
+	 * Compares the two numeric values. 
+	 */
 	protected int compareNumeric(String value1, String value2)
 		throws NumberFormatException
 	{
@@ -53,6 +64,9 @@ public class StringArrayComparator extends ArrayComparator<String>
 		return  v1 == v2 ? 0 : (v1 < v2 ? -1 : 1);
 	}
 
+	/**
+	 * Compares the two alpha values ignoring case. 
+	 */
 	protected int compareAlpha(String value1, String value2)
 	{
 		return value1.compareToIgnoreCase(value2);

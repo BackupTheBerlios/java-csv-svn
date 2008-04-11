@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A utility class to cut selected fields of a string arrays.
- * Cutting string array readers and writers are offered.
+ * A utility class to cut selected fields of arrays.
+ * Cutting array readers and writers are offered.
  */
 public class ArrayCutter<E>
 {
 	/**
-	 * Creates a new string array reader passing the selected fields only.
+	 * Creates a new array reader passing the selected fields only.
 	 */
 	public static <E> ArrayReader<E> cut(ArrayReader<E> in, int[] fields)
 	{
@@ -20,7 +20,7 @@ public class ArrayCutter<E>
 	}
 	
 	/**
-	 * Creates a new string array writer passing the selected fields only.
+	 * Creates a new array writer passing the selected fields only.
 	 */
 	public static <E> ArrayWriter<E> cut(ArrayWriter<E> in, int[] fields)
 	{
