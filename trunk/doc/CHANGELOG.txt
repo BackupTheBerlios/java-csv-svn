@@ -1,3 +1,8 @@
+0.5
+  * string array comparator moved to diergo.csv
+  * array package content is generic only now,
+    string array cutter, comparator and mapped iterator have been renamed
+
 0.4 (2008-04-09)
 
   * new package structure
