@@ -73,12 +73,13 @@
         <mkdir dir="${buildDir}/doc/api"/>
 		<javadoc destdir="${buildDir}/doc/api" classpathref="classpath" source="1.5" access="protected" breakiterator="yes"
 			windowtitle="${project}" header="${project} ${version}" footer="${project} ${version} ${DATE}"
-			stylesheetfile="${buildDir}/doc/style.css"
+			stylesheetfile="${buildDir}/doc/style.css" overview="${sourcesDir}/overview.html"
 			bottom="Copyright &amp;copy; ${YEAR} &lt;a href='${companyUrl}'&gt;digital ergonomics&lt;/a&gt;. &lt;a rel='license' href='http://creativecommons.org/licenses/by-nd/3.0/'&gt;Some rights reserved&lt;/a&gt;.">			
 			<link offline="true"
 				href="http://java.sun.com/j2se/1.5.0/docs/api/"
 				packagelistLoc="${basedir}/tools/javadoc/j2se-1.5"/>
 			<fileset dir="${sourcesDir}">
+				<include name="**/*.java"/>
 				<exclude name="**/test/*"/>
 				<exclude name="**/*Test.java"/>
 			</fileset>
