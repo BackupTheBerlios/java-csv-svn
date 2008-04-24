@@ -1,9 +1,10 @@
-0.5
+0.5 (beta)
   * string array comparator moved to diergo.csv
   * array package content is generic only now,
     string array cutter, comparator and mapped iterator have been renamed
+  * new command interface, main introduced
 
-0.4 (2008-04-09)
+0.4 (2008-04-09 alpha)
 
   * new package structure
   * more generic interfaces
@@ -12,6 +13,6 @@
   * csv reader implements iterable
   * mock implementations for testing
 
-0.3 (2008-03-19)
+0.3 (2008-03-19 alpha)
 
   * inital release
