@@ -1,9 +1,7 @@
 package diergo.csv;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -13,34 +11,34 @@ import org.junit.Test;
 
 public class CommaSeparatedValuesTest
 {
-	@Test
-	public void emptyIterableResultsInEmptyString()
-	{
-		assertThat(CommaSeparatedValues.generate(Collections.<String[]>emptyList(), true), is(""));
-	}
+    @Test
+    public void emptyIterableResultsInEmptyString()
+    {
+        assertEquals("", CommaSeparatedValues.generate(Collections.<String[]> emptyList(), true));
+    }
 
-	@Test
-	public void eachIterableResultsInOneLine()
-	{
-		assertThat(CommaSeparatedValues.generate(Arrays.asList(new String[][] {{"1a", "1b"}, {"2a", "2b"}}), true).split("\n").length, is(2));
-	}
+    @Test
+    public void eachIterableResultsInOneLine()
+    {
+        assertEquals(2, CommaSeparatedValues.generate(Arrays.asList(new String[][] { { "1a", "1b" }, { "2a", "2b" } }),
+                true).split("\n").length);
+    }
 
-	@Test
-	public void emptyDataResultsInIteratorWithoutNext()
-	{
-		assertFalse(CommaSeparatedValues.parse("", true).iterator().hasNext());
-	}
-	
-	@Test
-	public void linesAreReturnedByIterator()
-	{
-		Iterator<String[]> i = CommaSeparatedValues.parse("1\n2\n3", true).iterator();
-		int idx = 0;
-		while (i.hasNext()) {
-			String[] data = i.next();
-			assertThat(data[0], equalTo(String.valueOf(++idx)));
-		}
-		assertThat(idx, is(3));
-	}
-	
+    @Test
+    public void emptyDataResultsInIteratorWithoutNext()
+    {
+        assertFalse(CommaSeparatedValues.parse("", true).iterator().hasNext());
+    }
+
+    @Test
+    public void linesAreReturnedByIterator()
+    {
+        Iterator<String[]> i = CommaSeparatedValues.parse("1\n2\n3", true).iterator();
+        int idx = 0;
+        while (i.hasNext()) {
+            assertEquals(String.valueOf(++idx), i.next()[0]);
+        }
+        assertEquals(3, idx);
+    }
+
 }
