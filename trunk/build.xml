@@ -56,6 +56,7 @@
             <attribute name="Implementation-Vendor" value="digital ergonomics"/>
 	        <attribute name="Implementation-Vendor-Id" value="diergo"/>
 	        <attribute name="Implementation-URL" value="${downloadUrl}"/>
+	        <attribute name="Main-Class" value="diergo.csv.Main"/>
     	</manifest>
         <jar destfile="${buildDir}/lib/${archive}" manifest="${buildDir}/manifest.mf" index="true">
             <fileset dir="${classesDir}">
