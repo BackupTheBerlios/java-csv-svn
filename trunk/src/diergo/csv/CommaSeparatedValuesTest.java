@@ -14,7 +14,7 @@ public class CommaSeparatedValuesTest
     @Test
     public void emptyIterableResultsInEmptyString()
     {
-        assertEquals("", CommaSeparatedValues.generate(Collections.<String[]> emptyList(), true));
+        assertEquals("", CommaSeparatedValues.generate(Collections.<String[]>emptyList(), true));
     }
 
     @Test

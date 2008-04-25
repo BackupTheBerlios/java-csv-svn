@@ -19,6 +19,7 @@ public class CommaSeparatedValuesWriter
 
     private final Writer _out;
     private final char _separator;
+    private boolean _linesWritten;
 
     /**
      * Creates a writer for CSV data using the underlaying writer.
@@ -32,6 +33,7 @@ public class CommaSeparatedValuesWriter
     {
         _out = out;
         _separator = separator;
+        _linesWritten = false;
     }
 
     /**
@@ -40,6 +42,9 @@ public class CommaSeparatedValuesWriter
     public void write(String[] line)
         throws IOException
     {
+        if (_linesWritten) {
+            _out.append('\n');
+        }
         boolean first = true;
         for (String elem : line) {
             if (!first) {
@@ -48,7 +53,7 @@ public class CommaSeparatedValuesWriter
             _out.append(quote(elem));
             first = false;
         }
-        _out.append('\n');
+        _linesWritten = true;
     }
 
     public void close()

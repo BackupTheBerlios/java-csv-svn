@@ -15,7 +15,7 @@ public class CommaSeparatedValuesWriterTest
     {
         StringWriter out = new StringWriter();
         new CommaSeparatedValuesWriter(out, ';').write(new String[] { "a", "b", "c" });
-        assertEquals("a;b;c", out.toString().split("\n")[0]);
+        assertEquals("a;b;c", out.toString());
     }
 
     @Test
@@ -24,7 +24,7 @@ public class CommaSeparatedValuesWriterTest
     {
         StringWriter out = new StringWriter();
         new CommaSeparatedValuesWriter(out, ';').write(new String[] { "a", "b;b", "c" });
-        assertEquals("a;\"b;b\";c", out.toString().split("\n")[0].split("\n")[0]);
+        assertEquals("a;\"b;b\";c", out.toString());
     }
 
     @Test
@@ -33,6 +33,6 @@ public class CommaSeparatedValuesWriterTest
     {
         StringWriter out = new StringWriter();
         new CommaSeparatedValuesWriter(out, ';').write(new String[] { "a", "b\"b", "c" });
-        assertEquals("a;\"b\"\"b\";c", out.toString().split("\n")[0].split("\n")[0]);
+        assertEquals("a;\"b\"\"b\";c", out.toString());
     }
 }
