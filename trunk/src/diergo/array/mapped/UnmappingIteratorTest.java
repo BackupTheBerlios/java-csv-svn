@@ -13,7 +13,7 @@ public class UnmappingIteratorTest
     public void fieldsAreReturnedOnEmptyIterator()
     {
         Iterator<String[]> iterator = new UnmappingIterator(new String[] { "h1", "h2" }, Collections
-                .<Map<String, String>> emptyList().iterator());
+                .<Map<String, String>>emptyList().iterator());
         assertTrue(iterator.hasNext());
         assertArrayEquals(new String[] { "h1", "h2" }, iterator.next());
     }
@@ -25,7 +25,7 @@ public class UnmappingIteratorTest
         values.put("h1", "v1");
         values.put("h2", "v2");
         Iterator<String[]> iterator = new UnmappingIterator(new String[] { "h1", "h2" }, Collections
-                .<Map<String, String>> singletonList(values).iterator());
+                .<Map<String, String>>singletonList(values).iterator());
         iterator.next();
         assertArrayEquals(new String[] { "v1", "v2" }, iterator.next());
     }
@@ -36,7 +36,7 @@ public class UnmappingIteratorTest
         Map<String, String> values = new HashMap<String, String>();
         values.put("h1", "v1");
         Iterator<String[]> iterator = new UnmappingIterator(new String[] { "h1", "h2" }, Collections
-                .<Map<String, String>> singletonList(values).iterator());
+                .<Map<String, String>>singletonList(values).iterator());
         iterator.next();
         assertArrayEquals(new String[] { "v1", null }, iterator.next());
     }
