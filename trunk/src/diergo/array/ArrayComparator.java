@@ -3,7 +3,7 @@ package diergo.array;
 import java.util.Comparator;
 
 /**
- * Compares arrays by a defined order of indicees.
+ * Compares arrays by a defined order of indices.
  */
 public class ArrayComparator<E extends Comparable<E>>
         implements Comparator<E[]>
@@ -11,10 +11,10 @@ public class ArrayComparator<E extends Comparable<E>>
     private final int[] _fieldOrder;
 
     /**
-     * Create a comparator comparing by the specified indicees.
+     * Create a comparator comparing by the specified indices.
      * 
      * @param fieldOrder
-     *            the indicees of the fields to be used for comparing
+     *            the indices of the fields to be used for comparing
      */
     public ArrayComparator(int[] fieldOrder)
     {
@@ -46,7 +46,7 @@ public class ArrayComparator<E extends Comparable<E>>
 
     /**
      * Compares the two corresponding values at an index. This may be overridden
-     * by subclasses to add type specific comparision.
+     * by subclasses to add type specific comparison.
      */
     protected int compare(E value1, E value2, int i)
     {

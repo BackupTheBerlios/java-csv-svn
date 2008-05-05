@@ -36,7 +36,7 @@ public class ArrayCutter<E>
 
     /**
      * Returns a new string array with the selected fields only. The order will
-     * be as definied by the fields, unknown fields are ignored.
+     * be as defined by the fields, unknown fields are ignored.
      */
     public E[] cut(E[] values)
     {

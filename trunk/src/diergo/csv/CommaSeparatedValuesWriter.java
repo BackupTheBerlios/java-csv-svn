@@ -22,10 +22,10 @@ public class CommaSeparatedValuesWriter
     private boolean _linesWritten;
 
     /**
-     * Creates a writer for CSV data using the underlaying writer.
+     * Creates a writer for CSV data using the underlying writer.
      * 
      * @param out
-     *            the underlaying writer
+     *            the underlying writer
      * @param separator
      *            the separator of the fields in a line
      */

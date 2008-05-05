@@ -23,10 +23,10 @@ public class CommaSeparatedValuesReader
     private final boolean _trimFields;
 
     /**
-     * Creates a reader for CSV data using the underlaying reader.
+     * Creates a reader for CSV data using the underlying reader.
      * 
      * @param in
-     *            the underlaying reader
+     *            the underlying reader
      * @param separator
      *            the separator of the fields in a line
      * @param trimFields
@@ -52,7 +52,7 @@ public class CommaSeparatedValuesReader
     }
 
     /**
-     * Closes the underlaying reader.
+     * Closes the underlying reader.
      */
     public void close()
         throws IOException

@@ -5,10 +5,19 @@ import java.util.*;
 
 import diergo.array.ArrayWriter;
 
+/**
+ * Sort lines of csv data according to an order.
+ */
 public class Sort
         implements Command
 {
 
+	/**
+	 * Processes csv data by sorting the lines.
+	 * The field indices are passed in option {@code order} starting at 1.
+	 * Each index may be followed by an {@code n} to indicate numeric ordering.
+     * The first line will be returned as first if the option {@code header} is {@code true}.
+	 */
     public void process(CommaSeparatedValuesReader in, ArrayWriter<String> out, Map<String, String> options)
         throws IOException
     {

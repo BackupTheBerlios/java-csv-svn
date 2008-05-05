@@ -6,6 +6,9 @@ import java.util.List;
 
 import diergo.array.ArrayWriter;
 
+/**
+ * A simple array writer storing all arrays written in a list.
+ */
 public class MockArrayWriter<E>
         implements ArrayWriter<E>
 {
@@ -32,6 +35,9 @@ public class MockArrayWriter<E>
         _closed = true;
     }
 
+    /**
+     * Returns all arrays written to this writer.
+     */
     public List<E[]> getResult()
     {
         return _out;

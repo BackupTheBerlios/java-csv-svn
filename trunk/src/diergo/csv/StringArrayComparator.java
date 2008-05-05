@@ -8,11 +8,11 @@ public class StringArrayComparator
     private final int[] _numericFields;
 
     /**
-     * Create a comparator comparing by the specified indicees. All fields are
+     * Create a comparator comparing by the specified indices. All fields are
      * treated as strings.
      * 
      * @param fieldOrder
-     *            the indicees of the fields to be used for comparing
+     *            the indices of the fields to be used for comparing
      */
     public StringArrayComparator(int[] fieldOrder)
     {
@@ -20,12 +20,12 @@ public class StringArrayComparator
     }
 
     /**
-     * Create a comparator comparing by the specified indicees.
+     * Create a comparator comparing by the specified indices.
      * 
      * @param fieldOrder
-     *            the indicees of the fields to be used for comparing
+     *            the indices of the fields to be used for comparing
      * @param numericFields
-     *            the indicees of the fields to be compared numeric
+     *            the indices of the fields to be compared numeric
      */
     public StringArrayComparator(int[] fieldOrder, int[] numericFields)
     {
