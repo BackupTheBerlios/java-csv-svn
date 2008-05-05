@@ -11,6 +11,7 @@ public class Main
         COMMANDS = new HashMap<String, Command>();
         COMMANDS.put("sort", new Sort());
         COMMANDS.put("cut", new Cut());
+        COMMANDS.put("filter", new Filter());
     }
 
     public static void main(String[] args)
