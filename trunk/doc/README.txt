@@ -2,12 +2,17 @@ Comma Separated Values
 ======================
 
 This library offers support for parsing and generating
-the Comma Separaed Values data format (csv) as defined by
+the Comma Separated Values data format (csv) as defined by
 RFC 4180 (http://tools.ietf.org/html/rfc4180).
+
+The Archive contains a main class to be used as a command line utility:
+
+    java -jar diergo-csv-1.0.jar (cut|sort|filter) [-options] [in [out]]
+
 
 For further information:
 
-  * Changelog (CHANGELOG.txt)
+  * Change Log (CHANGELOG.txt)
   * API Documentation (doc/api/index.html)
   * Project Home Page (http://diergo.burmeister-teltow.de/csv/)
   * BerliOS Project Page (http://developer.berlios.de/projects/java-csv/)
