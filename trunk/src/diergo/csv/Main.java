@@ -3,9 +3,17 @@ package diergo.csv;
 import java.io.*;
 import java.util.*;
 
+/**
+ * The command line utility to be used by {@code java -jar}.
+ * All supported commands are registered in a {@linkplain #COMMANDS static map}.
+ */
 public class Main
 {
-    static Map<String, Command> COMMANDS;
+	/**
+	 * The command registration.
+	 * The key is the command name to be passed as first command line argument.
+	 */
+    public static Map<String, Command> COMMANDS;
 
     static {
         COMMANDS = new HashMap<String, Command>();
@@ -13,18 +21,28 @@ public class Main
         COMMANDS.put("cut", new Cut());
         COMMANDS.put("filter", new Filter());
     }
+    
+    private Main() {}
 
     public static void main(String[] args)
     {
+    	Package pkg = Main.class.getPackage();
+		String version = pkg == null ? "1.0" : pkg.getSpecificationVersion();
         if (args.length == 0) {
-            System.out.println("Usage: " + COMMANDS.keySet() + " [-options] [in|- [out]]");
+            System.out.println("Usage: java -jar diergo-csv-" + version + ".jar <command> [-<option> ...] [in|- [out]]");
+            System.out.println("<command> is one of:");
+            System.out.println("  cut [-fields=<n>[,...]]");
+            System.out.println("  filter [-header=(false|true)] -field=<n> -value=<value>]");
+            System.out.println("  sort [-header=(false|true)] [-order=<n>[n][,...]]");
+            System.out.println("all commands allow the following options:");
+            System.out.println("  -encoding=<charset> (default: system charset)");
+            System.out.println("  -separator=<char> (default: ,)");
             return;
         }
         String command = args[0];
         Map<String, String> options = new HashMap<String, String>();
         options.put("encoding", System.getProperty("file.encoding"));
-        options.put("header", "true");
-        options.put("separator", ";");
+        options.put("separator", ",");
         args = parseOptions(options, Arrays.asList(args).subList(1, args.length));
         boolean readFromStdIn = args.length == 0 || args[0].equals("-");
         boolean writeToStdOut = args.length < 2;

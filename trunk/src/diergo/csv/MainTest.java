@@ -54,8 +54,7 @@ public class MainTest
     public void defaultOptionsArePassed()
     {
         Main.main(new String[] { "test" });
-        assertEquals("true", _options.get("header"));
-        assertEquals(";", _options.get("separator"));
+        assertEquals(",", _options.get("separator"));
         assertEquals(System.getProperty("file.encoding"), _options.get("encoding"));
     }
 
@@ -63,8 +62,8 @@ public class MainTest
     public void zeroArgumentsUsesStdinAndStdout()
         throws IOException
     {
-        String in = "1a;1b\n2a;2b";
-        setStdIn(in);
+        String in = "1a,1b\n2a,2b";
+        setStdIn(in, "UTF-8");
         Main.main(new String[] { "test" });
         assertEquals(in, new String(_systemOut.toByteArray(), "UTF-8"));
     }
@@ -73,7 +72,7 @@ public class MainTest
     public void optionsAreParsedAndRemovedFromArguments()
         throws IOException
     {
-        String in = "1a;1b\n2a;2b";
+        String in = "1a,1b\n2a,2b";
         File testFile = createInputFile(in);
         Main.main(new String[] { "test", "-foo=bar", testFile.getAbsolutePath() });
         assertEquals("bar", _options.get("foo"));
@@ -84,7 +83,7 @@ public class MainTest
     public void oneArgumentUsesStdout()
         throws IOException
     {
-        String in = "1a;1b\n2a;2b";
+        String in = "1a,1b\n2a,2b";
         File testFile = createInputFile(in);
         Main.main(new String[] { "test", testFile.getAbsolutePath() });
         assertEquals(in, new String(_systemOut.toByteArray(), "UTF-8"));
@@ -94,7 +93,7 @@ public class MainTest
     public void twoArgumentsAreInAndOut()
         throws IOException
     {
-        String in = "1a;1b\n2a;2b";
+        String in = "1a,1b\n2a,2b";
         File testFile1 = createInputFile(in);
         File testFile2 = File.createTempFile(getClass().getName(), ".csv");
         testFile2.deleteOnExit();
@@ -104,6 +103,21 @@ public class MainTest
         buffer.limit(new FileReader(testFile2).read(buffer));
         buffer.rewind();
         assertEquals(in, buffer.toString());
+    }
+    
+    @Test
+    public void encodingIsUsed()
+    	throws IOException
+    {
+        String in = "ä,ö,ü,ß";
+        setStdIn(in, "UTF-8");
+        Main.main(new String[] { "test", "-encoding=UTF-8" });
+        assertEquals(in, new String(_systemOut.toByteArray(), "UTF-8"));
+        mockSystemIn();
+        mockSystemOut();
+        setStdIn(in, "ISO-8859-1");
+        Main.main(new String[] { "test", "-encoding=ISO-8859-1" });
+        assertEquals(in, new String(_systemOut.toByteArray(), "ISO-8859-1"));
     }
 
     private File createInputFile(String content)
@@ -117,10 +131,10 @@ public class MainTest
         return testFile;
     }
 
-    private void setStdIn(String in)
+    private void setStdIn(String in, String encoding)
         throws UnsupportedEncodingException
     {
-        byte[] bytes = in.getBytes("UTF-8");
+		byte[] bytes = in.getBytes(encoding);
         _systemIn.put(bytes);
         _systemIn.rewind();
         _systemIn.limit(bytes.length);
