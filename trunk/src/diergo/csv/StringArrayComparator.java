@@ -2,6 +2,11 @@ package diergo.csv;
 
 import diergo.array.ArrayComparator;
 
+
+/**
+ * A special string array comparator to compare a single field in a numeric or
+ * case insensitive manner.
+ */
 public class StringArrayComparator
         extends ArrayComparator<String>
 {
