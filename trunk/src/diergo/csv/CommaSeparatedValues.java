@@ -11,13 +11,34 @@ import java.io.*;
  */
 public class CommaSeparatedValues
 {
-    public static char QUOTE = '"';
 
+    public static Iterable<String[]> parse(Reader csvData)
+    {
+        return parse(csvData, SeparatorDeterminer.DEFAULT_SEPARATORS);
+    }
+
+    public static Iterable<String[]> parse(Reader csvData, String possibleSeparators)
+    {
+        return new CommaSeparatedValuesReader(csvData, new SeparatorDeterminer(possibleSeparators), true);
+    }
+
+    @Deprecated
     public static Iterable<String[]> parse(Reader csvData, boolean excelMode)
     {
         return new CommaSeparatedValuesReader(csvData, excelMode ? ';' : ',', excelMode);
     }
 
+    public static Iterable<String[]> parse(String csvData)
+    {
+        return parse(new StringReader(csvData));
+    }
+
+    public static Iterable<String[]> parse(String csvData, String possibleSeparators)
+    {
+        return parse(new StringReader(csvData), possibleSeparators);
+    }
+
+    @Deprecated
     public static Iterable<String[]> parse(String csvData, boolean excelMode)
     {
         return parse(new StringReader(csvData), excelMode);

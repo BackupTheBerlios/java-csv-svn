@@ -7,7 +7,7 @@ RFC 4180 (http://tools.ietf.org/html/rfc4180).
 
 The Archive contains a main class to be used as a command line utility:
 
-    java -jar diergo-csv-1.0.jar (cut|sort|filter) [-<option> ...] [<in> [<out>]]
+    java -jar diergo-csv-1.1.jar (cut|sort|filter) [-<option> ...] [<in> [<out>]]
 
 
 For further information:
