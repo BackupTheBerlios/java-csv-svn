@@ -1,6 +1,5 @@
 package diergo.csv;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,8 +28,8 @@ public class SeparatorDeterminer
         Map<Character, Integer> votes = new HashMap<Character, Integer>();
         for (char c : _possibleSeparators.toCharArray()) {
             try {
-                votes.put(c, CommaSeparatedValuesParser.parseLine(line, c, false).length);
-            } catch (IOException e) {
+                votes.put(c, new CommaSeparatedValuesParser(c, false).parseLine(line).length);
+            } catch (IllegalArgumentException e) {
                 votes.put(c, 0);
             }
         }

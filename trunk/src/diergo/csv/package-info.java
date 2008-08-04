@@ -5,7 +5,7 @@
  * 
  * <pre>
  * Reader in = new InputStreamReader(new FileInputStream("file.csv"), "UTF-8"));
- * for (String[] line : CommaSeparatedValues.parse(in, true)) {
+ * for (String[] line : CommaSeparatedValues.parse(in)) {
  *   ...
  * }</pre>
  * 

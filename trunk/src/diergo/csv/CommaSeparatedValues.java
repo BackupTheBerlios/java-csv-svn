@@ -11,33 +11,48 @@ import java.io.*;
  */
 public class CommaSeparatedValues
 {
-
+    /**
+     * Parses the data using one of the default separators.
+     * @see #parse(java.io.Reader, String)
+     * @see diergo.csv.SeparatorDeterminer#DEFAULT_SEPARATORS
+     */
     public static Iterable<String[]> parse(Reader csvData)
     {
         return parse(csvData, SeparatorDeterminer.DEFAULT_SEPARATORS);
     }
 
+    /**
+     * Parses the data using the determined separator.
+     * @see diergo.csv.SeparatorDeterminer
+     */
     public static Iterable<String[]> parse(Reader csvData, String possibleSeparators)
     {
         return new CommaSeparatedValuesReader(csvData, new SeparatorDeterminer(possibleSeparators), true);
     }
 
+    /**
+     * Parses the data using comma or semicolon (@code{excelMode}) as separator.
+     * @deprecated Use {@link #parse(java.io.Reader)} instead
+     */
     @Deprecated
     public static Iterable<String[]> parse(Reader csvData, boolean excelMode)
     {
         return new CommaSeparatedValuesReader(csvData, excelMode ? ';' : ',', excelMode);
     }
 
+    /**
+     * @deprecated Use {@link #parse(java.io.Reader)} with a {@link java.io.StringReader} instead
+     */
+    @Deprecated
     public static Iterable<String[]> parse(String csvData)
     {
         return parse(new StringReader(csvData));
     }
 
-    public static Iterable<String[]> parse(String csvData, String possibleSeparators)
-    {
-        return parse(new StringReader(csvData), possibleSeparators);
-    }
-
+    /**
+     * @see #parse(java.io.Reader, boolean) 
+     * @deprecated Use {@link #parse(java.io.Reader)} with a {@link java.io.StringReader} instead
+     */
     @Deprecated
     public static Iterable<String[]> parse(String csvData, boolean excelMode)
     {
@@ -58,7 +73,13 @@ public class CommaSeparatedValues
     public static void generate(Iterable<String[]> data, boolean excelMode, Writer out)
         throws IOException
     {
-        CommaSeparatedValuesWriter generator = new CommaSeparatedValuesWriter(out, excelMode ? ';' : ',');
+        generate(data, excelMode ? ';' : ',', out);
+    }
+
+    public static void generate(Iterable<String[]> data, char separator, Writer out)
+        throws IOException
+    {
+        CommaSeparatedValuesWriter generator = new CommaSeparatedValuesWriter(out, separator);
         for (String[] line : data) {
             generator.write(line);
         }

@@ -1,13 +1,19 @@
 package diergo.csv;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.util.Map;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -54,7 +60,7 @@ public class MainTest
     public void defaultOptionsArePassed()
     {
         Main.main(new String[] { "test" });
-        assertEquals(",", _options.get("separator"));
+        assertEquals("\0", _options.get("separator"));
         assertEquals(System.getProperty("file.encoding"), _options.get("encoding"));
     }
 

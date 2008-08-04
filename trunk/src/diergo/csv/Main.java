@@ -42,7 +42,7 @@ public class Main
         String command = args[0];
         Map<String, String> options = new HashMap<String, String>();
         options.put("encoding", System.getProperty("file.encoding"));
-        options.put("separator", ",");
+        options.put("separator", "\0");
         args = parseOptions(options, Arrays.asList(args).subList(1, args.length));
         boolean readFromStdIn = args.length == 0 || args[0].equals("-");
         boolean writeToStdOut = args.length < 2;
@@ -55,7 +55,7 @@ public class Main
             String encoding = options.get("encoding");
             char separator = options.get("separator").charAt(0);
             CommaSeparatedValuesReader in = createInput(readFromStdIn ? null : args[0], encoding, separator);
-            CommaSeparatedValuesWriter out = createOutput(writeToStdOut ? null : args[1], encoding, separator);
+            CommaSeparatedValuesWriter out = createOutput(writeToStdOut ? null : args[1], encoding, in.getParser());
             cmd.process(in, out, options);
             in.close();
             out.close();
@@ -67,16 +67,18 @@ public class Main
     private static CommaSeparatedValuesReader createInput(String filename, String encoding, char separator)
         throws IOException
     {
-        InputStream in = filename == null ? System.in : new FileInputStream(filename);
-        return new CommaSeparatedValuesReader(new BufferedReader(new InputStreamReader(in, encoding)), separator, true);
+        Reader in = new InputStreamReader(filename == null ? System.in : new FileInputStream(filename), encoding);
+        return separator == '\0' ?
+            new CommaSeparatedValuesReader(in, new SeparatorDeterminer(), true) :
+            new CommaSeparatedValuesReader(in, separator, true);
     }
 
-    private static CommaSeparatedValuesWriter createOutput(String filename, String encoding, char separator)
+    private static CommaSeparatedValuesWriter createOutput(String filename, String encoding, CommaSeparatedValuesParser parser)
         throws IOException
     {
         OutputStream out = filename == null ? System.out : new FileOutputStream(filename);
         Writer writer = new BufferedWriter(new OutputStreamWriter(out, encoding));
-        return new CommaSeparatedValuesWriter(writer, separator);
+        return new CommaSeparatedValuesWriter(writer, parser);
     }
 
     private static String[] parseOptions(Map<String, String> options, List<String> args)

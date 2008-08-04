@@ -1,6 +1,7 @@
-1.1 (2008-07-22)
+1.1 (2008-08-04)
   * separator may be determined automatically
   * line parsing moved to utility class
+  * new abstract line based array reader and writer
 
 1.0 (2008-05-14)
 

@@ -1,31 +1,62 @@
 package diergo.csv;
 
-import java.io.IOException;
 import java.nio.CharBuffer;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
+
+import diergo.array.LineParser;
 
 /**
  * The real parsing methods.
  * @since 1.1
  */
-public class CommaSeparatedValuesParser
+public class CommaSeparatedValuesParser implements LineParser<String>
 {
     public static char QUOTE = '"';
 
     private static final Pattern QUOTE_PATTERN = Pattern.compile(String.valueOf(QUOTE));
     private static final String QUOTE_REPLACEMENT = new String(new char[] {QUOTE, QUOTE});
 
-    public static String[] parseLine(String line, char separator, boolean trimFields)
-        throws IOException
+    private char _separator;
+    private SeparatorDeterminer _determiner;
+    private final boolean _trimFields;
+
+    public CommaSeparatedValuesParser(char separator, boolean trimFields)
     {
+        _separator = separator;
+        _trimFields = trimFields;
+        _determiner = null;
+    }
+
+    public CommaSeparatedValuesParser(SeparatorDeterminer determiner, boolean trimFields)
+    {
+        _separator = '\0';
+        _trimFields = trimFields;
+        _determiner = determiner;
+    }
+
+    public char getSeparator()
+    {
+        if (_determiner != null)
+        {
+            throw new IllegalStateException("Separator not determined yet");
+        }
+        return _separator;
+    }
+
+    public String[] parseLine(String line)
+    {
+        if (_determiner != null) {
+            _separator = _determiner.determineSeparator(line);
+            _determiner = null;
+        }
         CharBuffer elem = CharBuffer.allocate(line.length());
         List<String> data = new ArrayList<String>();
         boolean quoted = false;
         boolean isQuote = false;
         for (char c : line.toCharArray()) {
-            if (!quoted && c == separator) {
+            if (!quoted && c == _separator) {
                 data.add(getValue(elem));
             } else if (c == QUOTE) {
                 if (isQuote) {
@@ -36,20 +67,20 @@ public class CommaSeparatedValuesParser
                 } else if (elem.position() == 0) {
                     quoted = true;
                 } else {
-                    throw new IOException("CSV need quoting when containing quote: " + line);
+                    throw new IllegalArgumentException("CSV need quoting when containing quote: " + line);
                 }
-            } else if (!trimFields || !Character.isSpaceChar(c) || elem.position() > 0) {
+            } else if (!_trimFields || !Character.isSpaceChar(c) || elem.position() > 0) {
                 elem.append(c);
             }
         }
         if (quoted && !isQuote) {
-            throw new IOException("Missing end of quoting: " + line);
+            throw new IllegalArgumentException("Missing end of quoting: " + line);
         }
         data.add(getValue(elem));
         return data.toArray(new String[data.size()]);
     }
 
-    private static String getValue(CharBuffer value)
+    private String getValue(CharBuffer value)
     {
         int length = value.position();
         value.rewind();
@@ -61,10 +92,10 @@ public class CommaSeparatedValuesParser
         }
     }
 
-    public static String quote(String elem, char separator)
+    String quote(String elem)
     {
         boolean containsQuote = elem.indexOf(QUOTE) != -1;
-        boolean quote = elem.indexOf(separator) != -1 || containsQuote;
+        boolean quote = elem.indexOf(_separator) != -1 || containsQuote;
         if (quote) {
             if (containsQuote) {
                 elem = QUOTE_PATTERN.matcher(elem).replaceAll(QUOTE_REPLACEMENT);
@@ -74,14 +105,14 @@ public class CommaSeparatedValuesParser
         return elem;
     }
 
-    public static String write(String[] line, char separator)
+    public String generateLine(String[] line)
     {
         StringBuffer out = new StringBuffer();
         for (String elem : line) {
             if (out.length() > 0) {
-                out.append(separator);
+                out.append(_separator);
             }
-            out.append(quote(elem, separator));
+            out.append(quote(elem));
         }
         return out.toString();
     }
