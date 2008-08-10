@@ -3,6 +3,7 @@ package diergo.csv;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
+import java.io.StringReader;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
@@ -27,13 +28,13 @@ public class CommaSeparatedValuesTest
     @Test
     public void emptyDataResultsInIteratorWithoutNext()
     {
-        assertFalse(CommaSeparatedValues.parse("", true).iterator().hasNext());
+        assertFalse(CommaSeparatedValues.parse(new StringReader("")).iterator().hasNext());
     }
 
     @Test
     public void linesAreReturnedByIterator()
     {
-        Iterator<String[]> i = CommaSeparatedValues.parse("1\n2\n3", true).iterator();
+        Iterator<String[]> i = CommaSeparatedValues.parse(new StringReader("1\n2\n3")).iterator();
         int idx = 0;
         while (i.hasNext()) {
             assertEquals(String.valueOf(++idx), i.next()[0]);
