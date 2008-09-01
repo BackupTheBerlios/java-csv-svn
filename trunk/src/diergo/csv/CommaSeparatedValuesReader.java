@@ -26,7 +26,7 @@ public class CommaSeparatedValuesReader
      */
     public CommaSeparatedValuesReader(Reader in, char separator, boolean trimFields)
     {
-        super(in, new CommaSeparatedValuesParser(separator, trimFields));
+        super(in, new CommaSeparatedValuesParser(new FixedSeparatorDeterminer(separator), trimFields));
     }
 
 

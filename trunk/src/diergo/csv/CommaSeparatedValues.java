@@ -14,20 +14,20 @@ public class CommaSeparatedValues
     /**
      * Parses the data using one of the default separators.
      * @see #parse(java.io.Reader, String)
-     * @see diergo.csv.SeparatorDeterminer#DEFAULT_SEPARATORS
+     * @see AutoSeparatorDeterminer#DEFAULT_SEPARATORS
      */
     public static Iterable<String[]> parse(Reader csvData)
     {
-        return parse(csvData, SeparatorDeterminer.DEFAULT_SEPARATORS);
+        return parse(csvData, AutoSeparatorDeterminer.DEFAULT_SEPARATORS);
     }
 
     /**
      * Parses the data using the determined separator.
-     * @see diergo.csv.SeparatorDeterminer
+     * @see AutoSeparatorDeterminer
      */
     public static Iterable<String[]> parse(Reader csvData, String possibleSeparators)
     {
-        return new CommaSeparatedValuesReader(csvData, new SeparatorDeterminer(possibleSeparators), true);
+        return new CommaSeparatedValuesReader(csvData, new AutoSeparatorDeterminer(possibleSeparators), true);
     }
 
     /**

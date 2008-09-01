@@ -22,7 +22,7 @@ public class CommaSeparatedValuesWriter
      */
     public CommaSeparatedValuesWriter(Writer out, char separator)
     {
-        this(out, new CommaSeparatedValuesParser(separator, true));
+        this(out, new CommaSeparatedValuesParser(new FixedSeparatorDeterminer(separator), true));
     }
 
     public CommaSeparatedValuesWriter(Writer out, CommaSeparatedValuesParser parser)

@@ -4,5 +4,5 @@ public interface LineParser<E>
 {
     public E[] parseLine(String line);
 
-    public String generateLine(E[] values);
+    public String generateLine(E... values);
 }

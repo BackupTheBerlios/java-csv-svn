@@ -18,45 +18,24 @@ public class CommaSeparatedValuesParser implements LineParser<String>
     private static final Pattern QUOTE_PATTERN = Pattern.compile(String.valueOf(QUOTE));
     private static final String QUOTE_REPLACEMENT = new String(new char[] {QUOTE, QUOTE});
 
-    private char _separator;
-    private SeparatorDeterminer _determiner;
+    private final SeparatorDeterminer _determiner;
     private final boolean _trimFields;
-
-    public CommaSeparatedValuesParser(char separator, boolean trimFields)
-    {
-        _separator = separator;
-        _trimFields = trimFields;
-        _determiner = null;
-    }
 
     public CommaSeparatedValuesParser(SeparatorDeterminer determiner, boolean trimFields)
     {
-        _separator = '\0';
         _trimFields = trimFields;
         _determiner = determiner;
     }
 
-    public char getSeparator()
-    {
-        if (_determiner != null)
-        {
-            throw new IllegalStateException("Separator not determined yet");
-        }
-        return _separator;
-    }
-
     public String[] parseLine(String line)
     {
-        if (_determiner != null) {
-            _separator = _determiner.determineSeparator(line);
-            _determiner = null;
-        }
+        char separator = _determiner.determineSeparator(line);
         CharBuffer elem = CharBuffer.allocate(line.length());
         List<String> data = new ArrayList<String>();
         boolean quoted = false;
         boolean isQuote = false;
         for (char c : line.toCharArray()) {
-            if (!quoted && c == _separator) {
+            if (!quoted && c == separator) {
                 data.add(getValue(elem));
             } else if (c == QUOTE) {
                 if (isQuote) {
@@ -92,10 +71,10 @@ public class CommaSeparatedValuesParser implements LineParser<String>
         }
     }
 
-    String quote(String elem)
+    private String quote(String elem, char separator)
     {
         boolean containsQuote = elem.indexOf(QUOTE) != -1;
-        boolean quote = elem.indexOf(_separator) != -1 || containsQuote;
+        boolean quote = elem.indexOf(separator) != -1 || containsQuote;
         if (quote) {
             if (containsQuote) {
                 elem = QUOTE_PATTERN.matcher(elem).replaceAll(QUOTE_REPLACEMENT);
@@ -105,14 +84,15 @@ public class CommaSeparatedValuesParser implements LineParser<String>
         return elem;
     }
 
-    public String generateLine(String[] line)
+    public String generateLine(String... line)
     {
         StringBuffer out = new StringBuffer();
+        char separator = _determiner.determineSeparator(null);
         for (String elem : line) {
             if (out.length() > 0) {
-                out.append(_separator);
+                out.append(separator);
             }
-            out.append(quote(elem));
+            out.append(quote(elem, separator));
         }
         return out.toString();
     }
