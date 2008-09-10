@@ -28,4 +28,10 @@ public class AutoSeparatorDeterminerTest
     {
         assertEquals(',', new AutoSeparatorDeterminer(",;").determineSeparator("Hallo;Du,Wie"));
     }
+    
+    @Test(expected = IllegalStateException.class)
+    public void noLineResultsInException()
+    {
+    	new AutoSeparatorDeterminer(",;").determineSeparator("");
+    }
 }

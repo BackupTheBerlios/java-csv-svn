@@ -15,7 +15,7 @@ public class CommaSeparatedValuesReaderTest
         throws IOException
     {
         String[] data = new CommaSeparatedValuesReader(new StringReader("\n"), ';', true).read();
-        assertArrayEquals(new String[] { "" }, data);
+        assertArrayEquals(new String[0], data);
     }
 
     @Test

@@ -1,6 +1,6 @@
-1.1 (2008-08-10)
+1.1 (2008-09-10)
   * separator may be determined automatically
-  * some methods of CommaSeparatedValues became deprecated
+  * some methods of CommaSeparatedValues became depreciated
   * line parsing moved to utility class
   * new abstract line based array reader and writer
 
