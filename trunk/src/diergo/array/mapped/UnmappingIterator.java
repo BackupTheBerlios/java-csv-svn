@@ -12,14 +12,14 @@ import diergo.array.ArrayWriter;
  * This class is useful to pass output from a {@link ValueTransformer} to a
  * {@link ArrayWriter}.
  */
-public class UnmappingIterator
+public class UnmappingIterator<E>
         implements Iterator<String[]>
 {
-    private final Iterator<Map<String, String>> _iterator;
+    private final Iterator<Map<String, E>> _iterator;
     private final String[] _fields;
     private boolean _header;
 
-    public UnmappingIterator(String[] fields, Iterator<Map<String, String>> iterator)
+    public UnmappingIterator(String[] fields, Iterator<Map<String, E>> iterator)
     {
         _iterator = iterator;
         _fields = fields;
@@ -37,11 +37,12 @@ public class UnmappingIterator
             _header = false;
             return _fields;
         } else {
-            Map<String, String> values = _iterator.next();
+            Map<String, E> values = _iterator.next();
             String[] result = new String[_fields.length];
             int i = 0;
             for (String key : _fields) {
-                result[i++] = values.get(key);
+                E value = values.get(key);
+				result[i++] = value == null ? null : String.valueOf(value);
             }
             return result;
         }

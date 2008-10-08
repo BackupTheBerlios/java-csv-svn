@@ -12,7 +12,7 @@ public class ReflectionValueTransformerTest
     @Test
     public void propertiesAreRead()
     {
-        Map<String, String> data = new ReflectionValueTransformer<PropertyObject>(PropertyObject.class)
+        Map<String, String> data = new ReflectionValueTransformer<PropertyObject>(PropertyObject.class, "_")
                 .transform(new PropertyObject("Hallo", 5, true, new Long(7L)));
         assertEquals("Hallo", data.get("string"));
         assertEquals("5", data.get("int"));
@@ -28,7 +28,7 @@ public class ReflectionValueTransformerTest
         data.put("int", "5");
         data.put("boolean", "true");
         data.put("long", "7");
-        PropertyObject object = new ReflectionValueTransformer<PropertyObject>(PropertyObject.class).transform(data);
+        PropertyObject object = new ReflectionValueTransformer<PropertyObject>(PropertyObject.class, "_").transform(data);
         assertEquals("Hallo", object._string);
         assertEquals(5, object._int);
         assertEquals(true, object._boolean);
