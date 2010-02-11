@@ -5,77 +5,44 @@ import java.io.*;
 /**
  * Convenience access to {@link CommaSeparatedValuesReader} and
  * {@link CommaSeparatedValuesWriter} to be used in {@code for()} constructs.
- * The flag {@code excelMode} switches the separator ({@code ;} on
- * {@code excelMode} otherwise {@code ,}) and the white space trimming of field
- * values (used on {@code excelMode}).
  */
 public class CommaSeparatedValues
 {
     /**
      * Parses the data using one of the default separators.
-     * @see #parse(java.io.Reader, String)
      * @see AutoSeparatorDeterminer#DEFAULT_SEPARATORS
      */
     public static Iterable<String[]> parse(Reader csvData)
     {
-        return parse(csvData, AutoSeparatorDeterminer.DEFAULT_SEPARATORS);
+        return new CommaSeparatedValuesReader(csvData, new AutoSeparatorDeterminer(AutoSeparatorDeterminer.DEFAULT_SEPARATORS), true);
     }
 
     /**
-     * Parses the data using the determined separator.
-     * @see AutoSeparatorDeterminer
+     * Parses the data using the passed separator.
      */
-    public static Iterable<String[]> parse(Reader csvData, String possibleSeparators)
+    public static Iterable<String[]> parse(Reader csvData, char separator)
     {
-        return new CommaSeparatedValuesReader(csvData, new AutoSeparatorDeterminer(possibleSeparators), true);
+        return new CommaSeparatedValuesReader(csvData, new FixedSeparatorDeterminer(separator), true);
     }
 
     /**
-     * Parses the data using comma or semicolon (@code{excelMode}) as separator.
-     * @deprecated Use {@link #parse(java.io.Reader)} instead
+     * Generates data using the passed separator.
+     * @see #generate(Iterable, char, Writer)
      */
-    @Deprecated
-    public static Iterable<String[]> parse(Reader csvData, boolean excelMode)
-    {
-        return new CommaSeparatedValuesReader(csvData, excelMode ? ';' : ',', excelMode);
-    }
-
-    /**
-     * @deprecated Use {@link #parse(java.io.Reader)} with a {@link java.io.StringReader} instead
-     */
-    @Deprecated
-    public static Iterable<String[]> parse(String csvData)
-    {
-        return parse(new StringReader(csvData));
-    }
-
-    /**
-     * @see #parse(java.io.Reader, boolean) 
-     * @deprecated Use {@link #parse(java.io.Reader)} with a {@link java.io.StringReader} instead
-     */
-    @Deprecated
-    public static Iterable<String[]> parse(String csvData, boolean excelMode)
-    {
-        return parse(new StringReader(csvData), excelMode);
-    }
-
-    public static String generate(Iterable<String[]> data, boolean excelMode)
+    public static String generate(Iterable<String[]> data, char separator)
     {
         StringWriter out = new StringWriter();
         try {
-            generate(data, excelMode, out);
+            generate(data, separator, out);
         } catch (IOException e) {
-
+            throw new AssertionError(e.getMessage());
         }
         return out.toString();
     }
 
-    public static void generate(Iterable<String[]> data, boolean excelMode, Writer out)
-        throws IOException
-    {
-        generate(data, excelMode ? ';' : ',', out);
-    }
-
+    /**
+     * Generates data to the writer using the passed separator.
+     */
     public static void generate(Iterable<String[]> data, char separator, Writer out)
         throws IOException
     {

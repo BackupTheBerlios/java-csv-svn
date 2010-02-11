@@ -2,27 +2,26 @@ package diergo.csv;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import org.junit.Test;
 
 import java.io.StringReader;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 
-import org.junit.Test;
-
 public class CommaSeparatedValuesTest
 {
     @Test
     public void emptyIterableResultsInEmptyString()
     {
-        assertEquals("", CommaSeparatedValues.generate(Collections.<String[]>emptyList(), true));
+        assertEquals("", CommaSeparatedValues.generate(Collections.<String[]>emptyList(), ','));
     }
 
     @Test
     public void eachIterableResultsInOneLine()
     {
         assertEquals(2, CommaSeparatedValues.generate(Arrays.asList(new String[][] { { "1a", "1b" }, { "2a", "2b" } }),
-                true).split("\n").length);
+                ',').split("\n").length);
     }
 
     @Test
