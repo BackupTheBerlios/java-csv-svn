@@ -7,36 +7,35 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ReflectionProxyTransformerTest {
+public class ReflectionProxyTransformerTest
+{
 
   @Test
   public void methodsAreRead()
   {
-      Map<String, String> data = new ReflectionProxyTransformer<TestInterface>(TestInterface.class)
-              .transform(new TestData("Hallo", 5, true, 7L));
-      assertEquals("Hallo", data.get("string"));
-      assertEquals("5", data.get("int"));
-      assertEquals("true", data.get("boolean"));
-      assertEquals("7", data.get("long"));
+    Map<String, String> data = new ReflectionProxyTransformer<TestInterface>(TestInterface.class)
+        .transform(new TestData("Hallo", 5, true, 7L));
+    assertEquals("Hallo", data.get("string"));
+    assertEquals("5", data.get("int"));
+    assertEquals("true", data.get("boolean"));
+    assertEquals("7", data.get("long"));
   }
 
   @Test
   public void proxyReturnsData()
   {
-    TestInterface object = new ReflectionProxyTransformer<TestInterface>(TestInterface.class)
-              .transform(createData());
+    TestInterface object = new ReflectionProxyTransformer<TestInterface>(TestInterface.class).transform(createData());
     assertEquals("Hallo", object.getString());
     assertEquals(5, object.getInt());
     assertEquals(true, object.isBoolean());
     assertEquals(new Long(7), object.getLong());
   }
 
-  //@Test
+  // @Test
   public void proxyHasSameString()
   {
     HashMap<String, String> data = createData();
-    TestInterface object = new ReflectionProxyTransformer<TestInterface>(TestInterface.class)
-              .transform(data);
+    TestInterface object = new ReflectionProxyTransformer<TestInterface>(TestInterface.class).transform(data);
     assertEquals(data.toString(), object.toString());
   }
 
@@ -44,8 +43,7 @@ public class ReflectionProxyTransformerTest {
   public void proxyHasSameHashCode()
   {
     HashMap<String, String> data = createData();
-    TestInterface object = new ReflectionProxyTransformer<TestInterface>(TestInterface.class)
-              .transform(data);
+    TestInterface object = new ReflectionProxyTransformer<TestInterface>(TestInterface.class).transform(data);
     assertEquals(data.hashCode(), object.hashCode());
   }
 
@@ -53,12 +51,12 @@ public class ReflectionProxyTransformerTest {
   public void proxyEqualsData()
   {
     HashMap<String, String> data = createData();
-    TestInterface object = new ReflectionProxyTransformer<TestInterface>(TestInterface.class)
-              .transform(data);
+    TestInterface object = new ReflectionProxyTransformer<TestInterface>(TestInterface.class).transform(data);
     assertTrue(object.equals(data));
   }
 
-  private HashMap<String, String> createData() {
+  private HashMap<String, String> createData()
+  {
     HashMap<String, String> data = new HashMap<String, String>();
     data.put("string", "Hallo");
     data.put("int", "5");

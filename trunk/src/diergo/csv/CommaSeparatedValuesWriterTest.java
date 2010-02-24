@@ -9,30 +9,30 @@ import org.junit.Test;
 
 public class CommaSeparatedValuesWriterTest
 {
-    @Test
-    public void eachElementIsSeparated()
-        throws IOException
-    {
-        StringWriter out = new StringWriter();
-        new CommaSeparatedValuesWriter(out, ';').write(new String[] { "a", "b", "c" });
-        assertEquals("a;b;c", out.toString());
-    }
+  @Test
+  public void eachElementIsSeparated()
+      throws IOException
+  {
+    StringWriter out = new StringWriter();
+    new CommaSeparatedValuesWriter(out, ';').write(new String[] { "a", "b", "c" });
+    assertEquals("a;b;c", out.toString());
+  }
 
-    @Test
-    public void elementWithSeparatorIsQuoted()
-        throws IOException
-    {
-        StringWriter out = new StringWriter();
-        new CommaSeparatedValuesWriter(out, ';').write(new String[] { "a", "b;b", "c" });
-        assertEquals("a;\"b;b\";c", out.toString());
-    }
+  @Test
+  public void elementWithSeparatorIsQuoted()
+      throws IOException
+  {
+    StringWriter out = new StringWriter();
+    new CommaSeparatedValuesWriter(out, ';').write(new String[] { "a", "b;b", "c" });
+    assertEquals("a;\"b;b\";c", out.toString());
+  }
 
-    @Test
-    public void elementWithQuoteIsQuoted()
-        throws IOException
-    {
-        StringWriter out = new StringWriter();
-        new CommaSeparatedValuesWriter(out, ';').write(new String[] { "a", "b\"b", "c" });
-        assertEquals("a;\"b\"\"b\";c", out.toString());
-    }
+  @Test
+  public void elementWithQuoteIsQuoted()
+      throws IOException
+  {
+    StringWriter out = new StringWriter();
+    new CommaSeparatedValuesWriter(out, ';').write(new String[] { "a", "b\"b", "c" });
+    assertEquals("a;\"b\"\"b\";c", out.toString());
+  }
 }

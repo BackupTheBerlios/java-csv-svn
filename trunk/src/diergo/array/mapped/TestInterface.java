@@ -2,12 +2,12 @@ package diergo.array.mapped;
 
 interface TestInterface
 {
-    public boolean isBoolean();
+  public boolean isBoolean();
 
-    public int getInt();
+  public int getInt();
 
-    public String getString();
+  public String getString();
 
-    public Long getLong();
+  public Long getLong();
 
 }

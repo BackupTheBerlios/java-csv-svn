@@ -10,10 +10,10 @@ import diergo.array.ArrayWriter;
  */
 public interface Command
 {
-    /**
-     * Process the command reading from {@code in} and writing to {@code out}.
-     * Recognized options are defined by the implementing class.
-     */
-    public void process(CommaSeparatedValuesReader in, ArrayWriter<String> out, Map<String, String> options)
-        throws IOException;
+  /**
+   * Process the command reading from {@code in} and writing to {@code out}.
+   * Recognized options are defined by the implementing class.
+   */
+  public void process(Iterable<String[]> in, ArrayWriter<String> out, Map<String, String> options)
+      throws IOException;
 }

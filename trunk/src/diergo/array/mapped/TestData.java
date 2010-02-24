@@ -1,6 +1,7 @@
 package diergo.array.mapped;
 
-class TestData implements TestInterface
+class TestData
+    implements TestInterface
 {
   private String _string;
   private int _int;
@@ -9,54 +10,54 @@ class TestData implements TestInterface
 
   public TestData()
   {
-      this(null, 0, false, null);
+    this(null, 0, false, null);
   }
 
   public TestData(String s, int i, boolean b, Long l)
   {
-      _string = s;
-      _int = i;
-      _boolean = b;
-      _long = l;
+    _string = s;
+    _int = i;
+    _boolean = b;
+    _long = l;
   }
 
   public boolean isBoolean()
   {
-      return _boolean;
+    return _boolean;
   }
 
   public void setBoolean(boolean b)
   {
-      _boolean = b;
+    _boolean = b;
   }
 
   public int getInt()
   {
-      return _int;
+    return _int;
   }
 
   public void setInt(int i)
   {
-      _int = i;
+    _int = i;
   }
 
   public String getString()
   {
-      return _string;
+    return _string;
   }
 
   public void setString(String string)
   {
-      _string = string;
+    _string = string;
   }
 
   public Long getLong()
   {
-      return _long;
+    return _long;
   }
 
   public void setLong(Long l)
   {
-      _long = l;
+    _long = l;
   }
 }

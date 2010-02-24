@@ -7,16 +7,16 @@ import java.io.IOException;
  */
 public interface ArrayWriter<E>
 {
-    /**
-     * Writes the next array.
-     */
-    public void write(E[] values)
-        throws IOException;
+  /**
+   * Writes the next array.
+   */
+  public void write(E[] values)
+      throws IOException;
 
-    /**
-     * Closes the writer. Subsequent calls to {@link #write(Object[])} will
-     * result in an exception.
-     */
-    public void close()
-        throws IOException;
+  /**
+   * Closes the writer. Subsequent calls to {@link #write(Object[])} will result
+   * in an exception.
+   */
+  public void close()
+      throws IOException;
 }
