@@ -30,7 +30,7 @@ public class ArrayReaderIterator<E>
       try {
         _nextLine = _reader.read();
       } catch (IOException e) {
-        return false;
+        throw new IllegalArgumentException("Cannot read next line", e);
       }
     }
     return _nextLine != null;

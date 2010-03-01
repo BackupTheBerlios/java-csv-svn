@@ -17,7 +17,7 @@ public class ArrayLineWriter<E>
     _linesWritten = false;
   }
 
-  public void write(E[] values)
+  public void write(E... values)
       throws IOException
   {
     if (_linesWritten) {
@@ -26,7 +26,7 @@ public class ArrayLineWriter<E>
     try {
       _out.write(_generator.generateLine(values));
     } catch (IllegalArgumentException e) {
-      throw new IOException("Cannot write line: " + e.getMessage());
+      throw new IOException("Cannot write line", e);
     } finally {
       _linesWritten = true;
     }

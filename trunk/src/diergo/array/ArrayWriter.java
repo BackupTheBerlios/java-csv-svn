@@ -10,7 +10,7 @@ public interface ArrayWriter<E>
   /**
    * Writes the next array.
    */
-  public void write(E[] values)
+  public void write(E... values)
       throws IOException;
 
   /**

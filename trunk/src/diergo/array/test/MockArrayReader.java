@@ -1,10 +1,9 @@
 package diergo.array.test;
 
-import java.io.IOException;
+import diergo.array.ArrayReader;
+
 import java.util.Collections;
 import java.util.List;
-
-import diergo.array.ArrayReader;
 
 /**
  * A simple array reader reading all arrays from a list.
@@ -26,12 +25,11 @@ public class MockArrayReader<E>
   }
 
   public E[] read()
-      throws IOException
   {
     if (_i < _in.size()) {
       return _in.get(_i++);
     }
-    throw new IOException("No more data, reader closed or EOF");
+    return null;
   }
 
   public void close()

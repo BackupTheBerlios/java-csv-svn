@@ -1,6 +1,7 @@
 <project name="Comma Separated Values" default="all" basedir=".">
 
     <property name="sourcesDir" location="${basedir}/src"/>
+  <property name="docDir" location="${basedir}/doc"/>
     <!--property name="libDir" location="${basedir}/lib"/-->
     <property name="toolslibDir" location="${basedir}/tools/lib"/>
     <property name="webappsDir" location="${basedir}/webapps"/>
@@ -45,6 +46,9 @@
         <javac srcdir="${sourcesDir}" destdir="${classesDir}" classpathref="classpath"
             encoding="UTF-8" source="1.5" target="1.5" debug="on"
         />
+      <javac srcdir="${docDir}" destdir="${classesDir}" classpathref="classpath"
+          encoding="UTF-8" source="1.5" target="1.5" debug="on"
+      />
     	<property name="archive" value="diergo-${projectId}-${version}.jar"/>
         <mkdir dir="${buildDir}/lib"/>
     	<manifest file="${buildDir}/manifest.mf">
@@ -61,6 +65,7 @@
         <jar destfile="${buildDir}/lib/${archive}" manifest="${buildDir}/manifest.mf" index="true">
             <fileset dir="${classesDir}">
                 <exclude name="**/*Test*.class"/>
+              <exclude name="example/**"/>
             </fileset>
         </jar>
     </target>
@@ -68,7 +73,7 @@
 	<target name="doc" depends="compile">
         <mkdir dir="${buildDir}/doc"/>
 		<copy todir="${buildDir}/doc">
-			<fileset dir="${basedir}/doc"/>
+			<fileset dir="${docDir}"/>
 		</copy>
 		<move file="${buildDir}/doc/README.txt" tofile="${buildDir}/doc/README-diergo-${projectId}.txt"/>
         <mkdir dir="${buildDir}/doc/api"/>
@@ -84,6 +89,9 @@
 				<exclude name="**/test/*"/>
 				<exclude name="**/*Test.java"/>
 			</fileset>
+      <fileset dir="${docDir}">
+        <include name="**/*.java"/>
+      </fileset>
 			<group title="${ant.project.name}">
 				<package name="diergo.csv"/>
 			</group>
@@ -91,6 +99,9 @@
 				<package name="diergo.array"/>
 				<package name="diergo.array.mapped"/>
 			</group>
+      <group title="Examples">
+        <package name="example"/>
+      </group>
 		</javadoc>
 	</target>
 

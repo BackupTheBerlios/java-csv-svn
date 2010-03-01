@@ -33,21 +33,24 @@ public abstract class ReflectionValueTransformer<T>
 
   protected Object transformValue(String value, Class<?> type)
   {
+    boolean empty = value.length() == 0;
     if (type == Boolean.TYPE) {
-      return Boolean.valueOf(value);
+      return empty ? false : Boolean.valueOf(value);
     } else if (type == Character.TYPE) {
-      return value.charAt(0);
+      return empty ? '\0' : value.charAt(0);
     } else if (type == Integer.TYPE) {
-      return new Integer(value);
+      return empty ? 0 : new Integer(value);
     } else if (type == Long.TYPE) {
-      return new Long(value);
+      return empty ? 0L : new Long(value);
+    } else if (type == Short.TYPE) {
+      return empty ? (short)0 : new Short(value);
     } else if (type == Byte.TYPE) {
-      return new Byte(value);
+      return empty ? (byte)0 : new Byte(value);
     } else if (type == Float.TYPE) {
-      return new Float(value);
+      return empty ? 0.0f : new Float(value);
     } else if (type == Double.TYPE) {
-      return new Double(value);
-    } else if (type.isAssignableFrom(String.class)) {
+      return empty ? 0.0 : new Double(value);
+    } else if (type == String.class) {
       return value;
     } else {
       try {

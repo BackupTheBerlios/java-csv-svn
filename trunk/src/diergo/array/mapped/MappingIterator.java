@@ -16,9 +16,15 @@ import java.util.Map;
 public class MappingIterator<E>
     implements Iterator<Map<String, E>>
 {
-  public static MappingIterator<String> createWithHeaders(Iterator<String[]> iterator)
+  public static Iterable<Map<String, String>> createWithHeaders(Iterable<String[]> source)
   {
-    return new MappingIterator<String>(iterator.next(), iterator);
+    final Iterator<String[]> iterator = source.iterator();
+    return new Iterable<Map<String, String>>() {
+
+      public Iterator<Map<String, String>> iterator() {
+        return new MappingIterator<String>(iterator.next(), iterator);
+      }
+    };
   }
 
   private final String[] _header;

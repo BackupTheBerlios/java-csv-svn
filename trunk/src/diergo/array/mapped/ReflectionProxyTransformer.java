@@ -48,7 +48,7 @@ public class ReflectionProxyTransformer<T>
       if (isValid(method, false)) {
         String name = getName(method, _readMethodPrefixes);
         String value = _data.get(name);
-        return transformValue(value, method.getReturnType());
+        return value == null ? null : transformValue(value, method.getReturnType());
       }
       return method.invoke(_data, args);
     }
