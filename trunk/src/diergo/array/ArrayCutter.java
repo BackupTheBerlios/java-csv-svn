@@ -93,7 +93,7 @@ public class ArrayCutter<E>
       _cutter = cutter;
     }
 
-    public void write(EE[] values)
+    public void write(EE... values)
         throws IOException
     {
       _out.write(_cutter.cut(values));

@@ -1,7 +1,7 @@
 package diergo.array;
 
-import java.io.Writer;
 import java.io.IOException;
+import java.io.Writer;
 
 public class ArrayLineWriter<E>
     implements ArrayWriter<E>
@@ -26,7 +26,7 @@ public class ArrayLineWriter<E>
     try {
       _out.write(_generator.generateLine(values));
     } catch (IllegalArgumentException e) {
-      throw new IOException("Cannot write line", e);
+      throw new IOException("Cannot write line");
     } finally {
       _linesWritten = true;
     }

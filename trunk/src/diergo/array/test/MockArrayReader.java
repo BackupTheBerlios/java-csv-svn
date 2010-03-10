@@ -1,9 +1,9 @@
 package diergo.array.test;
 
-import diergo.array.ArrayReader;
-
 import java.util.Collections;
 import java.util.List;
+
+import diergo.array.ArrayReader;
 
 /**
  * A simple array reader reading all arrays from a list.

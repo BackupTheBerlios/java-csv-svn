@@ -16,13 +16,16 @@ import java.util.Map;
 public class MappingIterator<E>
     implements Iterator<Map<String, E>>
 {
-  public static Iterable<Map<String, String>> createWithHeaders(Iterable<String[]> source)
+  public static Iterable<Map<String, String>> iterateAsMaps(Iterable<String[]> source)
   {
     final Iterator<String[]> iterator = source.iterator();
-    return new Iterable<Map<String, String>>() {
+    return new Iterable<Map<String, String>>()
+    {
 
-      public Iterator<Map<String, String>> iterator() {
-        return new MappingIterator<String>(iterator.next(), iterator);
+      public Iterator<Map<String, String>> iterator()
+      {
+        String[] header = iterator.hasNext() ? iterator.next() : new String[0];
+        return new MappingIterator<String>(header, iterator);
       }
     };
   }

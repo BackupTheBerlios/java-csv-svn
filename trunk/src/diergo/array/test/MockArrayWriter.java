@@ -21,7 +21,7 @@ public class MockArrayWriter<E>
     _closed = false;
   }
 
-  public void write(E[] data)
+  public void write(E... data)
       throws IOException
   {
     if (_closed) {

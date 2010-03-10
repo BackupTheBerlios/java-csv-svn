@@ -9,7 +9,8 @@ import diergo.array.ArrayLineReader;
  * fields are configured on construction.
  */
 public class CommaSeparatedValuesReader
-    extends ArrayLineReader<String> implements DelegatingSeparatorDeterminer.SeparatorProvider
+    extends ArrayLineReader<String>
+    implements DelegatingSeparatorDeterminer.SeparatorProvider
 {
   /**
    * Creates a reader for CSV data using the underlying reader.
@@ -40,8 +41,9 @@ public class CommaSeparatedValuesReader
   {
     super(in, new CommaSeparatedValuesParser(separatorDeterminer, trimFields));
   }
-  
-  public char getSeparator() {
-    return ((DelegatingSeparatorDeterminer.SeparatorProvider)_parser).getSeparator();
+
+  public char getSeparator()
+  {
+    return ((DelegatingSeparatorDeterminer.SeparatorProvider) _parser).getSeparator();
   }
 }

@@ -2,12 +2,13 @@ package diergo.csv;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import org.junit.Test;
 
 import java.io.StringReader;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
+
+import org.junit.Test;
 
 public class CommaSeparatedValuesTest
 {

@@ -1,6 +1,9 @@
 package diergo.csv;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringWriter;
+import java.io.Writer;
 
 /**
  * Convenience access to {@link CommaSeparatedValuesReader} and

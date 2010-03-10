@@ -1,8 +1,5 @@
 package example;
 
-import diergo.csv.CommaSeparatedValuesWriter;
-import diergo.csv.FixedSeparatorDeterminer;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
@@ -13,28 +10,38 @@ import java.io.Writer;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import diergo.csv.CommaSeparatedValuesWriter;
+import diergo.csv.FixedSeparatorDeterminer;
+
 /**
  * Logs the input as CSV data with a timestamp column.
- *
+ * 
  * Example input:
- * <pre>&gt; Hello world!
- *&gt; these are some words
- *&gt; I said, "Do it!"
- *&gt; </pre>
- *
+ * 
+ * <pre>
+ * &gt; Hello world!
+ * gt; these are some words
+ * gt; I said, "Do it!"
+ * gt;
+ * </pre>
+ * 
  * will create CSV output (timestamps will vary):
- *
- * <pre>timestamp,input
- *2009-02-25 11:03:22,Hello world!
- *2009-02-25 11:04:13,these are some words
- *2009-02-25 11:04:57,"I said, ""Do it!"""</pre>
- *
+ * 
+ * <pre>
+ * timestamp,input
+ * 009-02-25 11:03:22,Hello world!
+ * 009-02-25 11:04:13,these are some words
+ * 009-02-25 11:04:57,"I said, ""Do it!"""
+ * </pre>
+ * 
  * The argument will become the CSV output file.
  */
-public class ReadFromInputAndLogToCSV {
+public class ReadFromInputAndLogToCSV
+{
   private static final SimpleDateFormat TIMESTAMP_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-  public static void main(String... args) {
+  public static void main(String... args)
+  {
     try {
       Writer out = args.length == 0 ? new OutputStreamWriter(System.out) : new FileWriter(new File(args[0]));
       BufferedReader in = new BufferedReader(new InputStreamReader(System.in));

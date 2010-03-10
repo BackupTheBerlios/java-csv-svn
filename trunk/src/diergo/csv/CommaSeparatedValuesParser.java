@@ -64,8 +64,9 @@ public class CommaSeparatedValuesParser
     data.add(getValue(elem));
     return data.toArray(new String[data.size()]);
   }
-  
-  public char getSeparator() {
+
+  public char getSeparator()
+  {
     if (separator == null) {
       throw new IllegalStateException("No line read yet");
     }

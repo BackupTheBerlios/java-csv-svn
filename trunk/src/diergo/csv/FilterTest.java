@@ -15,7 +15,7 @@ import diergo.array.test.MockArrayWriter;
 public class FilterTest
 {
   private static final Iterable<String[]> IN = Arrays.<String[]> asList(new String[][] { { "1", "bla" },
-      { "2", "test" }, {"3", "blub"} });
+      { "2", "test" }, { "3", "blub" } });
 
   @Test
   public void fieldIsFilteredByIndex()

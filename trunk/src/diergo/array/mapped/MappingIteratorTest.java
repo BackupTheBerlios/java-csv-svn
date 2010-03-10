@@ -3,46 +3,48 @@ package diergo.array.mapped;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
+import org.junit.Test;
+
 public class MappingIteratorTest
 {
   @Test(expected = NoSuchElementException.class)
   public void emptyIteratorWithoutHeaderDoesNotWotk()
   {
-    MappingIterator.createWithHeaders(Arrays.<String[]>asList()).iterator();
+    MappingIterator.iterateAsMaps(Arrays.<String[]> asList()).iterator();
   }
 
   @Test
   public void emptyIteratorIsStillEmpty()
   {
-    Iterator<Map<String, Integer>> iterator = new MappingIterator<Integer>(new String[0], Arrays.<Integer[]>asList().iterator());
+    Iterator<Map<String, Integer>> iterator = new MappingIterator<Integer>(new String[0], Arrays.<Integer[]> asList()
+        .iterator());
     assertFalse(iterator.hasNext());
   }
 
   @Test(expected = NoSuchElementException.class)
   public void emptyIteratorNextRaisesError()
   {
-    new MappingIterator<Integer>(new String[0], Arrays.<Integer[]>asList().iterator()).next();
+    new MappingIterator<Integer>(new String[0], Arrays.<Integer[]> asList().iterator()).next();
   }
 
   @Test
   public void headerOnlyIteratorIsStillEmpty()
   {
-    Iterator<Map<String, String>> iterator = MappingIterator.createWithHeaders(Arrays.asList(
-        new String[][] { { "h1", "h2" } })).iterator();
+    Iterator<Map<String, String>> iterator = MappingIterator.iterateAsMaps(
+        Arrays.asList(new String[][] { { "h1", "h2" } })).iterator();
     assertFalse(iterator.hasNext());
   }
 
   @Test(expected = NoSuchElementException.class)
   public void headerOnlyIteratorHandlesNext()
   {
-    MappingIterator.createWithHeaders(Arrays.asList(new String[][] { { "h1", "h2" } })).iterator().next();
+    MappingIterator.iterateAsMaps(Arrays.asList(new String[][] { { "h1", "h2" } })).iterator().next();
   }
 
   @Test

@@ -1,8 +1,8 @@
 package diergo.array;
 
-import java.io.Reader;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.Reader;
 import java.util.Iterator;
 
 public class ArrayLineReader<E>

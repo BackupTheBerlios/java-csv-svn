@@ -1,5 +1,6 @@
 package diergo.array.mapped;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -15,29 +16,49 @@ import diergo.array.ArrayWriter;
 public class UnmappingIterator<E>
     implements Iterator<String[]>
 {
+  public static <E> Iterable<String[]> iterateAsStringArrays(Iterable<Map<String, E>> source)
+  {
+    final Iterator<Map<String, E>> iterator = source.iterator();
+    return new Iterable<String[]>()
+    {
+
+      public Iterator<String[]> iterator()
+      {
+        return new UnmappingIterator<E>(iterator);
+      }
+    };
+  }
+
   private final Iterator<Map<String, E>> _iterator;
-  private final String[] _fields;
-  private boolean _header;
+  private String[] _fields;
+  private Map<String, E> _nextValues;
 
   public UnmappingIterator(String[] fields, Iterator<Map<String, E>> iterator)
   {
-    _iterator = iterator;
     _fields = fields;
-    _header = true;
+    _iterator = iterator;
+    _nextValues = null;
+  }
+
+  public UnmappingIterator(Iterator<Map<String, E>> iterator)
+  {
+    this(null, iterator);
   }
 
   public boolean hasNext()
   {
-    return _header ? true : _iterator.hasNext();
+    return _nextValues != null || _iterator.hasNext();
   }
 
   public String[] next()
   {
-    if (_header) {
-      _header = false;
+    if (_fields == null) {
+      _nextValues = _iterator.next();
+      _fields = new ArrayList<String>(_nextValues.keySet()).toArray(new String[_nextValues.size()]);
       return _fields;
     } else {
-      Map<String, E> values = _iterator.next();
+      Map<String, E> values = _nextValues == null ? _iterator.next() : _nextValues;
+      _nextValues = null;
       String[] result = new String[_fields.length];
       int i = 0;
       for (String key : _fields) {

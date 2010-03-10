@@ -43,9 +43,9 @@ public abstract class ReflectionValueTransformer<T>
     } else if (type == Long.TYPE) {
       return empty ? 0L : new Long(value);
     } else if (type == Short.TYPE) {
-      return empty ? (short)0 : new Short(value);
+      return empty ? (short) 0 : new Short(value);
     } else if (type == Byte.TYPE) {
-      return empty ? (byte)0 : new Byte(value);
+      return empty ? (byte) 0 : new Byte(value);
     } else if (type == Float.TYPE) {
       return empty ? 0.0f : new Float(value);
     } else if (type == Double.TYPE) {
