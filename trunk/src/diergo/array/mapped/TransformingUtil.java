@@ -11,47 +11,56 @@ import java.util.Map;
  */
 public class TransformingUtil
 {
-  public static <T, E> Iterator<T> wrapMap(final Iterator<Map<String, E>> iterator,
-      final ValueTransformer<T, E> transformer)
+  public static <T, E> Iterable<T> iterateAs(Class<T> type, final Iterable<Map<String, E>> iterable,
+      final ValueTransformer<? extends T, E> transformer)
   {
-    return new Iterator<T>()
+    return new Iterable<T>()
     {
-      public boolean hasNext()
+      public Iterator<T> iterator()
       {
-        return iterator.hasNext();
-      }
+        return new DelegatingIterator<Map<String, E>, T>(iterable.iterator()) {
 
-      public T next()
-      {
-        return transformer.transform(iterator.next());
-      }
-
-      public void remove()
-      {
-        iterator.remove();
+          public T next()
+          {
+            return transformer.transform(_iterator.next());
+          }
+          
+        };
       }
     };
   }
 
-  public static <T, E> Iterator<Map<String, E>> wrapValue(final Iterator<T> iterator,
+  public static <T, E> Iterator<Map<String, E>> iterateMaps(final Iterator<T> iterable,
       final ValueTransformer<T, E> transformer)
   {
-    return new Iterator<Map<String, E>>()
-    {
-      public boolean hasNext()
-      {
-        return iterator.hasNext();
-      }
+    return new DelegatingIterator<T,Map<String, E>>(iterable) {
 
       public Map<String, E> next()
       {
-        return transformer.transform(iterator.next());
+        return transformer.transform(_iterator.next());
       }
-
-      public void remove()
-      {
-        iterator.remove();
-      }
+      
     };
+  }
+  
+  private abstract static class DelegatingIterator<S,T> implements Iterator<T> {
+
+    protected final Iterator<? extends S> _iterator;
+
+    public DelegatingIterator(Iterator<? extends S> iterator)
+    {
+      _iterator = iterator;
+    }
+
+    public boolean hasNext()
+    {
+      return _iterator.hasNext();
+    }
+
+    public void remove()
+    {
+      _iterator.remove();
+    }
+    
   }
 }
