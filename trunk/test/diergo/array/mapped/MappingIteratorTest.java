@@ -13,12 +13,6 @@ import org.junit.Test;
 
 public class MappingIteratorTest
 {
-  @Test(expected = NoSuchElementException.class)
-  public void emptyIteratorWithoutHeaderDoesNotWotk()
-  {
-    MappingIterator.iterateAsMaps(Arrays.<String[]> asList()).iterator();
-  }
-
   @Test
   public void emptyIteratorIsStillEmpty()
   {

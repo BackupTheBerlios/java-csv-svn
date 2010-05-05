@@ -32,12 +32,14 @@ public class UnmappingIterator<E>
   private final Iterator<Map<String, E>> _iterator;
   private String[] _fields;
   private Map<String, E> _nextValues;
+  private boolean fieldsReturned;
 
   public UnmappingIterator(String[] fields, Iterator<Map<String, E>> iterator)
   {
     _fields = fields;
     _iterator = iterator;
     _nextValues = null;
+    fieldsReturned = false;
   }
 
   public UnmappingIterator(Iterator<Map<String, E>> iterator)
@@ -47,7 +49,7 @@ public class UnmappingIterator<E>
 
   public boolean hasNext()
   {
-    return _nextValues != null || _iterator.hasNext();
+    return _nextValues != null || _iterator.hasNext() || (!fieldsReturned && _fields != null);
   }
 
   public String[] next()
@@ -55,6 +57,9 @@ public class UnmappingIterator<E>
     if (_fields == null) {
       _nextValues = _iterator.next();
       _fields = new ArrayList<String>(_nextValues.keySet()).toArray(new String[_nextValues.size()]);
+    }
+    if (!fieldsReturned) {
+      fieldsReturned = true;
       return _fields;
     } else {
       Map<String, E> values = _nextValues == null ? _iterator.next() : _nextValues;
