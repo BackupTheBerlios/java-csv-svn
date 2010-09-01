@@ -1,0 +1,118 @@
+<project name="Comma Separated Values" default="build" basedir=".">
+
+  <property name="buildDir" location="${basedir}/build" />
+
+  <property file="${basedir}/build.properties" />
+
+  <target name="clean" description="Remove all build targets">
+    <delete dir="${buildDir}" includeemptydirs="true" />
+  </target>
+
+  <target name="init">
+    <tstamp>
+      <format property="YEAR" pattern="yyyy" />
+      <format property="DATE" pattern="yyyy-MM-dd" />
+    </tstamp>
+    <property file="${basedir}/build.number" />
+    <echo message="${projectId} ${version}b${build.number}" />
+    <mkdir dir="${buildDir}/" />
+    <manifest file="${buildDir}/manifest.mf">
+      <attribute name="Specification-Title" value="${ant.project.name}" />
+      <attribute name="Specification-Version" value="${version}" />
+      <attribute name="Specification-Vendor" value="digital ergonomics" />
+      <attribute name="Implementation-Title" value="${ant.project.name}" />
+      <attribute name="Implementation-Version" value="${version}b${build.number}" />
+      <attribute name="Implementation-Vendor" value="digital ergonomics" />
+      <attribute name="Implementation-Vendor-Id" value="diergo" />
+      <attribute name="Implementation-URL" value="${downloadUrl}" />
+    </manifest>
+  </target>
+
+  <target name="number">
+    <buildnumber />
+  </target>
+
+  <target name="source" depends="init" description="Create a source archive">
+    <jar destfile="${buildDir}/diergo-${projectId}-${version}-sources.jar" manifest="${buildDir}/manifest.mf" index="true">
+      <fileset dir="${basedir}/src" />
+    </jar>
+  </target>
+
+  <target name="compile" depends="init" description="Compile all sources">
+    <mkdir dir="${buildDir}/classes" />
+    <path id="classpath">
+      <pathelement location="${buildDir}/classes" />
+    </path>
+    <javac srcdir="${basedir}/src" destdir="${buildDir}/classes" encoding="UTF-8" source="1.5" target="1.5" debug="on" classpathref="classpath" />
+    <mkdir dir="${buildDir}/doc" />
+    <javac srcdir="${basedir}/doc" destdir="${buildDir}/doc" classpathref="classpath" encoding="UTF-8" source="1.5" target="1.5" debug="on" />
+    <jar destfile="${buildDir}/diergo-${projectId}-${version}.jar" manifest="${buildDir}/manifest.mf" index="true">
+      <fileset dir="${buildDir}/classes" />
+    </jar>
+  </target>
+
+  <target name="doc" depends="init">
+    <mkdir dir="${buildDir}/doc" />
+    <copy todir="${buildDir}/doc">
+      <fileset dir="${basedir}/doc">
+        <exclude name="*.uml*" />
+      </fileset>
+    </copy>
+    <move file="${buildDir}/doc/README.txt" tofile="${buildDir}/doc/README-diergo-${projectId}.txt" />
+    <mkdir dir="${buildDir}/doc/api" />
+    <javadoc destdir="${buildDir}/doc/api" source="1.5" access="protected" breakiterator="yes" windowtitle="${ant.project.name}" header="${ant.project.name} ${version}" footer="${ant.project.name} ${version}b${build.number}" stylesheetfile="${buildDir}/doc/style.css" overview="${basedir}/doc/api/overview.html" use="true" classpathref="classpath" bottom="Copyright &amp;copy; ${YEAR} &lt;a href='${companyUrl}'&gt;digital ergonomics&lt;/a&gt;. &lt;a rel='license' href='http://creativecommons.org/licenses/by-nd/3.0/'&gt;Some rights reserved&lt;/a&gt;.">
+      <link offline="true" href="http://java.sun.com/j2se/1.5.0/docs/api/" packagelistLoc="${basedir}/tools/doc/java5" />
+      <fileset dir="${basedir}/src" />
+      <fileset dir="${basedir}/doc">
+        <include name="**/*.java" />
+      </fileset>
+      <group title="${ant.project.name}">
+        <package name="diergo.csv" />
+      </group>
+      <group title="Array Handling">
+        <package name="diergo.array" />
+        <package name="diergo.array.mapped" />
+      </group>
+      <group title="Examples">
+        <package name="example" />
+      </group>
+    </javadoc>
+  </target>
+
+  <target name="dist" depends="number, build" description="Create a distribution archive with a new build number">
+    <zip destfile="${buildDir}/diergo-${projectId}-${version}.zip">
+      <zipfileset dir="${buildDir}">
+        <include name="*.jar" />
+        <include name="doc/**" />
+      </zipfileset>
+    </zip>
+  </target>
+
+  <target name="build" depends="clean, source, compile, doc, test" description="Rebuild and test all" />
+
+  <target name="compileTest" depends="compile" description="Compile all tests">
+    <mkdir dir="${buildDir}/test" />
+    <path id="testClasspath">
+      <path refid="classpath" />
+      <fileset dir="${basedir}/tools/test">
+        <include name="*.jar" />
+      </fileset>
+      <pathelement location="${buildDir}/test" />
+    </path>
+    <javac srcdir="${basedir}/test" destdir="${buildDir}/test" classpathref="testClasspath" encoding="UTF-8" source="1.5" target="1.5" debug="off" />
+  </target>
+
+  <target name="test" depends="compileTest" description="Run all unit tests">
+    <junit printsummary="false" showoutput="false" haltonfailure="false" failureproperty="errors">
+      <classpath refid="testClasspath" />
+      <formatter type="brief" usefile="false" />
+      <batchtest>
+        <fileset dir="${buildDir}/test">
+          <include name="**/*Test.class" />
+        </fileset>
+      </batchtest>
+    </junit>
+    <fail if="errors" />
+  </target>
+
+</project>
