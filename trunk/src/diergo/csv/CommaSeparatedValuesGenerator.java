@@ -5,8 +5,8 @@ import java.util.regex.Pattern;
 import diergo.array.ArrayLineGenerator;
 
 /**
- * The real parsing methods.
- * 
+ * The real generating methods.
+ *
  * @since 1.2
  */
 public class CommaSeparatedValuesGenerator

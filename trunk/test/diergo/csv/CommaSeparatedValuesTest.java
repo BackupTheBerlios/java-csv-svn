@@ -13,13 +13,13 @@ import org.junit.Test;
 public class CommaSeparatedValuesTest
 {
   @Test
-  public void emptyIterableResultsInEmptyString()
+  public void emptyIterableGeneratesAnEmptyString()
   {
     assertEquals("", CommaSeparatedValues.generate(Collections.<String[]> emptyList(), ','));
   }
 
   @Test
-  public void eachIterableResultsInOneLine()
+  public void eachIterableGeneratesOneLine()
   {
     assertEquals(2, CommaSeparatedValues
         .generate(Arrays.asList(new String[][] { { "1a", "1b" }, { "2a", "2b" } }), ',').split("\n").length);

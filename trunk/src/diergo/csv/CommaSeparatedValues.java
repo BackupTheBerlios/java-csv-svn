@@ -7,13 +7,13 @@ import java.io.Writer;
 
 /**
  * Convenience access to {@link CommaSeparatedValuesReader} and
- * {@link CommaSeparatedValuesWriter} to be used in {@code for()} constructs.
+ * {@link CommaSeparatedValuesWriter}.
  */
 public class CommaSeparatedValues
 {
   /**
    * Parses the data using one of the default separators.
-   * 
+   *
    * @see AutoSeparatorDeterminer#DEFAULT_SEPARATORS
    */
   public static Iterable<String[]> parse(Reader csvData)
@@ -32,7 +32,7 @@ public class CommaSeparatedValues
 
   /**
    * Generates data using the passed separator.
-   * 
+   *
    * @see #generate(Iterable, char, Writer)
    */
   public static String generate(Iterable<String[]> data, char separator)

@@ -1,4 +1,4 @@
-1.2
+1.2 (2010-09-01)
   * splitted CSV generator and parser
   * new ReflectionProxyTransformer
 
