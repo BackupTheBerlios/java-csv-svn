@@ -11,6 +11,10 @@ import diergo.array.ArrayLineWriter;
 public class CommaSeparatedValuesWriter
     extends ArrayLineWriter<String>
 {
+  public static Writer write(Iterable<? extends String[]> source, char separator, Writer out)
+  {
+    return aggregate(source, new CommaSeparatedValuesWriter(out, separator));
+  }
 
   /**
    * Creates a writer for CSV data using the underlying writer.
@@ -34,5 +38,4 @@ public class CommaSeparatedValuesWriter
   {
     super(out, parser);
   }
-
 }

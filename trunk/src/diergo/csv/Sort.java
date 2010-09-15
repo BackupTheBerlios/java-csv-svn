@@ -15,7 +15,6 @@ import diergo.array.ArrayWriter;
 class Sort
     implements Command
 {
-
   /**
    * Processes csv data by sorting the lines. The field indices are passed in
    * option {@code order} starting at 1. Each index may be followed by an

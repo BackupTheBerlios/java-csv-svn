@@ -1,6 +1,7 @@
 package example;
 
-import static diergo.array.mapped.MappingIterator.iterateAsMaps;
+import static diergo.array.mapped.ArrayToMapTransformer.asMaps;
+import static diergo.csv.CommaSeparatedValues.parse;
 import static java.nio.charset.Charset.defaultCharset;
 
 import java.io.File;
@@ -13,27 +14,25 @@ import java.io.Reader;
 import java.io.Writer;
 import java.util.Map;
 
-import diergo.csv.CommaSeparatedValues;
-
 /**
  * Reads CSV data and write all data as XML.
- * 
+ *
  * The CSV data file has to contain a header. The XML will be a document with
  * toplevel element &lt;csv&gt;, each data line will become a &lt;data&gt;
  * element with sub elements containing the values as text named as the column
  * headers of the CSV data.
- * 
+ *
  * CSV input:
- * 
+ *
  * <pre>
  * id,verb,noun
  * ,parse,text
  * ,write,data
  * ,execute
  * </pre>
- * 
+ *
  * will become:
- * 
+ *
  * <pre>
  * &lt;csv&gt;
  * &lt;data&gt;
@@ -52,13 +51,12 @@ import diergo.csv.CommaSeparatedValues;
  * &lt;/data&gt;
  * lt;/csv&gt;
  * </pre>
- * 
+ *
  * The first argument will become the CSV input file, the second the XML output
  * file.
  */
 public class ReadCsvFileAndWriteAsXml
 {
-
   public static void main(String... args)
   {
     try {
@@ -66,7 +64,7 @@ public class ReadCsvFileAndWriteAsXml
       Writer out = args.length > 1 ? new FileWriter(new File(args[1])) : new OutputStreamWriter(System.out);
       out.append("<?xml version='1.0' encoding='").append(defaultCharset().name()).append("'?>");
       out.append("<csv>");
-      for (Map<String, String> data : iterateAsMaps(CommaSeparatedValues.parse(in))) {
+      for (Map<String, String> data : asMaps(parse(in))) {
         out.append(writeData(data));
       }
       out.append("</csv>");

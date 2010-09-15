@@ -41,5 +41,4 @@ public class CommaSeparatedValuesTest
     }
     assertEquals(3, idx);
   }
-
 }

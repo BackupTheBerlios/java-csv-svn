@@ -2,21 +2,19 @@ package diergo.csv;
 
 import java.util.regex.Pattern;
 
-import diergo.array.ArrayLineGenerator;
+import diergo.util.transform.Transformer;
 
 /**
  * The real generating methods.
- *
+ * 
  * @since 1.2
  */
 public class CommaSeparatedValuesGenerator
-    implements ArrayLineGenerator<String>
+    implements Transformer<String[], String>
 {
   public static char QUOTE = '"';
-
   private static final Pattern QUOTE_PATTERN = Pattern.compile(String.valueOf(QUOTE));
   private static final String QUOTE_REPLACEMENT = new String(new char[] { QUOTE, QUOTE });
-
   private final SeparatorDeterminer _determiner;
 
   public CommaSeparatedValuesGenerator(SeparatorDeterminer determiner)
@@ -42,7 +40,7 @@ public class CommaSeparatedValuesGenerator
     return elem;
   }
 
-  public String generateLine(String... line)
+  public String transform(String[] line)
   {
     if (line.length == 0) {
       return "";

@@ -27,7 +27,6 @@ public class Main
    * command line argument.
    */
   public static final Map<String, Command> COMMANDS = new HashMap<String, Command>();
-
   static {
     registerCommand("sort", new Sort());
     registerCommand("cut", new Cut());

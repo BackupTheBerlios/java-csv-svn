@@ -10,26 +10,27 @@ public class CommaSeparatedValuesGeneratorTest
   public void valueWithSeparatorIsQuoted()
   {
     assertEquals("\"Hallo, Du\"", new CommaSeparatedValuesGenerator(new FixedSeparatorDeterminer(','))
-        .generateLine("Hallo, Du"));
+        .transform(new String[] { "Hallo, Du" }));
   }
 
   @Test
   public void normalValueIsNotQuoted()
   {
-    assertEquals("Hallo", new CommaSeparatedValuesGenerator(new FixedSeparatorDeterminer(',')).generateLine("Hallo"));
+    assertEquals("Hallo", new CommaSeparatedValuesGenerator(new FixedSeparatorDeterminer(','))
+        .transform(new String[] { "Hallo" }));
   }
 
   @Test
   public void valueWithQuoteIsQuotedAndQuoteIsDoubled()
   {
     assertEquals("\"Hallo\"\" Du\"", new CommaSeparatedValuesGenerator(new FixedSeparatorDeterminer('"'))
-        .generateLine("Hallo\" Du"));
+        .transform(new String[] { "Hallo\" Du" }));
   }
 
   @Test
   public void lineIsWrittenQuoted()
   {
     assertEquals("Hallo,\"Wie geht,s\"", new CommaSeparatedValuesGenerator(new FixedSeparatorDeterminer(','))
-        .generateLine("Hallo", "Wie geht,s"));
+        .transform(new String[] { "Hallo", "Wie geht,s" }));
   }
 }

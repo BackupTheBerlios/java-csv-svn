@@ -1,5 +1,7 @@
 package diergo.csv;
 
+import static diergo.csv.AutoSeparatorDeterminer.DEFAULT_SEPARATOR_DETERMINER;
+
 import java.io.Reader;
 
 import diergo.array.ArrayLineReader;
@@ -13,8 +15,29 @@ public class CommaSeparatedValuesReader
     implements DelegatingSeparatorDeterminer.SeparatorProvider
 {
   /**
+   * Reads CSV data from the underlying reader trimming the fields.
+   *
+   * @see #CommaSeparatedValuesReader(Reader, char, boolean)
+   */
+  public static Iterable<String[]> read(Reader in, char separator)
+  {
+    return new CommaSeparatedValuesReader(in, separator, true);
+  }
+
+  /**
+   * Reads CSV data from the underlying reader trimming the fields.
+   *
+   * @see #CommaSeparatedValuesReader(Reader, SeparatorDeterminer , boolean)
+   * @see AutoSeparatorDeterminer#DEFAULT_SEPARATORS
+   */
+  public static Iterable<String[]> read(Reader in)
+  {
+    return new CommaSeparatedValuesReader(in, DEFAULT_SEPARATOR_DETERMINER, true);
+  }
+
+  /**
    * Creates a reader for CSV data using the underlying reader.
-   * 
+   *
    * @param in
    *          the underlying reader
    * @param separator
@@ -29,7 +52,7 @@ public class CommaSeparatedValuesReader
 
   /**
    * Creates a reader for CSV data using the underlying reader.
-   * 
+   *
    * @param in
    *          the underlying reader
    * @param separatorDeterminer

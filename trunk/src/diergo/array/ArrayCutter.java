@@ -78,7 +78,6 @@ public class ArrayCutter<E>
     {
       _in.close();
     }
-
   }
 
   private static class Writer<EE>
@@ -104,6 +103,5 @@ public class ArrayCutter<E>
     {
       _out.close();
     }
-
   }
 }

@@ -52,5 +52,4 @@ public class ArrayComparator<E extends Comparable<E>>
   {
     return value1.compareTo(value2);
   }
-
 }

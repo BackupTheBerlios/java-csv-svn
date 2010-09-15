@@ -12,10 +12,9 @@ import java.util.Map;
 public class AutoSeparatorDeterminer
     implements SeparatorDeterminer
 {
-  public static final String DEFAULT_SEPARATORS = ",;\t";
-
+  private static final String DEFAULT_SEPARATORS = ",;\t";
+  public static final SeparatorDeterminer DEFAULT_SEPARATOR_DETERMINER = new AutoSeparatorDeterminer(DEFAULT_SEPARATORS);
   private final String _possibleSeparators;
-
   private char _separator = '\0';
 
   public AutoSeparatorDeterminer(String possibleSeparators)
@@ -83,11 +82,10 @@ public class AutoSeparatorDeterminer
   {
     return new CommaSeparatedValuesParser(new SeparatorDeterminer()
     {
-
       public char determineSeparator(String line)
       {
         return separator;
       }
-    }, false).parseLine(line).length;
+    }, false).transform(line).length;
   }
 }

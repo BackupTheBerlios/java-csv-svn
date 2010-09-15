@@ -30,5 +30,4 @@ public class ArrayCutterTest
     assertArrayEquals(new String[] { "2", "1", "0" }, new ArrayCutter<String>(new int[] { 2, 1, 0 }).cut(new String[] {
         "0", "1", "2" }));
   }
-
 }

@@ -11,7 +11,6 @@ import diergo.array.ArrayWriter;
 class Filter
     implements Command
 {
-
   /**
    * Processes csv data by filtering lines with a specified value in on field.
    * The field index is passed in option {@code field} starting at 1, the value
@@ -34,5 +33,4 @@ class Filter
       out.write(line);
     }
   }
-
 }

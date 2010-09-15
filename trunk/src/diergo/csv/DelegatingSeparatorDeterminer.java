@@ -25,5 +25,4 @@ public class DelegatingSeparatorDeterminer
   {
     public char getSeparator();
   }
-
 }

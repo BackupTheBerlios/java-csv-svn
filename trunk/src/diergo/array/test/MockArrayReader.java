@@ -45,5 +45,4 @@ public class MockArrayReader<E>
     _in = in;
     _i = 0;
   }
-
 }

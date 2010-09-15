@@ -62,5 +62,4 @@ public class ArrayReaderIterator<E>
   {
     throw new UnsupportedOperationException("Comma separated value source cannot be modified");
   }
-
 }

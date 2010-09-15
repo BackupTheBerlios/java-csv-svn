@@ -1,5 +1,7 @@
 package diergo.csv;
 
+import static diergo.csv.CommaSeparatedValuesReader.read;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringWriter;
@@ -14,20 +16,21 @@ public class CommaSeparatedValues
   /**
    * Parses the data using one of the default separators.
    *
-   * @see AutoSeparatorDeterminer#DEFAULT_SEPARATORS
+   * @see CommaSeparatedValuesReader#read(Reader)
    */
   public static Iterable<String[]> parse(Reader csvData)
   {
-    return new CommaSeparatedValuesReader(csvData, new AutoSeparatorDeterminer(
-        AutoSeparatorDeterminer.DEFAULT_SEPARATORS), true);
+    return read(csvData);
   }
 
   /**
    * Parses the data using the passed separator.
+   *
+   * @see CommaSeparatedValuesReader#read(Reader, char)
    */
   public static Iterable<String[]> parse(Reader csvData, char separator)
   {
-    return new CommaSeparatedValuesReader(csvData, new FixedSeparatorDeterminer(separator), true);
+    return read(csvData, separator);
   }
 
   /**

@@ -11,7 +11,6 @@ import diergo.array.ArrayWriter;
 class Cut
     implements Command
 {
-
   /**
    * Processes csv data by passing selected fields. The field indices are passed
    * in option {@code fields} starting at 1.

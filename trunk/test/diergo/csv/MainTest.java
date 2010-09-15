@@ -45,7 +45,6 @@ public class MainTest
     _systemIn = ByteBuffer.allocate(1000);
     System.setIn(new InputStream()
     {
-
       public int read()
       {
         if (_systemIn.hasRemaining()) {
@@ -53,7 +52,6 @@ public class MainTest
         }
         return -1;
       }
-
     });
   }
 
@@ -150,7 +148,6 @@ public class MainTest
   private class TestCommand
       implements Command
   {
-
     public void process(Iterable<String[]> in, ArrayWriter<String> out, Map<String, String> options)
         throws IOException
     {
@@ -159,6 +156,5 @@ public class MainTest
         out.write(line);
       }
     }
-
   }
 }

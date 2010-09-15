@@ -4,7 +4,7 @@ import java.nio.CharBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
-import diergo.array.ArrayLineParser;
+import diergo.util.transform.Transformer;
 
 /**
  * The real parsing methods.
@@ -12,12 +12,10 @@ import diergo.array.ArrayLineParser;
  * @since 1.1
  */
 public class CommaSeparatedValuesParser
-    implements ArrayLineParser<String>, DelegatingSeparatorDeterminer.SeparatorProvider
+    implements Transformer<String, String[]>, DelegatingSeparatorDeterminer.SeparatorProvider
 {
   public static char QUOTE = '"';
-
   private static final String[] EMPTY_LINE = new String[0];
-
   private final SeparatorDeterminer _determiner;
   private final boolean _trimFields;
   private Character separator;
@@ -28,7 +26,7 @@ public class CommaSeparatedValuesParser
     _determiner = determiner;
   }
 
-  public String[] parseLine(String line)
+  public String[] transform(String line)
   {
     if (isEmpty(line)) {
       return EMPTY_LINE;

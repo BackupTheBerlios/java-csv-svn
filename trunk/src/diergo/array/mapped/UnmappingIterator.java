@@ -1,7 +1,5 @@
 package diergo.array.mapped;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Map;
 
 import diergo.array.ArrayWriter;
@@ -12,71 +10,20 @@ import diergo.array.ArrayWriter;
  * 
  * This class is useful to pass output from a {@link ValueTransformer} to a
  * {@link ArrayWriter}.
+ * 
+ * @deprecated use {@link MapToArrayTransformer} instead
  */
+@Deprecated
 public class UnmappingIterator<E>
-    implements Iterator<String[]>
+    extends MapToArrayTransformer<String, E>
 {
-  public static <E> Iterable<String[]> iterateAsStringArrays(Iterable<Map<String, E>> source)
+  public static Iterable<String[]> iterateAsStringArrays(Iterable<Map<String, String>> source)
   {
-    final Iterator<Map<String, E>> iterator = source.iterator();
-    return new Iterable<String[]>()
-    {
-
-      public Iterator<String[]> iterator()
-      {
-        return new UnmappingIterator<E>(iterator);
-      }
-    };
+    return MapToArrayTransformer.asArrays(source);
   }
 
-  private final Iterator<Map<String, E>> _iterator;
-  private String[] _fields;
-  private Map<String, E> _nextValues;
-  private boolean fieldsReturned;
-
-  public UnmappingIterator(String[] fields, Iterator<Map<String, E>> iterator)
+  private UnmappingIterator(String[] fields)
   {
-    _fields = fields;
-    _iterator = iterator;
-    _nextValues = null;
-    fieldsReturned = false;
+    super(fields);
   }
-
-  public UnmappingIterator(Iterator<Map<String, E>> iterator)
-  {
-    this(null, iterator);
-  }
-
-  public boolean hasNext()
-  {
-    return _nextValues != null || _iterator.hasNext() || (!fieldsReturned && _fields != null);
-  }
-
-  public String[] next()
-  {
-    if (_fields == null) {
-      _nextValues = _iterator.next();
-      _fields = new ArrayList<String>(_nextValues.keySet()).toArray(new String[_nextValues.size()]);
-    }
-    if (!fieldsReturned) {
-      fieldsReturned = true;
-      return _fields;
-    } else {
-      Map<String, E> values = _nextValues == null ? _iterator.next() : _nextValues;
-      _nextValues = null;
-      String[] result = new String[_fields.length];
-      int i = 0;
-      for (String key : _fields) {
-        E value = values.get(key);
-        result[i++] = value == null ? null : String.valueOf(value);
-      }
-      return result;
-    }
-  }
-
-  public void remove()
-  {
-    _iterator.remove();
-  }
-
 }
