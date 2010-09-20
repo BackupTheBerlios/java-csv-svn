@@ -3,6 +3,7 @@ package diergo.csv;
 import java.io.IOException;
 import java.util.Map;
 
+import diergo.array.ArrayCutter;
 import diergo.array.ArrayWriter;
 
 /**
@@ -22,13 +23,13 @@ class Cut
     if (fields == null) {
       fields = "1";
     }
-    out = createCutter(out, fields);
+    in = createCutter(in, fields);
     for (String[] line : in) {
       out.write(line);
     }
   }
 
-  private static ArrayWriter<String> createCutter(ArrayWriter<String> out, String option)
+  private static Iterable<String[]> createCutter(Iterable<String[]> in, String option)
   {
     String[] args = option.split(",");
     int[] fields = new int[args.length];
@@ -36,6 +37,6 @@ class Cut
     for (String arg : args) {
       fields[i++] = Integer.parseInt(arg) - 1;
     }
-    return StringArrayCutter.cut(out, fields);
+    return ArrayCutter.cut(in, fields);
   }
 }

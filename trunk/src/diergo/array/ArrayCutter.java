@@ -1,30 +1,24 @@
 package diergo.array;
 
-import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+import diergo.util.transform.Transformer;
+import diergo.util.transform.TransformingIterator;
+
 /**
- * A utility class to cut selected fields of arrays. Cutting array readers and
- * writers are offered.
+ * A utility class to cut selected fields of arrays.
  */
 public class ArrayCutter<E>
+    implements Transformer<E[], E[]>
 {
   /**
-   * Creates a new array reader passing the selected fields only.
+   * Creates a new iterable passing the selected fields only.
    */
-  public static <E> ArrayReader<E> cut(ArrayReader<E> in, int[] fields)
+  public static <E> Iterable<E[]> cut(Iterable<E[]> in, int[] fields)
   {
-    return new Reader<E>(in, new ArrayCutter<E>(fields));
-  }
-
-  /**
-   * Creates a new array writer passing the selected fields only.
-   */
-  public static <E> ArrayWriter<E> cut(ArrayWriter<E> in, int[] fields)
-  {
-    return new Writer<E>(in, new ArrayCutter<E>(fields));
+    return TransformingIterator.transform(in, new ArrayCutter<E>(fields));
   }
 
   private final int[] _fields;
@@ -38,7 +32,7 @@ public class ArrayCutter<E>
    * Returns a new string array with the selected fields only. The order will be
    * as defined by the fields, unknown fields are ignored.
    */
-  public E[] cut(E[] values)
+  public E[] transform(E[] values)
   {
     List<E> result = new ArrayList<E>(values.length);
     for (int i : _fields) {
@@ -53,55 +47,5 @@ public class ArrayCutter<E>
   private E[] createArrayAs(E[] values, int size)
   {
     return (E[]) Array.newInstance(values.getClass().getComponentType(), size);
-  }
-
-  private static class Reader<EE>
-      implements ArrayReader<EE>
-  {
-    private final ArrayCutter<EE> _cutter;
-    private final ArrayReader<EE> _in;
-
-    public Reader(ArrayReader<EE> in, ArrayCutter<EE> cutter)
-    {
-      _in = in;
-      _cutter = cutter;
-    }
-
-    public EE[] read()
-        throws IOException
-    {
-      return _cutter.cut(_in.read());
-    }
-
-    public void close()
-        throws IOException
-    {
-      _in.close();
-    }
-  }
-
-  private static class Writer<EE>
-      implements ArrayWriter<EE>
-  {
-    private final ArrayWriter<EE> _out;
-    private final ArrayCutter<EE> _cutter;
-
-    public Writer(ArrayWriter<EE> out, ArrayCutter<EE> cutter)
-    {
-      _out = out;
-      _cutter = cutter;
-    }
-
-    public void write(EE... values)
-        throws IOException
-    {
-      _out.write(_cutter.cut(values));
-    }
-
-    public void close()
-        throws IOException
-    {
-      _out.close();
-    }
   }
 }
