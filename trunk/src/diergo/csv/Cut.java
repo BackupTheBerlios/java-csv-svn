@@ -9,7 +9,7 @@ import diergo.array.ArrayWriter;
 /**
  * Cut one ore more fields selected from csv data.
  */
-class Cut
+public class Cut
     implements Command
 {
   /**

@@ -5,8 +5,8 @@ import java.util.Map;
 /**
  * A value transformer creates an object of type T from a value map and vice
  * versa.
- * 
- * @deprecated use {@link Transformer} instead
+ *
+ * @deprecated use {@link diergo.util.Transformer} instead
  */
 @Deprecated
 public interface ValueTransformer<T, E>

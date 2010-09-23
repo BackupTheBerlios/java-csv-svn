@@ -7,14 +7,14 @@ RFC 4180 (http://tools.ietf.org/html/rfc4180).
 
 The Archive contains a main class to be used as a command line utility:
 
-    java -jar diergo-csv-1.1.jar (cut|sort|filter) [-<option> ...] [<in> [<out>]]
+    java -jar diergo-csv-2.0.jar (cut|sort|filter) [-<option> ...] [<in> [<out>]]
 
 
 For further information:
 
   * Change Log (CHANGELOG.txt)
-  * API Documentation (doc/api/index.html)
-  * Project Home Page (http://diergo.burmeister-teltow.de/csv/)
+  * API Documentation (api/index.html)
+  * Project Home Page (http://www.diergo.de/csv/)
   * BerliOS Project Page (http://developer.berlios.de/projects/java-csv/)
 
 

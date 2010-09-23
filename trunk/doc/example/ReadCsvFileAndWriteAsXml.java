@@ -26,9 +26,9 @@ import java.util.Map;
  *
  * <pre>
  * id,verb,noun
- * ,parse,text
- * ,write,data
- * ,execute
+ * 1,parse,text
+ * 2,write,data
+ * 3,execute
  * </pre>
  *
  * will become:
@@ -49,7 +49,7 @@ import java.util.Map;
  *  &lt;id&gt;3&lt;/id&gt;
  *  &lt;verb&gt;execute&lt;/verb&gt;
  * &lt;/data&gt;
- * lt;/csv&gt;
+ * &lt;/csv&gt;
  * </pre>
  *
  * The first argument will become the CSV input file, the second the XML output
@@ -57,6 +57,9 @@ import java.util.Map;
  */
 public class ReadCsvFileAndWriteAsXml
 {
+  /**
+   * The optional areuments may be the input and output files.
+   */
   public static void main(String... args)
   {
     try {

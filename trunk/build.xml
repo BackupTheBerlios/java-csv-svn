@@ -1,4 +1,4 @@
-<project name="Diergo CSV" default="build" basedir=".">
+<project name="deCS" default="build" basedir=".">
 
   <property name="buildDir" location="${basedir}/build" />
 
@@ -25,6 +25,8 @@
       <attribute name="Implementation-Vendor" value="digital ergonomics" />
       <attribute name="Implementation-Vendor-Id" value="diergo" />
       <attribute name="Implementation-URL" value="${downloadUrl}" />
+      <attribute name="License-Title" value="Creative Commons Attribution-NoDerivs 3.0 Unported" />
+      <attribute name="License-URL" value="http://creativecommons.org/licenses/by-nd/3.0/" />
     </manifest>
   </target>
 
@@ -54,7 +56,7 @@
     </jar>
   </target>
 
-  <target name="doc" depends="init">
+  <target name="doc" depends="compile">
     <mkdir dir="${buildDir}/doc" />
     <copy todir="${buildDir}/doc">
       <fileset dir="${basedir}/doc">
@@ -70,7 +72,7 @@
       <fileset dir="${basedir}/doc">
         <include name="**/*.java" />
       </fileset>
-      <group title="${ant.project.name}">
+      <group title="Comma Serarated Values">
         <package name="diergo.csv" />
       </group>
       <group title="Array Handling">

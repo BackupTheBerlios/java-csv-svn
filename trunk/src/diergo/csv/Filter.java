@@ -8,7 +8,7 @@ import diergo.array.ArrayWriter;
 /**
  * Filter lines from csv data containing a field value.
  */
-class Filter
+public class Filter
     implements Command
 {
   /**

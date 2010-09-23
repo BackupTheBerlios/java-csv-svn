@@ -38,10 +38,13 @@ public class Main
     COMMANDS.put(name, command);
   }
 
-  private Main()
-  {
-  }
-
+  /**
+   * The first argument is the command, followed by options and input and output file.
+   *
+   * @see Cut
+   * @see Sort
+   * @see Filter
+   */
   public static void main(String[] args)
   {
     Package pkg = Main.class.getPackage();
@@ -80,6 +83,10 @@ public class Main
     } catch (IOException e) {
       System.err.println(e.getMessage());
     }
+  }
+
+  private Main()
+  {
   }
 
   private static CommaSeparatedValuesReader createInput(String filename, String encoding, char separator)

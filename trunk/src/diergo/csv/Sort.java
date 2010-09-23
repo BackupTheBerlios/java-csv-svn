@@ -12,7 +12,7 @@ import diergo.array.ArrayWriter;
 /**
  * Sort lines of csv data according to an order.
  */
-class Sort
+public class Sort
     implements Command
 {
   /**

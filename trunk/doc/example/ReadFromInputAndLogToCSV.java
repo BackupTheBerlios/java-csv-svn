@@ -15,31 +15,34 @@ import diergo.csv.FixedSeparatorDeterminer;
 
 /**
  * Logs the input as CSV data with a timestamp column.
- * 
+ *
  * Example input:
- * 
+ *
  * <pre>
  * &gt; Hello world!
- * gt; these are some words
- * gt; I said, "Do it!"
- * gt;
+ * &gt; these are some words
+ * &gt; I said, "Do it!"
+ * &gt;
  * </pre>
- * 
+ *
  * will create CSV output (timestamps will vary):
- * 
+ *
  * <pre>
  * timestamp,input
  * 009-02-25 11:03:22,Hello world!
  * 009-02-25 11:04:13,these are some words
  * 009-02-25 11:04:57,"I said, ""Do it!"""
  * </pre>
- * 
+ *
  * The argument will become the CSV output file.
  */
 public class ReadFromInputAndLogToCSV
 {
   private static final SimpleDateFormat TIMESTAMP_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+  /**
+   * An optional argument is the file to write the log.
+   */
   public static void main(String... args)
   {
     try {
