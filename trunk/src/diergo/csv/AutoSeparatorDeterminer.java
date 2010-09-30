@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Determines the separator for the fields of a CSV line by parsing the first
  * line.
- * 
+ *
  * @since 1.1
  */
 public class AutoSeparatorDeterminer
@@ -35,7 +35,7 @@ public class AutoSeparatorDeterminer
 
   /**
    * Determines the separator from the first non empty line passed.
-   * 
+   *
    * @throws IllegalStateException
    *           if the line is empty and no separator has been determined before
    */
@@ -86,6 +86,6 @@ public class AutoSeparatorDeterminer
       {
         return separator;
       }
-    }, false).transform(line).length;
+    }).transform(line).length;
   }
 }

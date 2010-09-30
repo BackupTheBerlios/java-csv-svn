@@ -62,7 +62,9 @@ public class CommaSeparatedValuesReader
    */
   public CommaSeparatedValuesReader(Reader in, SeparatorDeterminer separatorDeterminer, boolean trimFields)
   {
-    super(in, new CommaSeparatedValuesParser(separatorDeterminer, trimFields));
+    super(in, new CommaSeparatedValuesParser(separatorDeterminer,
+        trimFields ? new CommaSeparatedValuesParser.Option[] { CommaSeparatedValuesParser.Option.TRIM }
+            : new CommaSeparatedValuesParser.Option[0]));
   }
 
   public char getSeparator()

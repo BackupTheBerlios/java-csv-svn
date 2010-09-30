@@ -6,7 +6,7 @@ import diergo.util.transform.Transformer;
 
 /**
  * The real generating methods.
- * 
+ *
  * @since 1.2
  */
 public class CommaSeparatedValuesGenerator
@@ -20,24 +20,6 @@ public class CommaSeparatedValuesGenerator
   public CommaSeparatedValuesGenerator(SeparatorDeterminer determiner)
   {
     _determiner = determiner;
-  }
-
-  protected boolean isEmpty(String line)
-  {
-    return line == null || line.trim().length() == 0;
-  }
-
-  private String quote(String elem, char separator)
-  {
-    boolean containsQuote = elem.indexOf(QUOTE) != -1;
-    boolean quote = elem.indexOf(separator) != -1 || containsQuote;
-    if (quote) {
-      if (containsQuote) {
-        elem = QUOTE_PATTERN.matcher(elem).replaceAll(QUOTE_REPLACEMENT);
-      }
-      elem = QUOTE + elem + QUOTE;
-    }
-    return elem;
   }
 
   public String transform(String[] line)
@@ -54,5 +36,21 @@ public class CommaSeparatedValuesGenerator
       out.append(quote(elem, separator));
     }
     return out.toString();
+  }
+
+  private String quote(String elem, char separator)
+  {
+    if (elem == null) {
+      return "";
+    }
+    boolean containsQuote = elem.indexOf(QUOTE) != -1;
+    boolean quote = elem.indexOf(separator) != -1 || containsQuote;
+    if (quote) {
+      if (containsQuote) {
+        elem = QUOTE_PATTERN.matcher(elem).replaceAll(QUOTE_REPLACEMENT);
+      }
+      elem = QUOTE + elem + QUOTE;
+    }
+    return elem;
   }
 }

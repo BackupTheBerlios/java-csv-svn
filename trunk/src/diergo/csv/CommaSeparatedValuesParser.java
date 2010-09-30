@@ -2,13 +2,14 @@ package diergo.csv;
 
 import java.nio.CharBuffer;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 
 import diergo.util.transform.Transformer;
 
 /**
  * The real parsing methods.
- * 
+ *
  * @since 1.1
  */
 public class CommaSeparatedValuesParser
@@ -17,12 +18,15 @@ public class CommaSeparatedValuesParser
   public static char QUOTE = '"';
   private static final String[] EMPTY_LINE = new String[0];
   private final SeparatorDeterminer _determiner;
-  private final boolean _trimFields;
+  private final EnumSet<Option> _options;
   private Character separator;
 
-  public CommaSeparatedValuesParser(SeparatorDeterminer determiner, boolean trimFields)
+  public CommaSeparatedValuesParser(SeparatorDeterminer determiner, Option... options)
   {
-    _trimFields = trimFields;
+    _options = EnumSet.noneOf(Option.class);
+    for (Option option : options) {
+      _options.add(option);
+    }
     _determiner = determiner;
   }
 
@@ -52,7 +56,7 @@ public class CommaSeparatedValuesParser
         } else {
           throw new IllegalArgumentException("CSV need quoting when containing quote: " + line);
         }
-      } else if (!_trimFields || !Character.isSpaceChar(c) || elem.position() > 0) {
+      } else if (!_options.contains(Option.TRIM) || !Character.isSpaceChar(c) || elem.position() > 0) {
         elem.append(c);
       }
     }
@@ -82,9 +86,19 @@ public class CommaSeparatedValuesParser
     value.rewind();
     value.limit(length);
     try {
-      return value.toString();
+      String result = value.toString();
+      if (_options.contains(Option.EMPTY_AS_NULL) && result.length() == 0) {
+        return null;
+      }
+      return result;
     } finally {
       value.clear();
     }
+  }
+
+  public enum Option
+  {
+    TRIM,
+    EMPTY_AS_NULL
   }
 }
