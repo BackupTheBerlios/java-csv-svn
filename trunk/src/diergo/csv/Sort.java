@@ -11,6 +11,8 @@ import diergo.array.ArrayWriter;
 
 /**
  * Sort lines of csv data according to an order.
+ *
+ * @see StringArrayComparator
  */
 public class Sort
     implements Command

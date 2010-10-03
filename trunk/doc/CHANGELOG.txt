@@ -1,6 +1,7 @@
 2.0
   * based on Diergo Utils 1.3
   * mapping and unmapping iterators are replaced by tranformers
+  * parser skips comment lines starting with #
 
 1.2 (2010-09-01)
   * splitted CSV generator and parser

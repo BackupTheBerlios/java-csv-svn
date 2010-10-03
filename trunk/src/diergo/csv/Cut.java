@@ -8,6 +8,8 @@ import diergo.array.ArrayWriter;
 
 /**
  * Cut one ore more fields selected from csv data.
+ *
+ * @see ArrayCutter
  */
 public class Cut
     implements Command
@@ -29,14 +31,14 @@ public class Cut
     }
   }
 
-  private static Iterable<String[]> createCutter(Iterable<String[]> in, String option)
+  private Iterable<String[]> createCutter(Iterable<String[]> in, String fields)
   {
-    String[] args = option.split(",");
-    int[] fields = new int[args.length];
+    String[] args = fields.split(",");
+    int[] fieldIndicees = new int[args.length];
     int i = 0;
     for (String arg : args) {
-      fields[i++] = Integer.parseInt(arg) - 1;
+      fieldIndicees[i++] = Integer.parseInt(arg) - 1;
     }
-    return ArrayCutter.cut(in, fields);
+    return ArrayCutter.cut(in, fieldIndicees);
   }
 }
