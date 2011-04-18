@@ -13,25 +13,20 @@
       <format property="YEAR" pattern="yyyy" />
       <format property="DATE" pattern="yyyy-MM-dd" />
     </tstamp>
-    <property file="${basedir}/build.number" />
-    <echo message="${projectId} ${version}b${build.number}" />
+    <echo message="${projectId} ${version}" />
     <mkdir dir="${buildDir}/" />
     <manifest file="${buildDir}/manifest.mf">
       <attribute name="Specification-Title" value="${ant.project.name}" />
       <attribute name="Specification-Version" value="${version}" />
       <attribute name="Specification-Vendor" value="digital ergonomics" />
       <attribute name="Implementation-Title" value="${ant.project.name}" />
-      <attribute name="Implementation-Version" value="${version}b${build.number}" />
+      <attribute name="Implementation-Version" value="${version}" />
       <attribute name="Implementation-Vendor" value="digital ergonomics" />
       <attribute name="Implementation-Vendor-Id" value="diergo" />
       <attribute name="Implementation-URL" value="${downloadUrl}" />
       <attribute name="License-Title" value="Creative Commons Attribution-NoDerivs 3.0 Unported" />
       <attribute name="License-URL" value="http://creativecommons.org/licenses/by-nd/3.0/" />
     </manifest>
-  </target>
-
-  <target name="number">
-    <buildnumber />
   </target>
 
   <target name="source" depends="init" description="Create a source archive">
@@ -66,7 +61,7 @@
     <move file="${buildDir}/doc/README.txt" tofile="${buildDir}/doc/README-diergo-${projectId}.txt" />
     <mkdir dir="${buildDir}/doc/api" />
     <javadoc charset="UTF-8" destdir="${buildDir}/doc/api" source="1.5" access="protected" breakiterator="yes" use="true" classpathref="classpath"
-      windowtitle="${ant.project.name}" header="${ant.project.name} ${version}" footer="${ant.project.name} ${version}b${build.number}" stylesheetfile="${buildDir}/doc/style.css" overview="${basedir}/doc/api/overview.html" bottom="Copyright &amp;copy; ${YEAR} &lt;a href='${companyUrl}'&gt;digital ergonomics&lt;/a&gt;. &lt;a rel='license' href='http://creativecommons.org/licenses/by-nd/3.0/'&gt;Some rights reserved&lt;/a&gt;.">
+      windowtitle="${ant.project.name}" header="${ant.project.name} ${version}" footer="${ant.project.name} ${version}" stylesheetfile="${buildDir}/doc/style.css" overview="${basedir}/doc/api/overview.html" bottom="Copyright &amp;copy; ${YEAR} &lt;a href='${companyUrl}'&gt;digital ergonomics&lt;/a&gt;. &lt;a rel='license' href='http://creativecommons.org/licenses/by-nd/3.0/'&gt;Some rights reserved&lt;/a&gt;.">
       <link offline="true" href="http://java.sun.com/j2se/1.5.0/docs/api/" packagelistLoc="${basedir}/tools/doc/java5" />
       <link offline="true" href="http://static.diergo.de/deut/api/1.5/" packagelistLoc="${basedir}/tools/doc/deut" />
       <fileset dir="${basedir}/src" />
@@ -86,8 +81,8 @@
     </javadoc>
   </target>
 
-  <target name="dist" depends="number, build" description="Create a distribution archive with a new build number">
-    <zip destfile="${buildDir}/${projectName}-${version}b${build.number}.zip">
+  <target name="dist" depends="build" description="Create a distribution archive with a new build number">
+    <zip destfile="${buildDir}/${projectName}-${version}.zip">
       <zipfileset dir="${buildDir}">
         <include name="*.jar" />
         <include name="doc/**" />
