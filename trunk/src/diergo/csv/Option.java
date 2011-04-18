@@ -3,7 +3,8 @@ package diergo.csv;
 /**
  * Options for CSV parser and generator.
  * @since 2.0
- * @see CommaSeparatedValuesGenerator, CommaSeparatedValuesParser
+ * @see CommaSeparatedValuesGenerator
+ * @see CommaSeparatedValuesParser
  */
 public enum Option
 {
