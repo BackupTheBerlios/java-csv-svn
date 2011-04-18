@@ -1,5 +1,6 @@
 package diergo.csv;
 
+import java.util.EnumSet;
 import java.util.regex.Pattern;
 
 import diergo.util.transform.Transformer;
@@ -15,11 +16,16 @@ public class CommaSeparatedValuesGenerator
   public static char QUOTE = '"';
   private static final Pattern QUOTE_PATTERN = Pattern.compile(String.valueOf(QUOTE));
   private static final String QUOTE_REPLACEMENT = new String(new char[] { QUOTE, QUOTE });
-  private final SeparatorDeterminer _determiner;
+  private final EnumSet<Option> options;
+  private final SeparatorDeterminer determiner;
 
-  public CommaSeparatedValuesGenerator(SeparatorDeterminer determiner)
+  public CommaSeparatedValuesGenerator(SeparatorDeterminer determiner, Option... options)
   {
-    _determiner = determiner;
+    this.options = EnumSet.noneOf(Option.class);
+    for (Option option : options) {
+      this.options.add(option);
+    }
+    this.determiner = determiner;
   }
 
   public String transform(String[] line)
@@ -28,10 +34,13 @@ public class CommaSeparatedValuesGenerator
       return "";
     }
     StringBuffer out = new StringBuffer();
-    char separator = _determiner.determineSeparator(null);
+    char separator = determiner.determineSeparator(null);
     for (String elem : line) {
       if (out.length() > 0) {
         out.append(separator);
+      }
+      if (elem != null && options.contains(Option.TRIM)) {
+        elem = elem.trim();
       }
       out.append(quote(elem, separator));
     }
@@ -41,7 +50,7 @@ public class CommaSeparatedValuesGenerator
   private String quote(String elem, char separator)
   {
     if (elem == null) {
-      return "";
+      return options.contains(Option.EMPTY_AS_NULL) ? "" : "null";
     }
     boolean containsQuote = elem.indexOf(QUOTE) != -1;
     boolean quote = elem.indexOf(separator) != -1 || containsQuote;

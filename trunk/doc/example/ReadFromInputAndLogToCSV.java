@@ -1,5 +1,7 @@
 package example;
 
+import static diergo.csv.FixedSeparatorDeterminer.fixedSeparator;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
@@ -11,10 +13,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import diergo.csv.CommaSeparatedValuesWriter;
-import diergo.csv.FixedSeparatorDeterminer;
 
 /**
- * Logs the input as CSV data with a timestamp column.
+ * Logs the input as CSV data with a time stamp column.
  *
  * Example input:
  *
@@ -25,7 +26,7 @@ import diergo.csv.FixedSeparatorDeterminer;
  * &gt;
  * </pre>
  *
- * will create CSV output (timestamps will vary):
+ * will create CSV output (time stamps will vary):
  *
  * <pre>
  * timestamp,input
@@ -48,7 +49,7 @@ public class ReadFromInputAndLogToCSV
     try {
       Writer out = args.length == 0 ? new OutputStreamWriter(System.out) : new FileWriter(new File(args[0]));
       BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-      CommaSeparatedValuesWriter csv = new CommaSeparatedValuesWriter(out, new FixedSeparatorDeterminer(','));
+      CommaSeparatedValuesWriter csv = new CommaSeparatedValuesWriter(out, fixedSeparator(','));
       csv.write("timestamp", "input");
       do {
         String line = in.readLine();

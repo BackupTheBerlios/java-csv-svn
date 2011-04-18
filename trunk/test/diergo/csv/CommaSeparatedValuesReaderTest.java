@@ -14,7 +14,7 @@ public class CommaSeparatedValuesReaderTest
   public void lineWithoutSeparatorResultsInSingleString()
       throws IOException
   {
-    String[] data = new CommaSeparatedValuesReader(new StringReader("\n"), ';', true).read();
+    String[] data = new CommaSeparatedValuesReader(new StringReader("\n"), ';').read();
     assertArrayEquals(new String[0], data);
   }
 
@@ -22,7 +22,7 @@ public class CommaSeparatedValuesReaderTest
   public void separatedLineIsSplitted()
       throws IOException
   {
-    String[] data = new CommaSeparatedValuesReader(new StringReader("a;b;c"), ';', true).read();
+    String[] data = new CommaSeparatedValuesReader(new StringReader("a;b;c"), ';').read();
     assertArrayEquals(new String[] { "a", "b", "c" }, data);
   }
 
@@ -30,7 +30,7 @@ public class CommaSeparatedValuesReaderTest
   public void quotedFieldWithSeparatorIsNotSplitted()
       throws IOException
   {
-    String[] data = new CommaSeparatedValuesReader(new StringReader("\"hi;ho\""), ';', true).read();
+    String[] data = new CommaSeparatedValuesReader(new StringReader("\"hi;ho\""), ';').read();
     assertArrayEquals(new String[] { "hi;ho" }, data);
   }
 
@@ -38,7 +38,7 @@ public class CommaSeparatedValuesReaderTest
   public void quotedFieldWithQuotesIsUnquoted()
       throws IOException
   {
-    String[] data = new CommaSeparatedValuesReader(new StringReader("\"\"\"hi\"\"ho\"\"\""), ';', true).read();
+    String[] data = new CommaSeparatedValuesReader(new StringReader("\"\"\"hi\"\"ho\"\"\""), ';').read();
     assertArrayEquals(new String[] { "\"hi\"ho\"" }, data);
   }
 
@@ -46,14 +46,14 @@ public class CommaSeparatedValuesReaderTest
   public void unquotedFieldWithQuotesIsIllegal()
       throws IOException
   {
-    new CommaSeparatedValuesReader(new StringReader("hi\"ho"), ';', true).read();
+    new CommaSeparatedValuesReader(new StringReader("hi\"ho"), ';').read();
   }
 
   @Test(expected = IOException.class)
   public void quotedFieldWithMissingEndQuoteIsIllegal()
       throws IOException
   {
-    new CommaSeparatedValuesReader(new StringReader("\"hi;ho"), ';', true).read();
+    new CommaSeparatedValuesReader(new StringReader("\"hi;ho"), ';').read();
   }
 
   @Test
@@ -61,7 +61,7 @@ public class CommaSeparatedValuesReaderTest
       throws IOException
   {
     BufferedReader in = new BufferedReader(new StringReader("a;b;c"), 6);
-    CommaSeparatedValuesReader reader = new CommaSeparatedValuesReader(in, ';', true);
+    CommaSeparatedValuesReader reader = new CommaSeparatedValuesReader(in, ';');
     in.mark(6);
     String[] dataRead = reader.read();
     in.reset();

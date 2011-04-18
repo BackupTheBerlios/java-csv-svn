@@ -93,8 +93,8 @@ public class Main
       throws IOException
   {
     Reader in = new InputStreamReader(filename == null ? System.in : new FileInputStream(filename), encoding);
-    return separator == '\0' ? new CommaSeparatedValuesReader(in, new AutoSeparatorDeterminer(), true)
-        : new CommaSeparatedValuesReader(in, separator, true);
+    return separator == '\0' ? new CommaSeparatedValuesReader(in, new AutoSeparatorDeterminer())
+        : new CommaSeparatedValuesReader(in, separator);
   }
 
   private static CommaSeparatedValuesWriter createOutput(String filename, String encoding, CommaSeparatedValuesReader in)

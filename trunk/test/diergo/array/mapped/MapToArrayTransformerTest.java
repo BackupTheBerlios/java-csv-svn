@@ -20,7 +20,7 @@ public class MapToArrayTransformerTest
   }
 
   @Test
-  public void valuesAreReturnedWithoutHeaders()
+  public void headersAreDeternimedFromFirstKeysButNotReturned()
   {
     Map<String, Integer> values = new LinkedHashMap<String, Integer>();
     values.put("h1", 1);
@@ -30,11 +30,12 @@ public class MapToArrayTransformerTest
   }
 
   @Test
-  public void valuesAreReturnedWithHeaders()
+  public void valuesAreReturnedWithHeadersAdditionalValuesAreIgnored()
   {
     Map<String, Integer> values = new LinkedHashMap<String, Integer>();
     values.put("h1", 1);
     values.put("h2", 2);
+    values.put("h3", 3);
     Iterable<Integer[]> ints = MapToArrayTransformer.asArrays(new String[] { "h1", "h2" }, Collections
         .singletonList(values));
     assertArrayEquals(new Integer[] { 1, 2 }, ints.iterator().next());

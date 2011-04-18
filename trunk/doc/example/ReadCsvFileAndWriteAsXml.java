@@ -18,7 +18,7 @@ import java.util.Map;
  * Reads CSV data and write all data as XML.
  *
  * The CSV data file has to contain a header. The XML will be a document with
- * toplevel element &lt;csv&gt;, each data line will become a &lt;data&gt;
+ * top level element &lt;csv&gt;, each data line will become a &lt;data&gt;
  * element with sub elements containing the values as text named as the column
  * headers of the CSV data.
  *
@@ -58,7 +58,7 @@ import java.util.Map;
 public class ReadCsvFileAndWriteAsXml
 {
   /**
-   * The optional areuments may be the input and output files.
+   * The optional arguments may be the input and output files.
    */
   public static void main(String... args)
   {

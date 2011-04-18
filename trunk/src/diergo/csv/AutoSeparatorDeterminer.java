@@ -14,10 +14,21 @@ public class AutoSeparatorDeterminer
 {
   private static final String DEFAULT_SEPARATORS = ",;\t";
   public static final SeparatorDeterminer DEFAULT_SEPARATOR_DETERMINER = new AutoSeparatorDeterminer(DEFAULT_SEPARATORS);
-  private final String _possibleSeparators;
+
+  public static SeparatorDeterminer separatedByOneOf(CharSequence possibleSeparators)
+  {
+    return new AutoSeparatorDeterminer(possibleSeparators);
+  }
+
+  public static SeparatorDeterminer autoSeparated()
+  {
+    return new AutoSeparatorDeterminer(DEFAULT_SEPARATORS);
+  }
+
+  private final CharSequence _possibleSeparators;
   private char _separator = '\0';
 
-  public AutoSeparatorDeterminer(String possibleSeparators)
+  public AutoSeparatorDeterminer(CharSequence possibleSeparators)
   {
     if (possibleSeparators == null || possibleSeparators.length() == 0) {
       throw new IllegalArgumentException("Possible separators must not be empty");
@@ -54,7 +65,7 @@ public class AutoSeparatorDeterminer
   private Map<Character, Integer> voteForSeparators(String line)
   {
     Map<Character, Integer> votes = new HashMap<Character, Integer>();
-    for (char c : _possibleSeparators.toCharArray()) {
+    for (char c : _possibleSeparators.toString().toCharArray()) {
       try {
         final char separator = c;
         votes.put(separator, getFieldCountFromLineParsed(line, separator));
@@ -69,7 +80,7 @@ public class AutoSeparatorDeterminer
   {
     int v = 0;
     char separator = _possibleSeparators.charAt(0);
-    for (char c : _possibleSeparators.toCharArray()) {
+    for (char c : _possibleSeparators.toString().toCharArray()) {
       if (votes.get(c).intValue() > v) {
         separator = c;
         v = votes.get(c);

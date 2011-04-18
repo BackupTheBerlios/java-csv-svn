@@ -1,5 +1,5 @@
-2.0
-  * based on Diergo Utils 1.3
+2.0 (2011-04-)
+  * based on Diergo Utils 1.5
   * mapping and unmapping iterators are replaced by tranformers
   * parser skips comment lines starting with #
 
@@ -31,5 +31,4 @@
   * mock implementations for testing
 
 0.3 (2008-03-19 alpha)
-
   * initial release

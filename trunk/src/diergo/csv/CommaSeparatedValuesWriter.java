@@ -18,7 +18,7 @@ public class CommaSeparatedValuesWriter
 
   /**
    * Creates a writer for CSV data using the underlying writer.
-   * 
+   *
    * @param out
    *          the underlying writer
    * @param separator
@@ -31,7 +31,7 @@ public class CommaSeparatedValuesWriter
 
   public CommaSeparatedValuesWriter(Writer out, SeparatorDeterminer separatorDeterminer)
   {
-    this(out, new CommaSeparatedValuesGenerator(separatorDeterminer));
+    this(out, new CommaSeparatedValuesGenerator(separatorDeterminer, Option.EMPTY_AS_NULL));
   }
 
   public CommaSeparatedValuesWriter(Writer out, CommaSeparatedValuesGenerator parser)

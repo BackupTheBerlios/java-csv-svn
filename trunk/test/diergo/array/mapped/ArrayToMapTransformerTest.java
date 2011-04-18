@@ -37,7 +37,7 @@ public class ArrayToMapTransformerTest
   }
 
   @Test
-  public void valuesAreMappedAsNull()
+  public void missingValuesAreMappedAsNull()
   {
     Map<String, Integer> result = new ArrayToMapTransformer<String, Integer>(new String[] { "h1", "h2" })
         .transform(new Integer[] { 1 });
