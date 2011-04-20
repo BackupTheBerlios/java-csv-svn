@@ -49,16 +49,6 @@ public class ArrayLineReaderTest
   }
 
 
-  @Test
-  public void commentsAreSkipped()
-      throws IOException
-  {
-    Iterator<String[]> reader = createIterable("#comment\nfirst\n#comment\nsecond").iterator();
-    Assert.assertArrayEquals(new String[] { "first" }, reader.next());
-    Assert.assertArrayEquals(new String[] { "second" }, reader.next());
-    assertFalse(reader.hasNext());
-  }
-
   private ArrayLineReader<String> createReader(String input)
   {
     return new ArrayLineReader<String>(new StringReader(input), new TestTransformer());

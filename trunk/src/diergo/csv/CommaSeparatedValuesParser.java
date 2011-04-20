@@ -1,10 +1,15 @@
 package diergo.csv;
 
+import static diergo.csv.Option.COMMENTS_ALLOWED;
+import static diergo.csv.Option.EMPTY_AS_NULL;
+import static diergo.csv.Option.TRIM;
+
 import java.nio.CharBuffer;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
+import diergo.array.IncompleteLineException;
 import diergo.util.transform.Transformer;
 
 /**
@@ -35,6 +40,9 @@ public class CommaSeparatedValuesParser
     if (isEmpty(line)) {
       return EMPTY_LINE;
     }
+    if (options.contains(COMMENTS_ALLOWED) && line.startsWith("#")) {
+      throw new IncompleteLineException("");
+    }
     if (separator == null) {
       separator = determiner.determineSeparator(line);
     }
@@ -56,12 +64,12 @@ public class CommaSeparatedValuesParser
         } else {
           throw new IllegalArgumentException("CSV need quoting when containing quote: " + line);
         }
-      } else if (!options.contains(Option.TRIM) || !Character.isSpaceChar(c) || elem.position() > 0) {
+      } else {
         elem.append(c);
       }
     }
     if (quoted && !isQuote) {
-      throw new IllegalArgumentException("Missing end of quoting: " + line);
+      throw new IncompleteLineException(line + "\n");
     }
     data.add(getValue(elem));
     return data.toArray(new String[data.size()]);
@@ -87,7 +95,10 @@ public class CommaSeparatedValuesParser
     value.limit(length);
     try {
       String result = value.toString();
-      if (options.contains(Option.EMPTY_AS_NULL) && result.length() == 0) {
+      if (options.contains(TRIM)) {
+        result = result.trim();
+      }
+      if (options.contains(EMPTY_AS_NULL) && result.length() == 0) {
         return null;
       }
       return result;

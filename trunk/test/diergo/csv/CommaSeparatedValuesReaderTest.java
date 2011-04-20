@@ -57,6 +57,14 @@ public class CommaSeparatedValuesReaderTest
   }
 
   @Test
+  public void commentsAreSkipped()
+      throws IOException
+  {
+    String[] data = new CommaSeparatedValuesReader(new StringReader("#comment\na"), ';').read();
+    assertArrayEquals(new String[] { "a" }, data);
+  }
+
+  @Test
   public void iteratorReturnsSameAsRead()
       throws IOException
   {

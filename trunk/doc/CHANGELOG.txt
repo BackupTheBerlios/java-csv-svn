@@ -1,3 +1,6 @@
+2.1
+  * newlines in quoted values are allowed
+
 2.0 (2011-04-18)
   * based on Diergo Utils 1.5
   * mapping and unmapping iterators are replaced by tranformers

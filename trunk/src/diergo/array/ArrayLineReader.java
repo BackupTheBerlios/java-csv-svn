@@ -31,12 +31,30 @@ public class ArrayLineReader<E>
   public E[] read()
       throws IOException
   {
-    String line = readLine();
-    try {
-      return line == null ? null : _parser.transform(line);
-    } catch (IllegalArgumentException e) {
-      throw new IOException("Cannot read line: " + e.getMessage());
-    }
+    String previous = null;
+    do {
+      try {
+        String line = readLine();
+        if (line == null) {
+          if (previous != null) {
+            throw new IOException("Incomplete line at end of file: " + previous);
+          }
+          return null;
+        }
+        try {
+          if (previous != null) {
+            line = previous + line;
+          }
+          return _parser.transform(line);
+        } catch (IllegalArgumentException e) {
+          throw new IOException("Cannot read line: " + e.getMessage());
+        } finally {
+          previous = null;
+        }
+      } catch (IncompleteLineException incomplete) {
+        previous = incomplete.getLine();
+      }
+    } while (true);
   }
 
   private String readLine()
@@ -44,17 +62,14 @@ public class ArrayLineReader<E>
   {
     String line = null;
     while ((line = _in.readLine()) != null) {
-      if (!line.startsWith("#")) {
-        return line;
-      }
+      return line;
     }
-    ;
     return null;
   }
 
   /**
    * Allows reading by an iterable to be used by {@code for}.
-   * 
+   *
    * @see ArrayReaderIterator
    */
   public Iterator<E[]> iterator()

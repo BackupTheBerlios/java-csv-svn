@@ -1,6 +1,8 @@
 package diergo.csv;
 
 import static diergo.csv.AutoSeparatorDeterminer.DEFAULT_SEPARATOR_DETERMINER;
+import static diergo.csv.Option.COMMENTS_ALLOWED;
+import static diergo.csv.Option.EMPTY_AS_NULL;
 
 import java.io.Reader;
 
@@ -57,7 +59,7 @@ public class CommaSeparatedValuesReader
    */
   public CommaSeparatedValuesReader(Reader in, SeparatorDeterminer separatorDeterminer)
   {
-    super(in, new CommaSeparatedValuesParser(separatorDeterminer, Option.EMPTY_AS_NULL));
+    super(in, new CommaSeparatedValuesParser(separatorDeterminer, EMPTY_AS_NULL, COMMENTS_ALLOWED));
   }
 
   public char getSeparator()

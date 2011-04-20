@@ -21,6 +21,13 @@ public class CommaSeparatedValuesGeneratorTest
   }
 
   @Test
+  public void valueWithNewlineIsQuoted()
+  {
+    assertEquals("\"Hallo\nDu\"", new CommaSeparatedValuesGenerator(new FixedSeparatorDeterminer(','))
+        .transform(new String[] { "Hallo\nDu" }));
+  }
+
+  @Test
   public void valueWithQuoteIsQuotedAndQuoteIsDoubled()
   {
     assertEquals("\"Hallo\"\" Du\"", new CommaSeparatedValuesGenerator(new FixedSeparatorDeterminer('"'))

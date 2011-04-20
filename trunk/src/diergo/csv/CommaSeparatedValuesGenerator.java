@@ -1,5 +1,8 @@
 package diergo.csv;
 
+import static diergo.csv.Option.COMMENTS_ALLOWED;
+import static diergo.csv.Option.TRIM;
+
 import java.util.EnumSet;
 import java.util.regex.Pattern;
 
@@ -33,13 +36,16 @@ public class CommaSeparatedValuesGenerator
     if (line.length == 0) {
       return "";
     }
+    if (options.contains(COMMENTS_ALLOWED) && line.length == 1 && line[0].startsWith("#")) {
+      return line[0];
+    }
     StringBuffer out = new StringBuffer();
     char separator = determiner.determineSeparator(null);
     for (String elem : line) {
       if (out.length() > 0) {
         out.append(separator);
       }
-      if (elem != null && options.contains(Option.TRIM)) {
+      if (elem != null && options.contains(TRIM)) {
         elem = elem.trim();
       }
       out.append(quote(elem, separator));
@@ -53,7 +59,8 @@ public class CommaSeparatedValuesGenerator
       return options.contains(Option.EMPTY_AS_NULL) ? "" : "null";
     }
     boolean containsQuote = elem.indexOf(QUOTE) != -1;
-    boolean quote = elem.indexOf(separator) != -1 || containsQuote;
+    boolean containsNewline = elem.indexOf('\n') != -1 || elem.indexOf('\r') != -1;
+    boolean quote = elem.indexOf(separator) != -1 || containsQuote || containsNewline;
     if (quote) {
       if (containsQuote) {
         elem = QUOTE_PATTERN.matcher(elem).replaceAll(QUOTE_REPLACEMENT);
