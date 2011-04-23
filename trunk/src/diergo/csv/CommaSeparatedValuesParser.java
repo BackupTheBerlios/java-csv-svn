@@ -1,6 +1,6 @@
 package diergo.csv;
 
-import static diergo.csv.Option.COMMENTS_ALLOWED;
+import static diergo.csv.Option.COMMENTS_SKIPPED;
 import static diergo.csv.Option.EMPTY_AS_NULL;
 import static diergo.csv.Option.TRIM;
 
@@ -40,8 +40,12 @@ public class CommaSeparatedValuesParser
     if (isEmpty(line)) {
       return EMPTY_LINE;
     }
-    if (options.contains(COMMENTS_ALLOWED) && line.startsWith("#")) {
-      throw new IncompleteLineException("");
+    if (line.startsWith("#")) {
+      if (options.contains(COMMENTS_SKIPPED)) {
+        throw new IncompleteLineException("");
+      } else {
+        return new String[] { line };
+      }
     }
     if (separator == null) {
       separator = determiner.determineSeparator(line);

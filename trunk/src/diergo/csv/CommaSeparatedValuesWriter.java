@@ -1,6 +1,6 @@
 package diergo.csv;
 
-import static diergo.csv.Option.COMMENTS_ALLOWED;
+import static diergo.csv.Option.COMMENTS_SKIPPED;
 import static diergo.csv.Option.EMPTY_AS_NULL;
 
 import java.io.Writer;
@@ -34,7 +34,7 @@ public class CommaSeparatedValuesWriter
 
   public CommaSeparatedValuesWriter(Writer out, SeparatorDeterminer separatorDeterminer)
   {
-    this(out, new CommaSeparatedValuesGenerator(separatorDeterminer, EMPTY_AS_NULL, COMMENTS_ALLOWED));
+    this(out, new CommaSeparatedValuesGenerator(separatorDeterminer, EMPTY_AS_NULL, COMMENTS_SKIPPED));
   }
 
   public CommaSeparatedValuesWriter(Writer out, CommaSeparatedValuesGenerator parser)

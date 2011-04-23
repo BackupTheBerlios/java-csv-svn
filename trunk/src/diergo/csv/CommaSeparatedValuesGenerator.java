@@ -1,6 +1,5 @@
 package diergo.csv;
 
-import static diergo.csv.Option.COMMENTS_ALLOWED;
 import static diergo.csv.Option.TRIM;
 
 import java.util.EnumSet;
@@ -36,7 +35,7 @@ public class CommaSeparatedValuesGenerator
     if (line.length == 0) {
       return "";
     }
-    if (options.contains(COMMENTS_ALLOWED) && line.length == 1 && line[0].startsWith("#")) {
+    if (line.length == 1 && line[0].startsWith("#")) {
       return line[0];
     }
     StringBuffer out = new StringBuffer();

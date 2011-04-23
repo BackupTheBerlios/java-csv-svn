@@ -10,6 +10,6 @@ package diergo.csv;
 public enum Option
 {
   TRIM,
-  COMMENTS_ALLOWED,
+  COMMENTS_SKIPPED,
   EMPTY_AS_NULL
 }
