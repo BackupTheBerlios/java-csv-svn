@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+  <info organisation="diergo" module="csv" status="release" revision="${version}" />
+  <configurations>
+    <conf name="compile" />
+    <conf name="test" extends="compile" visibility="private" />
+  </configurations>
+  <publications defaultconf="compile">
+    <artifact ext="jar" />
+    <artifact type="sources" ext="jar" />
+  </publications>
+  <dependencies >
+    <dependency org="diergo" name="util" rev="[1.5,2.0[" conf="compile->compile"/>
+    <dependency org="junit" name="junit" rev="[4.0,5.0[" conf="test->default" />
+  </dependencies>
+</ivy-module>
