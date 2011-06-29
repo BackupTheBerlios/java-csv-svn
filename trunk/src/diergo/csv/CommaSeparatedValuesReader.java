@@ -16,7 +16,7 @@ public class CommaSeparatedValuesReader
   /**
    * Reads CSV data from the underlying reader using the separator passed.
    *
-   * @see #CommaSeparatedValuesReader(Reader, char)
+   * @see #CommaSeparatedValuesReader(Reader, char, Option...)
    */
   public static Iterable<String[]> read(Reader in, char separator, Option... options)
   {
@@ -26,7 +26,7 @@ public class CommaSeparatedValuesReader
   /**
    * Reads CSV data from the underlying reader.
    *
-   * @see #CommaSeparatedValuesReader(Reader, SeparatorDeterminer)
+   * @see #CommaSeparatedValuesReader(Reader, SeparatorDeterminer, Option...)
    * @see AutoSeparatorDeterminer#DEFAULT_SEPARATORS
    */
   public static Iterable<String[]> read(Reader in, Option... options)

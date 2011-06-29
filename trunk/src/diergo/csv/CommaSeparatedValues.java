@@ -16,7 +16,7 @@ public class CommaSeparatedValues
   /**
    * Parses the data using one of the default separators.
    *
-   * @see CommaSeparatedValuesReader#read(Reader)
+   * @see CommaSeparatedValuesReader#read(Reader, Option...)
    */
   public static Iterable<String[]> parse(Reader csvData, Option... options)
   {
@@ -26,7 +26,7 @@ public class CommaSeparatedValues
   /**
    * Parses the data using the passed separator.
    *
-   * @see CommaSeparatedValuesReader#read(Reader, char)
+   * @see CommaSeparatedValuesReader#read(Reader, char, Option...)
    */
   public static Iterable<String[]> parse(Reader csvData, char separator, Option... options)
   {
@@ -36,7 +36,7 @@ public class CommaSeparatedValues
   /**
    * Generates data using the passed separator.
    *
-   * @see #generate(Iterable, char, Writer)
+   * @see #generate(Iterable, char, Writer, Option...)
    */
   public static String generate(Iterable<String[]> data, char separator, Option... options)
   {
