@@ -1,5 +1,7 @@
 package diergo.csv;
 
+import static diergo.csv.Option.COMMENTED_HEADER;
+import static diergo.csv.Option.COMMENTS_SKIPPED;
 import static org.junit.Assert.assertArrayEquals;
 
 import java.io.BufferedReader;
@@ -60,8 +62,16 @@ public class CommaSeparatedValuesReaderTest
   public void commentsAreSkipped()
       throws IOException
   {
-    String[] data = new CommaSeparatedValuesReader(new StringReader("#comment\na"), ';').read();
+    String[] data = new CommaSeparatedValuesReader(new StringReader("#comment\na"), ';', COMMENTS_SKIPPED).read();
     assertArrayEquals(new String[] { "a" }, data);
+  }
+
+  @Test
+  public void commentedHeaderIsNotSkipped()
+      throws IOException
+  {
+    String[] data = new CommaSeparatedValuesReader(new StringReader("#h1;h2\n#comment\na"), ';', COMMENTS_SKIPPED, COMMENTED_HEADER).read();
+    assertArrayEquals(new String[] { "h1", "h2" }, data);
   }
 
   @Test

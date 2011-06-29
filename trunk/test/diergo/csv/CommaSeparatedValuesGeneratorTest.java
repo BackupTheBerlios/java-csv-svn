@@ -40,4 +40,18 @@ public class CommaSeparatedValuesGeneratorTest
     assertEquals("Hallo,\"Wie geht,s\"", new CommaSeparatedValuesGenerator(new FixedSeparatorDeterminer(','))
         .transform(new String[] { "Hallo", "Wie geht,s" }));
   }
+
+  @Test
+  public void commentWritten()
+  {
+    assertEquals("#comment", new CommaSeparatedValuesGenerator(new FixedSeparatorDeterminer(','))
+        .transform(new String[] { "#comment" }));
+  }
+
+  @Test
+  public void commentedHeaderWritten()
+  {
+    assertEquals("#h1,h2", new CommaSeparatedValuesGenerator(new FixedSeparatorDeterminer(','), Option.COMMENTED_HEADER)
+        .transform(new String[] { "h1", "h2" }));
+  }
 }

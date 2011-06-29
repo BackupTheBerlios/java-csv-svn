@@ -1,5 +1,6 @@
 package diergo.csv;
 
+import static diergo.csv.Option.COMMENTED_HEADER;
 import static diergo.csv.Option.COMMENTS_SKIPPED;
 import static diergo.csv.Option.EMPTY_AS_NULL;
 import static diergo.csv.Option.TRIM;
@@ -25,6 +26,7 @@ public class CommaSeparatedValuesParser
   private final SeparatorDeterminer determiner;
   private final EnumSet<Option> options;
   private Character separator;
+  private boolean firstRead;
 
   public CommaSeparatedValuesParser(SeparatorDeterminer determiner, Option... options)
   {
@@ -33,6 +35,7 @@ public class CommaSeparatedValuesParser
       this.options.add(option);
     }
     this.determiner = determiner;
+    firstRead = false;
   }
 
   public String[] transform(String line)
@@ -41,7 +44,9 @@ public class CommaSeparatedValuesParser
       return EMPTY_LINE;
     }
     if (line.startsWith("#")) {
-      if (options.contains(COMMENTS_SKIPPED)) {
+      if (!firstRead && options.contains(COMMENTED_HEADER)) {
+        line = line.substring(1);
+      } else if (options.contains(COMMENTS_SKIPPED)) {
         throw new IncompleteLineException("");
       } else {
         return new String[] { line };
@@ -76,6 +81,7 @@ public class CommaSeparatedValuesParser
       throw new IncompleteLineException(line + "\n");
     }
     data.add(getValue(elem));
+    firstRead = true;
     return data.toArray(new String[data.size()]);
   }
 

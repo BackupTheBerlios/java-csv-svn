@@ -2,6 +2,8 @@ package example;
 
 import static diergo.array.mapped.ArrayToMapTransformer.asMaps;
 import static diergo.csv.CommaSeparatedValues.parse;
+import static diergo.csv.Option.COMMENTS_SKIPPED;
+import static diergo.csv.Option.EMPTY_AS_NULL;
 import static java.nio.charset.Charset.defaultCharset;
 
 import java.io.File;
@@ -67,7 +69,7 @@ public class ReadCsvFileAndWriteAsXml
       Writer out = args.length > 1 ? new FileWriter(new File(args[1])) : new OutputStreamWriter(System.out);
       out.append("<?xml version='1.0' encoding='").append(defaultCharset().name()).append("'?>");
       out.append("<csv>");
-      for (Map<String, String> data : asMaps(parse(in))) {
+      for (Map<String, String> data : asMaps(parse(in, EMPTY_AS_NULL, COMMENTS_SKIPPED))) {
         out.append(writeData(data));
       }
       out.append("</csv>");

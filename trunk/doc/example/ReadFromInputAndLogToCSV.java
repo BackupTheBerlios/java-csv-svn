@@ -1,6 +1,8 @@
 package example;
 
 import static diergo.csv.FixedSeparatorDeterminer.fixedSeparator;
+import static diergo.csv.Option.COMMENTS_SKIPPED;
+import static diergo.csv.Option.EMPTY_AS_NULL;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -49,7 +51,7 @@ public class ReadFromInputAndLogToCSV
     try {
       Writer out = args.length == 0 ? new OutputStreamWriter(System.out) : new FileWriter(new File(args[0]));
       BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-      CommaSeparatedValuesWriter csv = new CommaSeparatedValuesWriter(out, fixedSeparator(','));
+      CommaSeparatedValuesWriter csv = new CommaSeparatedValuesWriter(out, fixedSeparator(','), EMPTY_AS_NULL, COMMENTS_SKIPPED);
       csv.write("timestamp", "input");
       do {
         String line = in.readLine();

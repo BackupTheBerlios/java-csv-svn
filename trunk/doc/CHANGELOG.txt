@@ -1,5 +1,6 @@
-2.1
+2.1 (2011-06-29)
   * newlines in quoted values are allowed
+  * commented header is supported by option
 
 2.0 (2011-04-18)
   * based on Diergo Utils 1.5

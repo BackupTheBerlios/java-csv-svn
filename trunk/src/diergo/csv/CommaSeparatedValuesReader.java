@@ -1,8 +1,6 @@
 package diergo.csv;
 
 import static diergo.csv.AutoSeparatorDeterminer.DEFAULT_SEPARATOR_DETERMINER;
-import static diergo.csv.Option.COMMENTS_SKIPPED;
-import static diergo.csv.Option.EMPTY_AS_NULL;
 
 import java.io.Reader;
 
@@ -20,9 +18,9 @@ public class CommaSeparatedValuesReader
    *
    * @see #CommaSeparatedValuesReader(Reader, char)
    */
-  public static Iterable<String[]> read(Reader in, char separator)
+  public static Iterable<String[]> read(Reader in, char separator, Option... options)
   {
-    return new CommaSeparatedValuesReader(in, separator);
+    return new CommaSeparatedValuesReader(in, separator, options);
   }
 
   /**
@@ -31,9 +29,9 @@ public class CommaSeparatedValuesReader
    * @see #CommaSeparatedValuesReader(Reader, SeparatorDeterminer)
    * @see AutoSeparatorDeterminer#DEFAULT_SEPARATORS
    */
-  public static Iterable<String[]> read(Reader in)
+  public static Iterable<String[]> read(Reader in, Option... options)
   {
-    return new CommaSeparatedValuesReader(in, DEFAULT_SEPARATOR_DETERMINER);
+    return new CommaSeparatedValuesReader(in, DEFAULT_SEPARATOR_DETERMINER, options);
   }
 
   /**
@@ -44,9 +42,9 @@ public class CommaSeparatedValuesReader
    * @param separator
    *          the separator of the fields in a line
    */
-  public CommaSeparatedValuesReader(Reader in, char separator)
+  public CommaSeparatedValuesReader(Reader in, char separator, Option... options)
   {
-    this(in, new FixedSeparatorDeterminer(separator));
+    this(in, new FixedSeparatorDeterminer(separator), options);
   }
 
   /**
@@ -57,9 +55,9 @@ public class CommaSeparatedValuesReader
    * @param separatorDeterminer
    *          the determiner of the separator of fields in a line
    */
-  public CommaSeparatedValuesReader(Reader in, SeparatorDeterminer separatorDeterminer)
+  public CommaSeparatedValuesReader(Reader in, SeparatorDeterminer separatorDeterminer, Option... options)
   {
-    super(in, new CommaSeparatedValuesParser(separatorDeterminer, EMPTY_AS_NULL, COMMENTS_SKIPPED));
+    super(in, new CommaSeparatedValuesParser(separatorDeterminer, options));
   }
 
   public char getSeparator()

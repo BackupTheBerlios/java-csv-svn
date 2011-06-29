@@ -18,9 +18,9 @@ public class CommaSeparatedValues
    *
    * @see CommaSeparatedValuesReader#read(Reader)
    */
-  public static Iterable<String[]> parse(Reader csvData)
+  public static Iterable<String[]> parse(Reader csvData, Option... options)
   {
-    return read(csvData);
+    return read(csvData, options);
   }
 
   /**
@@ -28,9 +28,9 @@ public class CommaSeparatedValues
    *
    * @see CommaSeparatedValuesReader#read(Reader, char)
    */
-  public static Iterable<String[]> parse(Reader csvData, char separator)
+  public static Iterable<String[]> parse(Reader csvData, char separator, Option... options)
   {
-    return read(csvData, separator);
+    return read(csvData, separator, options);
   }
 
   /**
@@ -38,11 +38,11 @@ public class CommaSeparatedValues
    *
    * @see #generate(Iterable, char, Writer)
    */
-  public static String generate(Iterable<String[]> data, char separator)
+  public static String generate(Iterable<String[]> data, char separator, Option... options)
   {
     StringWriter out = new StringWriter();
     try {
-      generate(data, separator, out);
+      generate(data, separator, out, options);
     } catch (IOException e) {
       throw new AssertionError(e.getMessage());
     }
@@ -52,10 +52,10 @@ public class CommaSeparatedValues
   /**
    * Generates data to the writer using the passed separator.
    */
-  public static void generate(Iterable<String[]> data, char separator, Writer out)
+  public static void generate(Iterable<String[]> data, char separator, Writer out, Option... options)
       throws IOException
   {
-    CommaSeparatedValuesWriter generator = new CommaSeparatedValuesWriter(out, separator);
+    CommaSeparatedValuesWriter generator = new CommaSeparatedValuesWriter(out, separator, options);
     for (String[] line : data) {
       generator.write(line);
     }

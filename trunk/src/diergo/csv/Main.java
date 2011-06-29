@@ -1,5 +1,8 @@
 package diergo.csv;
 
+import static diergo.csv.Option.COMMENTS_SKIPPED;
+import static diergo.csv.Option.EMPTY_AS_NULL;
+
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -93,7 +96,7 @@ public class Main
       throws IOException
   {
     Reader in = new InputStreamReader(filename == null ? System.in : new FileInputStream(filename), encoding);
-    return separator == '\0' ? new CommaSeparatedValuesReader(in, new AutoSeparatorDeterminer())
+    return separator == '\0' ? new CommaSeparatedValuesReader(in, new AutoSeparatorDeterminer(), EMPTY_AS_NULL, COMMENTS_SKIPPED)
         : new CommaSeparatedValuesReader(in, separator);
   }
 
@@ -102,7 +105,7 @@ public class Main
   {
     OutputStream out = filename == null ? System.out : new FileOutputStream(filename);
     Writer writer = new BufferedWriter(new OutputStreamWriter(out, encoding));
-    return new CommaSeparatedValuesWriter(writer, new DelegatingSeparatorDeterminer(in));
+    return new CommaSeparatedValuesWriter(writer, new DelegatingSeparatorDeterminer(in), EMPTY_AS_NULL, COMMENTS_SKIPPED);
   }
 
   private static String[] parseOptions(Map<String, String> options, List<String> args)

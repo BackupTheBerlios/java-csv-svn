@@ -20,6 +20,7 @@ public class CommaSeparatedValuesGenerator
   private static final String QUOTE_REPLACEMENT = new String(new char[] { QUOTE, QUOTE });
   private final EnumSet<Option> options;
   private final SeparatorDeterminer determiner;
+  private boolean firstGenerated;
 
   public CommaSeparatedValuesGenerator(SeparatorDeterminer determiner, Option... options)
   {
@@ -28,6 +29,7 @@ public class CommaSeparatedValuesGenerator
       this.options.add(option);
     }
     this.determiner = determiner;
+    firstGenerated = false;
   }
 
   public String transform(String[] line)
@@ -49,6 +51,10 @@ public class CommaSeparatedValuesGenerator
       }
       out.append(quote(elem, separator));
     }
+    if (!firstGenerated && options.contains(Option.COMMENTED_HEADER)) {
+      out.insert(0, '#');
+    }
+    firstGenerated = true;
     return out.toString();
   }
 

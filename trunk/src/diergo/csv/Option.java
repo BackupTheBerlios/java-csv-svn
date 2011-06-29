@@ -1,6 +1,7 @@
 package diergo.csv;
 
 
+
 /**
  * Options for CSV parser and generator.
  * @since 2.0
@@ -10,6 +11,7 @@ package diergo.csv;
 public enum Option
 {
   TRIM,
+  COMMENTED_HEADER,
   COMMENTS_SKIPPED,
-  EMPTY_AS_NULL
+  EMPTY_AS_NULL;
 }
