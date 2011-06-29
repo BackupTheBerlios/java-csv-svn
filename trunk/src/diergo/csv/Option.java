@@ -10,8 +10,8 @@ package diergo.csv;
  */
 public enum Option
 {
-  TRIM,
-  COMMENTED_HEADER,
-  COMMENTS_SKIPPED,
-  EMPTY_AS_NULL;
+  /** trim values after read and before generated */TRIM,
+  /** any first line starting with # is treated as header and read without the #, when generated, the first line is generated as comment*/COMMENTED_HEADER,
+  /** commented lines (starting with #) are skipped on read */COMMENTS_SKIPPED,
+  /** an empty value will read as null, null will be generated as empty */EMPTY_AS_NULL;
 }

@@ -46,8 +46,11 @@ public class CommaSeparatedValuesGenerator
       if (out.length() > 0) {
         out.append(separator);
       }
-      if (elem != null && options.contains(TRIM)) {
-        elem = elem.trim();
+      if (options.contains(TRIM)) {
+        if (elem != null) {
+          elem = elem.trim();
+        }
+        out.append(' ');
       }
       out.append(quote(elem, separator));
     }

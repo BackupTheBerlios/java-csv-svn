@@ -1,6 +1,7 @@
 2.1 (2011-06-29)
   * newlines in quoted values are allowed
   * commented header is supported by option
+  * some constructors of csv reader/writer/parser/generator do no longer apply the default options COMMENTS_SKIPPED and EMPTY_AS_NULL, pass them on update from 2.0
 
 2.0 (2011-04-18)
   * based on Diergo Utils 1.5
