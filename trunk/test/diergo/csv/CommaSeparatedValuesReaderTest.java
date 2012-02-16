@@ -37,6 +37,14 @@ public class CommaSeparatedValuesReaderTest
   }
 
   @Test
+  public void quotedFieldsAreUnquoted()
+      throws IOException
+  {
+    String[] data = new CommaSeparatedValuesReader(new StringReader("\"hi\";\"ho\""), ';').read();
+    assertArrayEquals(new String[] { "hi","ho" }, data);
+  }
+
+  @Test
   public void quotedFieldWithQuotesIsUnquoted()
       throws IOException
   {
@@ -71,6 +79,14 @@ public class CommaSeparatedValuesReaderTest
       throws IOException
   {
     String[] data = new CommaSeparatedValuesReader(new StringReader("#h1;h2\n#comment\na"), ';', COMMENTS_SKIPPED, COMMENTED_HEADER).read();
+    assertArrayEquals(new String[] { "h1", "h2" }, data);
+  }
+
+  @Test
+  public void commentedHeaderWithQuotesIsRead()
+      throws IOException
+  {
+    String[] data = new CommaSeparatedValuesReader(new StringReader("#\"h1\";\"h2\"\na"), ';', COMMENTS_SKIPPED, COMMENTED_HEADER).read();
     assertArrayEquals(new String[] { "h1", "h2" }, data);
   }
 

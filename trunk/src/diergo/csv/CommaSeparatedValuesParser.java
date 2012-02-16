@@ -43,9 +43,11 @@ public class CommaSeparatedValuesParser
     if (isEmpty(line)) {
       return EMPTY_LINE;
     }
+    int i = 0;
     if (line.startsWith("#")) {
       if (!firstRead && options.contains(COMMENTED_HEADER)) {
         line = line.substring(1);
+        ++i;
       } else if (options.contains(COMMENTS_SKIPPED)) {
         throw new IncompleteLineException("");
       } else {
@@ -60,8 +62,9 @@ public class CommaSeparatedValuesParser
     boolean quoted = false;
     boolean isQuote = false;
     for (char c : line.toCharArray()) {
-      if (!quoted && c == separator) {
+      if (c == separator && (!quoted || isQuote)) {
         data.add(getValue(elem));
+        isQuote = false;
       } else if (c == QUOTE) {
         if (isQuote) {
           elem.append(c);
@@ -71,11 +74,13 @@ public class CommaSeparatedValuesParser
         } else if (elem.position() == 0) {
           quoted = true;
         } else {
-          throw new IllegalArgumentException("CSV need quoting when containing quote: " + line);
+          throw new IllegalArgumentException("CSV need quoting when containing quote at " + i + ": " + line);
         }
       } else {
         elem.append(c);
+        isQuote = false;
       }
+      ++i;
     }
     if (quoted && !isQuote) {
       throw new IncompleteLineException(line + "\n");
