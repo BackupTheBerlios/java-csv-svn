@@ -9,10 +9,7 @@ import diergo.util.transform.TransformingIterator;
 
 /**
  * This transformer converts arrays to maps using an header with field names.
- * 
- * This class is useful to create input for a {@link ValueTransformer} from a
- * {@link Iterator}.
- * 
+ *
  * @since 2.0
  */
 public class ArrayToMapTransformer<K, V>

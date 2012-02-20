@@ -4,16 +4,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 
-import diergo.array.ArrayWriter;
 import diergo.util.transform.Transformer;
 import diergo.util.transform.TransformingIterator;
 
 /**
  * This iterator converts maps to string arrays containing a set of specified
  * fields.
- * 
- * This class is useful to pass output from a {@link ValueTransformer} to a
- * {@link ArrayWriter}.
  */
 public class MapToArrayTransformer<K, V>
     implements Transformer<Map<K, V>, V[]>
