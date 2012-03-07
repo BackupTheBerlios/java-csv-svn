@@ -1,3 +1,7 @@
+2.2 (2012-02-29)
+  * Fixed a bug where quoted values are not handled properly
+  * removed deprecated ValueTransformer
+
 2.1 (2011-06-29)
   * newlines in quoted values are allowed
   * commented header is supported by option
